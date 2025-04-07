@@ -6,7 +6,7 @@
       "dev": "next dev --turbopack",
       "build": "next build",
       "start": "next start",
-      "format": "prettier --write .",
+      "format": "bunx --bun @biomejs/biome format --write .",
       "lint": "bunx --bun @biomejs/biome lint --write .",
       "check": "bunx --bun @biomejs/biome check ."
    },
@@ -23,7 +23,6 @@
       "@types/node": "^20",
       "@types/react": "^19",
       "@types/react-dom": "^19",
-      "prettier": "^3.5.3",
       "tailwindcss": "^4",
       "typescript": "^5"
    }

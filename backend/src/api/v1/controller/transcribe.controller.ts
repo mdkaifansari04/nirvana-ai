@@ -26,10 +26,10 @@ export const transcribe = async (
 
 		fs.unlinkSync(filePath);
 
-		const message = transcription.text;
 		res.status(200).json({
 			success: true,
-			message: message,
+			message: "Transcribed successfully",
+			data: transcription.text
 		});
 	} catch (error) {
 		console.error(error);

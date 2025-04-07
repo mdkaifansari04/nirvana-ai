@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-const messageSchema = new Schema(
+const querySchema = new Schema(
 	{
 		userClerkId: {
 			type: String,
@@ -31,4 +31,4 @@ const messageSchema = new Schema(
 	{ timestamps: true },
 );
 
-export const Query = model("query", messageSchema);
+export const Query = model("query", querySchema);

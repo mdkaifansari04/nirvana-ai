@@ -1,26 +1,31 @@
 {
-  "name": "backend",
-  "module": "src/app.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "start": "bun run src/app.ts",
-    "dev": "bun --hot run src/app.ts",
-    "format": "biome format --write .",
-    "lint": "biome format ."
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@types/express": "^5.0.1",
-    "@types/mongoose": "^5.11.97",
-    "dotenv": "^16.4.7",
-    "express": "^5.1.0",
-    "mongoose": "^8.13.2"
-  }
+	"name": "backend",
+	"module": "src/app.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"start": "bun run src/app.ts",
+		"dev": "bun --hot run src/app.ts",
+		"format": "biome format --write .",
+		"lint": "biome format ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@types/express": "^5.0.1",
+		"@types/mongoose": "^5.11.97",
+		"@types/morgan": "^1.9.9",
+		"@types/multer": "^1.4.12",
+		"dotenv": "^16.4.7",
+		"express": "^5.1.0",
+		"groq-sdk": "^0.19.0",
+		"mongoose": "^8.13.2",
+		"morgan": "^1.10.0",
+		"multer": "^1.4.5-lts.2"
+	}
 }

@@ -11,15 +11,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 app.get("/health", (req: Request, res: Response) => {
-	res.status(200).json({
-		status: "OK",
-		timestamp: new Date().toISOString(),
-	});
+  res.status(200).json({
+    status: "OK",
+    timestamp: new Date().toISOString(),
+  });
 });
+
 app.use("/api/v1", router);
 
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-	console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running at http://localhost:${PORT}`);
 });

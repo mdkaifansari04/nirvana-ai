@@ -2,18 +2,24 @@ import type { NextFunction, Request, Response } from "express";
 import ErrorResponse from "../../../helper/errorResponse";
 import { groq } from "../../../lib/groq";
 import { TEXT_GENERATION_MODEL } from "../../../constants/llms";
+import { CHAT_SYSTEM_PROMPT } from "../../../constants/prompt";
+import type { CustomRequest } from "../../../types";
 
 export const chat = async (
-	req: Request<{}, {}, { prompt: string }>,
+	req: CustomRequest,
 	res: Response,
 	next: NextFunction,
 ) => {
 	try {
-		const prompt = req.body.prompt;
+		const { prompt } = req.value;
 
 		const groqChatCompletion = await groq.chat.completions.create({
 			model: TEXT_GENERATION_MODEL,
 			messages: [
+				{
+					role: "system",
+					content: CHAT_SYSTEM_PROMPT
+				},
 				{
 					role: "user",
 					content: prompt,

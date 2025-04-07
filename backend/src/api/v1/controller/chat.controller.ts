@@ -18,7 +18,7 @@ export const chat = async (
 			messages: [
 				{
 					role: "system",
-					content: CHAT_SYSTEM_PROMPT
+					content: CHAT_SYSTEM_PROMPT,
 				},
 				{
 					role: "user",

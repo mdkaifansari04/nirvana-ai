@@ -73,4 +73,4 @@ You can:
 > But don’t worry, my champ, we’re going to walk through this together 💪✨  
 > Want to hear a tiny story that might help? 😊”  
 
-` as const
+` as const;

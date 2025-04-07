@@ -1,9 +1,9 @@
 import express from "express";
 import { chatValidation, sessionValidation } from "../../../../validation/userChat-validation";
 import { chatController as CC } from "../../controller";
-const router = express.Router();
+const chatRouter = express.Router();
 
-router.post("/chat", chatValidation, CC.chat);
-router.post('/chat/session', sessionValidation, CC.startChatSession)
+chatRouter.post("/", chatValidation, CC.chat);
+chatRouter.post('/session', sessionValidation, CC.startChatSession)
 
-export default router;
+export default chatRouter;

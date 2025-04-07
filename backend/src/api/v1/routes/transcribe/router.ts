@@ -1,12 +1,8 @@
 import upload from "../../../../middleware/multer";
 import { transcribeController } from "../../controller";
 import express from "express";
-const router = express.Router();
+const transcribeRouter = express.Router();
 
-router.post(
-	"/transcribe",
-	upload.single("voice"),
-	transcribeController.transcribe,
-);
+transcribeRouter.post("/", upload.single("voice"), transcribeController.transcribe);
 
-export default router;
+export default transcribeRouter;

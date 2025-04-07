@@ -4,7 +4,7 @@ import chatRouter from "./chat/router";
 
 const router = express.Router();
 
-router.use("/", transcribeRouter);
-router.use("/", chatRouter);
+router.use("/transribe", transcribeRouter);
+router.use("/chat", chatRouter);
 
 export default router;

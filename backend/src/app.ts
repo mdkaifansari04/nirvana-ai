@@ -4,6 +4,9 @@ import express, { type Request, type Response } from "express";
 import errorHandler from "./middleware/error";
 import router from "./api/v1/routes";
 import morgan from "morgan";
+import connectDB from "./lib/mongoose";
+
+connectDB();
 
 const app = express();
 app.use(express.json());

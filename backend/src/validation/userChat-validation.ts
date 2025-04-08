@@ -10,7 +10,7 @@ export const chatValidation = (
 ) => {
 	const schema = Joi.object().keys({
 		prompt: Joi.string().required(),
-		sessionId: Joi.string().required()
+		sessionId: Joi.string().required(),
 	});
 	validateSchema({ schema, req, next });
 };

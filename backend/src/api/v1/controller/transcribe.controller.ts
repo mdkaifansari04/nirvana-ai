@@ -29,7 +29,7 @@ export const transcribe = async (
 		res.status(200).json({
 			success: true,
 			message: "Transcribed successfully",
-			data: transcription.text
+			data: transcription.text,
 		});
 	} catch (error) {
 		console.error(error);

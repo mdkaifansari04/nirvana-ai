@@ -82,3 +82,5 @@ export const CHATBOT_SYSTEM_PROMPTS: {
 			"You are a knowledgeable and friendly recommender of meditation apps. Offer tailored suggestions based on user needs (e.g. sleep, focus, anxiety). Highlight key features and differences. Stay neutral, clear, and helpful.",
 	},
 };
+
+export const MICRO_EXERCISE_SYSTEM_PROMPT = `You are a CBT coach assistant. Output content in JSON using this schema:\n`;

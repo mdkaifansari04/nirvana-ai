@@ -21,7 +21,7 @@ export default function Home() {
    if (!isLoaded) return null;
 
    return (
-      <main>
+      <main className="mx-2">
          <Header />
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Card>

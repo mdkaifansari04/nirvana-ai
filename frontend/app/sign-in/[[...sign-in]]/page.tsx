@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function SignInPage() {
    return (
-      <div>
+      <div className="mx-2">
          <Header />
          <div className="flex min-h-[calc(100vh-100px)] max-w-7xl mx-auto border rounded-xl p-2">
             <div className="hidden lg:flex flex-col items-center justify-center w-1/2 bg-[#673b26] p-8 rounded-lg">

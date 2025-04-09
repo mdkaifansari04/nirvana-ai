@@ -1,5 +1,5 @@
-import type { Request } from "express";
+import type { Request } from 'express';
 
 export interface CustomRequest extends Request {
-	value?: any;
+   value?: any;
 }

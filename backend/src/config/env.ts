@@ -1,7 +1,7 @@
-import { config } from "dotenv";
-import path from "path";
+import { config } from 'dotenv';
+import path from 'path';
 
-const envFile = path.resolve(process.cwd(), ".env.local");
+const envFile = path.resolve(process.cwd(), '.env.local');
 
 config({ path: envFile });
 

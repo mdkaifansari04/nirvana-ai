@@ -12,6 +12,7 @@ import { groq } from "../../../lib/groq";
 import type { CustomRequest } from "../../../types";
 import type { Response, NextFunction } from "express";
 import { MicroExercise } from "../models/micro-exercise.model";
+import ErrorResponse from "../../../helper/errorResponse";
 
 export const generateMicroExercise = async (
 	req: CustomRequest,
@@ -97,6 +98,79 @@ export const saveMicroExercise = async (
 		res.status(200).json({ success: true, data: microExercise });
 	} catch (error) {
 		console.error("Error saving micro exercise:", error);
+		next(error);
+	}
+};
+
+export const getMicroExercises = async (
+	req: CustomRequest,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const { userId } = req.query;
+
+		console.log("Fetching micro exercises for user:", userId);
+
+		const microExercises = await MicroExercise.find({
+			userClerkId: userId,
+		}).sort({ createdAt: -1 });
+
+		res.status(200).json({ success: true, data: microExercises });
+	} catch (error) {
+		console.error("Error fetching micro exercises:", error);
+		next(error);
+	}
+};
+
+export const getMicroExercise = async (
+	req: CustomRequest,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const { microExerciseId } = req.params;
+
+		const microExercise = await MicroExercise.findOne({
+			_id: microExerciseId,
+		});
+
+		if (!microExercise) {
+			return next(
+				new ErrorResponse("Micro exercise not found or unauthorized", 404),
+			);
+		}
+
+		res.status(200).json({ success: true, data: microExercise });
+	} catch (error) {
+		console.error("Error fetching micro exercise:", error);
+		next(error);
+	}
+};
+
+export const deleteMicroExercise = async (
+	req: CustomRequest,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const { microExerciseId } = req.params;
+		const { userId } = req.value;
+
+		const microExercise = await MicroExercise.findOneAndDelete({
+			_id: microExerciseId,
+			userClerkId: userId,
+		});
+
+		if (!microExercise) {
+			return next(
+				new ErrorResponse("Micro exercise not found or unauthorized", 404),
+			);
+		}
+
+		res.status(200).json({ success: true, message: "Micro exercise deleted" });
+	} catch (error) {
+		console.error("Error deleting micro exercise:", error);
 		next(error);
 	}
 };

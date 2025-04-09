@@ -1,4 +1,4 @@
-import {model, Schema} from "mongoose";
+import { model, Schema } from "mongoose";
 
 const journalSchema = new Schema(
     {
@@ -8,9 +8,8 @@ const journalSchema = new Schema(
         },
         messages: [
             {
-                sender: {
+                title: {
                     type: String,
-                    enum: ["user", "model"],
                     required: true,
                 },
                 text: {
@@ -23,11 +22,7 @@ const journalSchema = new Schema(
                 },
             },
         ],
-        sessionId: {
-            type: String,
-            required: true,
-        },
     },
-    {timestamps: true},
+    { timestamps: true },
 );
 export const Journal = model("journal", journalSchema);

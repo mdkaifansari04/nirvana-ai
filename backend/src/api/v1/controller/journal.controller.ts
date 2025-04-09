@@ -3,104 +3,105 @@ import { Journal } from "../models/journal.model";
 import type { CustomRequest } from "../../../types";
 import ErrorResponse from "../../../helper/errorResponse";
 
-
 export const addJournal = async (
-    req: CustomRequest,
-    res: Response,
-    next: NextFunction
+	req: CustomRequest,
+	res: Response,
+	next: NextFunction,
 ) => {
-    try {
-        const { userClerkId } = req.value;
-        const { title, text } = req.body;
+	try {
+		const { userId, journal } = req.value;
 
-        if (!title || !text) {
-            return next(new ErrorResponse("Title and text are required", 400));
-        }
+		const journalEntry = await Journal.create({
+			userClerkId: userId,
+			...journal,
+		});
 
-        const journalEntry = await Journal.findOneAndUpdate(
-            { userClerkId },
-            {
-                $push: {
-                    messages: {
-                        title,
-                        text,
-                        timestamps: Date.now(),
-                    },
-                },
-            },
-            { new: true, upsert: true }
-        );
-
-        res.status(200).json(journalEntry);
-    } catch (error) {
-        next(error);
-    }
+		res.status(200).json({
+			success: true,
+			data: journalEntry,
+		});
+	} catch (error) {
+		console.error(error);
+		next(new ErrorResponse(error, 500));
+	}
 };
 
 export const getJournals = async (
-    req: CustomRequest,
-    res: Response,
-    next: NextFunction
+	req: CustomRequest,
+	res: Response,
+	next: NextFunction,
 ) => {
-    try {
-        const { userClerkId } = req.value;
+	try {
+		const { userId } = req.query;
 
-        const journal = await Journal.findOne({ userClerkId });
+		const journals = await Journal.find({ userClerkId: userId });
 
-        if (!journal) {
-            return next(new ErrorResponse("No journal found", 404));
-        }
+		if (!journals) {
+			return next(new ErrorResponse("No journal found", 404));
+		}
 
-        res.status(200).json(journal);
-    } catch (error) {
-        next(error);
-    }
+		res.status(200).json({
+			success: true,
+			data: journals,
+		});
+	} catch (error) {
+		console.error(error);
+		next(new ErrorResponse(error, 500));
+	}
 };
 
-
 export const getJournalById = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
+	req: Request,
+	res: Response,
+	next: NextFunction,
 ) => {
-    try {
-        const { id } = req.params;
+	try {
+		const { journalId } = req.params;
 
-        const journal = await Journal.findOne({ "messages._id": id });
+		console.log(journalId);
+		const journal = await Journal.findOne({
+			_id: journalId,
+		});
 
-        if (!journal) {
-            return next(new ErrorResponse("Journal entry not found", 404));
-        }
+		console.log(journalId, journal);
 
-        const entry = journal.messages.id(id);
+		if (!journal) {
+			return next(new ErrorResponse("Journal entry not found", 404));
+		}
 
-        res.status(200).json(entry);
-    } catch (error) {
-        next(error);
-    }
+		res.status(200).json({
+			success: true,
+			data: journal,
+		});
+	} catch (error) {
+		console.error(error);
+		next(new ErrorResponse(error, 500));
+	}
 };
 
 export const deleteJournalEntry = async (
-    req: CustomRequest,
-    res: Response,
-    next: NextFunction
+	req: CustomRequest,
+	res: Response,
+	next: NextFunction,
 ) => {
-    try {
-        const { id } = req.params;
-        const { userClerkId } = req.value;
+	try {
+		const { journalId } = req.params;
+		const { userId } = req.value;
 
-        const journal = await Journal.findOneAndUpdate(
-            { userClerkId },
-            { $pull: { messages: { _id: id } } },
-            { new: true }
-        );
+		const journal = await Journal.findOneAndDelete({
+			_id: journalId,
+			userClerkId: userId,
+		});
 
-        if (!journal) {
-            return next(new ErrorResponse("Journal entry not found", 404));
-        }
+		if (!journal) {
+			return next(
+				new ErrorResponse("Journal entry not found or unauthorized", 404),
+			);
+		}
 
-        res.status(200).json({ message: "Journal entry deleted", journal });
-    } catch (error) {
-        next(error);
-    }
+		res.status(200).json({ success: true, message: "Journal deleted" });
+	} catch (error) {
+		console.error(error);
+		next(new ErrorResponse(error, 500));
+	}
 };

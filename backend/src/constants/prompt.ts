@@ -84,3 +84,5 @@ export const CHATBOT_SYSTEM_PROMPTS: {
 };
 
 export const MICRO_EXERCISE_SYSTEM_PROMPT = `You are a CBT coach assistant. Output content in JSON using this schema:\n`;
+
+export const MICRO_EXERCISE_REPORT_PROMPT = `You are a CBT reporter assistant. Output the report of CBT micro exercise given by user in JSON using this schema:\n`;

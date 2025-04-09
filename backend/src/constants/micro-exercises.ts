@@ -65,3 +65,23 @@ export const MICRO_EXERCISE_GENERATION_SCHEMA = JSON.stringify(
 	null,
 	4,
 );
+
+export const MICRO_EXERCISE_REPORT_SCHEMA = JSON.stringify(
+	{
+		title: "Report",
+		type: "object",
+		properties: {
+			review: {
+				title: "Review",
+				type: "string",
+			},
+			feedback: {
+				title: "Feedback",
+				type: "string",
+			},
+		},
+		required: ["review", "feedback"],
+	},
+	null,
+	4,
+);

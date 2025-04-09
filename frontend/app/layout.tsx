@@ -24,7 +24,6 @@ export default function RootLayout({
       <html lang="en">
          <ClerkProvider>
             <body className={`${urbanist.className} scroll-smooth antialiased`}>
-               <Header />
                <main>{children}</main>
             </body>
          </ClerkProvider>

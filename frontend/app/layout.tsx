@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/header';
 import { APP_DESCRIPTION, APP_NAME } from '@/constants';
-import { ClerkProvider } from '@clerk/nextjs';
+import { Providers } from './providers';
 
 const urbanist = Urbanist({
    subsets: ['latin'],
@@ -22,11 +21,11 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en">
-         <ClerkProvider>
+         <Providers>
             <body className={`${urbanist.className} scroll-smooth antialiased`}>
                <main>{children}</main>
             </body>
-         </ClerkProvider>
+         </Providers>
       </html>
    );
 }

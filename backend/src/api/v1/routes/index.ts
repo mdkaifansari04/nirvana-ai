@@ -11,6 +11,6 @@ router.use("/transribe", transcribeRouter);
 router.use("/chatbots", chatbotRouter);
 router.use("/users", userRouter);
 router.use("/users/:userId/micro-exercises", microExerciseRouter);
-router.use("/users/:userId/journals", journalRouter);
+router.use("/journals", journalRouter);
 
 export default router;

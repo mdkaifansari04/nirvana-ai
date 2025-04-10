@@ -4,7 +4,7 @@ import { journalValidation } from '../../../../validation/journal-validation';
 
 const journalRouter = express.Router({ mergeParams: true });
 
-journalRouter.get('/', J.getJournals);
+journalRouter.get('/:userId', J.getUserJournals);
 journalRouter.get('/:journalId', J.getJournalById);
 journalRouter.post('/', journalValidation, J.addJournal);
 journalRouter.delete('/:journalId', J.deleteJournalEntry);

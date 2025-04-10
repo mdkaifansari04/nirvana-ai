@@ -23,10 +23,9 @@ export const addJournal = async (req: CustomRequest, res: Response, next: NextFu
    }
 };
 
-export const getJournals = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const getUserJournals = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
       const { userId } = req.params;
-
       const journals = await Journal.find({ userClerkId: userId });
 
       if (!journals) {

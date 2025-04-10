@@ -5,10 +5,13 @@ import errorHandler from './middleware/error';
 import router from './api/v1/routes';
 import morgan from 'morgan';
 import connectDB from './lib/mongoose';
+import { clerkMiddleware, requireAuth } from '@clerk/express';
 
 connectDB();
 
 const app = express();
+app.use(clerkMiddleware());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -19,7 +22,7 @@ app.get('/health', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
    });
 });
-
+// app.use(requireAuth());
 app.use('/api/v1', router);
 
 app.use(errorHandler);

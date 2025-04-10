@@ -17,6 +17,7 @@
       "typescript": "^5"
    },
    "dependencies": {
+      "@clerk/express": "^1.4.3",
       "@types/express": "^5.0.1",
       "@types/mongoose": "^5.11.97",
       "@types/morgan": "^1.9.9",

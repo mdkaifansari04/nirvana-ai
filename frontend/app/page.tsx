@@ -5,20 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useClerk, useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function Home() {
-   const { user, isLoaded } = useUser();
+   const { user } = useUser();
    const { signOut } = useClerk();
    const router = useRouter();
-
-   useEffect(() => {
-      if (isLoaded && !user) {
-         router.push('/sign-in');
-      }
-   }, [isLoaded, user, router]);
-
-   if (!isLoaded) return null;
 
    return (
       <main className="mx-2">
@@ -27,9 +18,11 @@ export default function Home() {
             <Card>
                <CardHeader className="flex flex-row items-center justify-between">
                   <CardTitle>Welcome, {user?.firstName || 'User'}!</CardTitle>
-                  <Button variant="destructive" onClick={() => signOut(() => router.push('/'))}>
-                     Sign Out
-                  </Button>
+                  {user && (
+                     <Button variant="destructive" onClick={() => signOut(() => router.push('/'))}>
+                        Sign Out
+                     </Button>
+                  )}
                </CardHeader>
 
                <CardContent>THIS IS THE LANDING PAGE. PLEASE GO TO /DASHBOARD TO START USING THE APP.</CardContent>

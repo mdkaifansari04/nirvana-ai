@@ -40,7 +40,8 @@ export const generateMicroExercise = async (req: CustomRequest, res: Response, n
 
 export const saveMicroExercise = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { userId, filledMicroExercise } = req.value;
+      const { userId } = req.params;
+      const { filledMicroExercise } = req.value;
 
       const systemPrompt = MICRO_EXERCISE_REPORT_PROMPT + MICRO_EXERCISE_REPORT_SCHEMA;
 
@@ -80,9 +81,7 @@ export const saveMicroExercise = async (req: CustomRequest, res: Response, next:
 
 export const getMicroExercises = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { userId } = req.query;
-
-      console.log('Fetching micro exercises for user:', userId);
+      const { userId } = req.params;
 
       const microExercises = await MicroExercise.find({
          userClerkId: userId,
@@ -90,17 +89,18 @@ export const getMicroExercises = async (req: CustomRequest, res: Response, next:
 
       res.status(200).json({ success: true, data: microExercises });
    } catch (error) {
-      console.error('Error fetching micro exercises:', error);
+      console.error(error);
       next(error);
    }
 };
 
 export const getMicroExercise = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { microExerciseId } = req.params;
+      const { userId, microExerciseId } = req.params;
 
       const microExercise = await MicroExercise.findOne({
          _id: microExerciseId,
+         userClerkId: userId,
       });
 
       if (!microExercise) {
@@ -116,8 +116,7 @@ export const getMicroExercise = async (req: CustomRequest, res: Response, next: 
 
 export const deleteMicroExercise = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { microExerciseId } = req.params;
-      const { userId } = req.value;
+      const { userId, microExerciseId } = req.params;
 
       const microExercise = await MicroExercise.findOneAndDelete({
          _id: microExerciseId,

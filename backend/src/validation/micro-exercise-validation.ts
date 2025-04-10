@@ -5,8 +5,6 @@ import { validateSchema } from '../helper/schema-validation';
 
 export const microExerciseValidation = (req: CustomRequest, res: Response, next: NextFunction) => {
    const schema = Joi.object({
-      userId: Joi.string().required(),
-
       filledMicroExercise: Joi.object({
          session_goal: Joi.string().required(),
          quick_check_in: Joi.object({

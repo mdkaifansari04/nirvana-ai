@@ -1,12 +1,17 @@
 'use client';
 
-import TextEditor from '@/components/text-editor';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, BookOpen, Brain, HelpCircle, Save, Sparkles, Wand2 } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
+
+const TextEditor = dynamic(
+   () => import('@/components/text-editor'),
+   { ssr: false }
+);
 
 export default function Journal() {
    const [title, setTitle] = useState('');

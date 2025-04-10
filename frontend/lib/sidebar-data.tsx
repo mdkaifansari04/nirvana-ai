@@ -1,19 +1,31 @@
-import { BookOpen, Bot, LayoutDashboard } from 'lucide-react';
+import { BarChart2, BookOpen, Bot, FilePlus, Home, Users } from 'lucide-react';
 
 export const sidebarData = [
    {
-      title: 'Dashboard',
+      title: 'Home',
       url: '/dashboard',
-      icon: LayoutDashboard,
-   },
-   {
-      title: 'Chat',
-      url: '/dashboard/chat',
-      icon: Bot,
+      icon: Home,
    },
    {
       title: 'Journal',
       url: '/dashboard/journal',
       icon: BookOpen,
+      children: [
+         {
+            title: 'Your Journals',
+            url: '/dashboard/journal',
+            icon: BarChart2,
+         },
+         {
+            title: 'Create New',
+            url: '/dashboard/journal/create',
+            icon: FilePlus,
+         },
+      ],
+   },
+   {
+      title: 'Chat',
+      url: '/dashboard/chat',
+      icon: Bot,
    },
 ];

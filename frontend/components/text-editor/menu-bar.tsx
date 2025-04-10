@@ -72,9 +72,8 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
 
    return (
       <div className="border rounded-md p-1 mb-1 bg-slate-50 space-x-2 z-50">
-         {options.map((option) => {
-            const iconName = option.icon.type.name;
-            const key = `toggle-${iconName}`;
+         {options.map((option, index) => {
+            const key = `toggle-${index}`;
 
             return (
                <Toggle key={key} pressed={option.preesed} onPressedChange={option.onClick}>

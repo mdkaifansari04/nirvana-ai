@@ -7,5 +7,6 @@ chatbotRouter.get("/", CC.getAllChatbots);
 chatbotRouter.post("/", chatbotValidation, CC.createChatbot);
 chatbotRouter.put("/:id", CC.updateChatbot);
 chatbotRouter.delete("/:id", CC.deleteChatbot);
+chatbotRouter.post("/upload/many", CC.createManyChatbot);
 
 export default chatbotRouter;

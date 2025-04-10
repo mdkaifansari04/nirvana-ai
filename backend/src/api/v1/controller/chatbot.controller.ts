@@ -24,7 +24,7 @@ export const createChatbot = async (req: CustomRequest, res: Response, next: Nex
 // READ all chatbots
 export const getAllChatbots = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
-    const chatbots = await Chatbot.find();
+    const chatbots = await Chatbot.find({});
 
     res.status(200).json({
       success: true,
@@ -62,7 +62,7 @@ export const updateChatbot = async (req: CustomRequest, res: Response, next: Nex
   const { id } = req.params;
 
   try {
-    const chatbot = await Chatbot.findByIdAndUpdate(id, req.body, { new: true });
+    const chatbot = await Chatbot.findByIdAndUpdate({ _id: id }, req.body, { new: true });
 
     if (!chatbot) return next(new ErrorResponse("Chatbot not found", 404));
 
@@ -90,6 +90,26 @@ export const deleteChatbot = async (req: CustomRequest, res: Response, next: Nex
       success: true,
       message: "Chatbot deleted successfully",
       data: chatbot,
+    });
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+};
+
+export const createManyChatbot = async (req: CustomRequest, res: Response, next: NextFunction) => {
+  try {
+    const { chatbots } = req.body;
+
+    if (!Array.isArray(chatbots) || chatbots.length === 0) {
+      return next(new ErrorResponse("Internal server error", 500));
+    }
+
+    const createdChatbots = await Chatbot.insertMany(chatbots, { ordered: false });
+
+    res.status(201).json({
+      message: "Chatbots created successfully.",
+      data: createdChatbots,
     });
   } catch (error) {
     console.error(error);

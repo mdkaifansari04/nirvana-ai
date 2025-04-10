@@ -6,7 +6,7 @@ import { Providers } from './providers';
 
 const urbanist = Urbanist({
    subsets: ['latin'],
-   weight: ['200', '300', '400', '500', '600'],
+   weight: ['400', '500', '600'],
 });
 
 export const metadata: Metadata = {

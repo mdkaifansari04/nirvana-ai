@@ -72,7 +72,7 @@ export default function DashboardLayout({
                   <UserButton afterSignOutUrl="/" />
                </div>
             </header>
-            <main className="px-6">{children}</main>
+            <main>{children}</main>
 
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                <SheetContent>

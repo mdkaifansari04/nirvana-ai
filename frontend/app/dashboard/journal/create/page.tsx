@@ -3,15 +3,12 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, BookOpen, Brain, HelpCircle, Save, Sparkles, Wand2 } from 'lucide-react';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 
-const TextEditor = dynamic(
-   () => import('@/components/text-editor'),
-   { ssr: false }
-);
+const TextEditor = dynamic(() => import('@/components/text-editor'), { ssr: false });
 
 export default function Journal() {
    const [title, setTitle] = useState('');
@@ -46,7 +43,7 @@ export default function Journal() {
    }, [post, title, debouncedSave]);
 
    return (
-      <div className="container py-6 mx-auto">
+      <div className="container py-6 px-4 2xl:mx-auto">
          <div className="flex justify-between items-center mb-6">
             <div className="flex items-center gap-2">
                <Link href="/dashboard/journal">
@@ -65,7 +62,7 @@ export default function Journal() {
             </div>
          </div>
 
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="md:col-span-2">
                <div className="mb-4">
                   <Input

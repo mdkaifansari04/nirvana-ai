@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function JournalPage() {
    return (
-      <div className="container py-6 mx-auto">
+      <div className="container py-6 px-4 2xl:mx-auto">
          <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Journal Analytics</h1>
             <Link href="/dashboard/journal/create">

@@ -157,7 +157,7 @@ export default function OnboardPage() {
 
             <div className="p-4 sm:p-8 space-y-6 sm:space-y-8">
                {/* Custom Stepper */}
-               <div className="flex items-center justify-center w-full px-2 sm:px-6 py-2 sm:py-4">
+               <div className="flex items-center justify-center w-full px-2 sm:px-6 py-2">
                   {steps.map((step, index) => (
                      <React.Fragment key={step.id}>
                         <div className="flex flex-col items-center">
@@ -181,7 +181,6 @@ export default function OnboardPage() {
                            >
                               {activeStep > step.id ? <Check className="w-3 h-3 sm:w-4 sm:h-4" /> : <span className="text-xs sm:text-sm font-medium">{step.id + 1}</span>}
                            </button>
-                           <span className="mt-1 sm:mt-2 text-xs sm:text-sm font-medium">{step.name}</span>
                         </div>
                         {index < steps.length - 1 && <div className={`h-[2px] flex-1 mx-1 sm:mx-2 ${activeStep > index ? 'bg-black' : 'bg-neutral-300'}`} />}
                      </React.Fragment>

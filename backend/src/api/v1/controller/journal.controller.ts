@@ -5,7 +5,8 @@ import ErrorResponse from '../../../helper/errorResponse';
 
 export const addJournal = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { userId, journal } = req.value;
+      const { userId } = req.params;
+      const { journal } = req.value;
 
       const journalEntry = await Journal.create({
          userClerkId: userId,
@@ -24,7 +25,7 @@ export const addJournal = async (req: CustomRequest, res: Response, next: NextFu
 
 export const getJournals = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { userId } = req.query;
+      const { userId } = req.params;
 
       const journals = await Journal.find({ userClerkId: userId });
 
@@ -44,14 +45,12 @@ export const getJournals = async (req: CustomRequest, res: Response, next: NextF
 
 export const getJournalById = async (req: Request, res: Response, next: NextFunction) => {
    try {
-      const { journalId } = req.params;
+      const { userId, journalId } = req.params;
 
-      console.log(journalId);
       const journal = await Journal.findOne({
          _id: journalId,
+         userClerkId: userId,
       });
-
-      console.log(journalId, journal);
 
       if (!journal) {
          return next(new ErrorResponse('Journal entry not found', 404));
@@ -69,8 +68,7 @@ export const getJournalById = async (req: Request, res: Response, next: NextFunc
 
 export const deleteJournalEntry = async (req: CustomRequest, res: Response, next: NextFunction) => {
    try {
-      const { journalId } = req.params;
-      const { userId } = req.value;
+      const { userId, journalId } = req.params;
 
       const journal = await Journal.findOneAndDelete({
          _id: journalId,

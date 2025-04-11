@@ -9,5 +9,6 @@ journalRouter.get('/:journalId/:userId', J.getJournalById);
 journalRouter.post('/:userId', journalValidation, J.addJournal);
 journalRouter.delete('/:journalId/:userId', J.deleteJournalEntry);
 journalRouter.put('/:journalId', J.updateJournal);
+journalRouter.get('/:userId/analytics', J.getJournalAnalytics);
 
 export default journalRouter;

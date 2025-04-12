@@ -24,6 +24,11 @@ export const sidebarData = [
       ],
    },
    {
+      title: 'Micro Exercises',
+      url: '/dashboard/exercise',
+      icon: BookOpen,
+   },
+   {
       title: 'Chat',
       url: '/dashboard/chat',
       icon: Bot,

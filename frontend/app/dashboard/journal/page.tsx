@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { chartConfig, demoJournalEntries, getActivityData, getAverageLengthByMonth, getCurrentStreak, getEntriesByMonth, getEntriesWithWordCount } from '@/lib/demo-journal-data';
 import { stripHtml } from '@/lib/utils';
 import { format } from 'date-fns';
-import { Book, Calendar, Clock, FilePlus, TrendingUp, Trophy } from 'lucide-react';
+import { Book, Calendar, Clock, FilePlus, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';

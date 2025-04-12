@@ -62,3 +62,53 @@ export interface WordCountData {
 export interface JournalEntryWithWordCount extends JournalEntry {
    wordCount: number;
 }
+
+export interface QnA {
+   question: string;
+   answer: string;
+}
+
+export interface MCQ {
+   question: string;
+   options: string[];
+   answers: string[];
+}
+
+export interface QuickCheckIn {
+   mood_rating: number;
+   primary_emotion: string;
+}
+
+export interface UserReflection {
+   mood_rating_after: number;
+   reflection: string;
+}
+
+export interface ExerciseContent {
+   qna: QnA[];
+   mcq: MCQ[];
+}
+
+export interface AIReport {
+   review: string;
+   feedback: string;
+}
+
+export interface MicroExercise {
+   id: string;
+   userClerkId: string;
+   session_goal: string;
+   quick_check_in: QuickCheckIn;
+   exercise_content: ExerciseContent;
+   user_reflection: UserReflection;
+   ai_generated_report: AIReport;
+   createdAt: string;
+   updatedAt: string;
+}
+
+export interface ExerciseSummary {
+   totalExercises: number;
+   completedThisWeek: number;
+   averageMoodImprovement: number;
+   streak: number;
+}

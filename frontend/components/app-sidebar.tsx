@@ -19,7 +19,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarContent className="group-data-[collapsible=icon]:mx-auto">
                <SidebarGroup className="my-auto">
                   <SidebarMenu>
-                     <SidebarElements items={sidebarData} iconClassNames="group-data-[collapsible=icon]:size-8 stroke-2" />
+                     <SidebarElements items={sidebarData} iconClassNames="group-data-[collapsible=icon]:size-6 stroke-2" />
                   </SidebarMenu>
                </SidebarGroup>
             </SidebarContent>

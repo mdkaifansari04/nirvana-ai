@@ -1,21 +1,4 @@
-export interface Topic {
-   id: string;
-   title: string;
-   icon: string; // Path to the icon image
-   count?: number;
-}
-
-export interface ChatMessage {
-   id: string;
-   content: string;
-   sender: 'user' | 'assistant';
-   avatar?: string;
-}
-
-export interface TopicChat {
-   id: string;
-   messages: ChatMessage[];
-}
+import type { Topic, TopicChat } from '@/types';
 
 export const demoTopics: Topic[] = [
    {

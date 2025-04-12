@@ -148,11 +148,11 @@ export default function OnboardPage() {
    };
 
    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white p-2 sm:p-4">
-         <div className="pt-4 sm:pt-8 w-full max-w-3xl bg-white rounded-2xl shadow-lg overflow-hidden border border-neutral-200">
-            <div className="px-4 sm:px-8 border-neutral-100">
-               <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900">Welcome to Nirvana.AI</h1>
-               <p className="text-sm sm:text-base text-neutral-600 mt-2">Let's get to know you better to provide a personalized experience.</p>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/50 p-2 sm:p-4">
+         <div className="pt-4 sm:pt-8 w-full max-w-3xl bg-card rounded-2xl shadow-lg overflow-hidden border border-border">
+            <div className="px-4 sm:px-8 border-border">
+               <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Welcome to Nirvana.AI</h1>
+               <p className="text-sm sm:text-base text-muted-foreground mt-2">Let's get to know you better to provide a personalized experience.</p>
             </div>
 
             <div className="p-4 sm:p-8 space-y-6 sm:space-y-8">
@@ -176,23 +176,27 @@ export default function OnboardPage() {
                               }}
                               disabled={step.id > activeStep + 1 || (step.id > activeStep && !stepValidationState[activeStep])}
                               className={`relative flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 rounded-full border-2 transition-all ${
-                                 activeStep === step.id ? 'bg-black text-white border-black' : activeStep > step.id ? 'bg-black text-white border-black' : 'bg-white text-black border-neutral-300'
+                                 activeStep === step.id
+                                    ? 'bg-primary text-primary-foreground border-primary'
+                                    : activeStep > step.id
+                                      ? 'bg-primary text-primary-foreground border-primary'
+                                      : 'bg-background text-foreground border-muted-foreground/30'
                               }`}
                            >
                               {activeStep > step.id ? <Check className="w-3 h-3 sm:w-4 sm:h-4" /> : <span className="text-xs sm:text-sm font-medium">{step.id + 1}</span>}
                            </button>
                         </div>
-                        {index < steps.length - 1 && <div className={`h-[2px] flex-1 mx-1 sm:mx-2 ${activeStep > index ? 'bg-black' : 'bg-neutral-300'}`} />}
+                        {index < steps.length - 1 && <div className={`h-[2px] flex-1 mx-1 sm:mx-2 ${activeStep > index ? 'bg-primary' : 'bg-muted-foreground/30'}`} />}
                      </React.Fragment>
                   ))}
                </div>
 
                {/* Step content */}
-               <div className="bg-neutral-50 border border-neutral-200 p-4 sm:p-8 rounded-xl shadow-sm">
+               <div className="bg-muted/50 border border-border p-4 sm:p-8 rounded-xl shadow-sm">
                   {activeStep === 0 && (
                      <div className="flex flex-col sm:flex-row gap-8">
                         <div className="space-y-6 flex-1">
-                           <h2 className="text-xl font-semibold text-neutral-900">Tell us about yourself</h2>
+                           <h2 className="text-xl font-semibold text-foreground">Tell us about yourself</h2>
 
                            {/* Name field */}
                            <div className="space-y-2">

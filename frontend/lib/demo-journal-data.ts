@@ -1,21 +1,10 @@
+import type { ActivityDay, JournalEntry, JournalEntryWithWordCount, MonthData, WordCountData } from '@/types';
 import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
 import { stripHtml } from './utils';
 
-// Generate dates for the last 6 months
 const today = new Date();
 const sixMonthsAgo = subDays(today, 180);
 
-// Define journal entry type
-interface JournalEntry {
-   id: string;
-   userClerkId: string;
-   title: string;
-   content: string;
-   createdAt: string;
-   updatedAt: string;
-}
-
-// Helper function to create a date in a specific month
 const createDate = (month: number, day: number) => {
    const date = new Date();
    date.setMonth(month);
@@ -23,13 +12,11 @@ const createDate = (month: number, day: number) => {
    return date;
 };
 
-// Helper function to get accurate word count from HTML content
 const getWordCount = (htmlContent: string): number => {
    const plainText = stripHtml(htmlContent);
    return plainText.split(/\s+/).filter((word) => word.trim().length > 0).length;
 };
 
-// Demo journal entries
 export const demoJournalEntries: JournalEntry[] = [
    {
       id: '1',
@@ -150,37 +137,6 @@ export const demoJournalEntries: JournalEntry[] = [
    },
 ];
 
-// Define types for activity data
-interface ActivityDay {
-   date: string;
-   count: number;
-   level: 0 | 1; // Simplified to just 0 or 1
-}
-
-interface MonthData {
-   month: string;
-   year: string;
-   entries: number;
-}
-
-interface AverageLengthData {
-   month: string;
-   year: string;
-   average: number;
-}
-
-// New interface for total word count
-interface WordCountData {
-   month: string;
-   year: string;
-   totalWords: number;
-}
-
-interface JournalEntryWithWordCount extends JournalEntry {
-   wordCount: number;
-}
-
-// Calculate activity data for the calendar view
 export const getActivityData = (): ActivityDay[] => {
    const dateRange = eachDayOfInterval({
       start: sixMonthsAgo,
@@ -193,7 +149,7 @@ export const getActivityData = (): ActivityDay[] => {
       return {
          date: format(date, 'yyyy-MM-dd'),
          count: entriesOnDay.length,
-         // Simplified activity level: 0 = no entries, 1 = has entries
+         // 0 = no entries, 1 = has entries
          level: entriesOnDay.length === 0 ? 0 : 1,
       } as ActivityDay;
    });
@@ -216,7 +172,6 @@ export const getCurrentStreak = (): number => {
    return streak;
 };
 
-// Entries by month for monthly trend chart
 export const getEntriesByMonth = (): MonthData[] => {
    const lastSixMonths = Array.from({ length: 6 }, (_, i) => {
       const date = new Date();
@@ -266,7 +221,6 @@ export const getAverageLengthByMonth = (): WordCountData[] => {
    return months;
 };
 
-// Get word counts for entries
 export const getEntriesWithWordCount = (): JournalEntryWithWordCount[] => {
    return demoJournalEntries.map((entry) => ({
       ...entry,
@@ -274,7 +228,6 @@ export const getEntriesWithWordCount = (): JournalEntryWithWordCount[] => {
    }));
 };
 
-// Get chart config for visualizations
 export const chartConfig = {
    entries: {
       label: 'Journal Entries',

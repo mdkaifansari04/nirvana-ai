@@ -1,18 +1,12 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import type { SidebarItem } from '@/types';
 import type { LucideIcon } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
-
-interface SidebarItem {
-   title: string;
-   url: string;
-   icon: LucideIcon;
-   children?: SidebarItem[];
-}
 
 interface SidebarElementsProps {
    items: SidebarItem[];

@@ -1,12 +1,11 @@
 import { PORT } from "./config/env";
 
+import { clerkMiddleware, requireAuth } from "@clerk/express";
 import express, { type Request, type Response } from "express";
-import errorHandler from "./middleware/error";
-import router from "./api/v1/routes";
 import morgan from "morgan";
+import router from "./api/v1/routes";
 import connectDB from "./lib/mongoose";
-import { clerkMiddleware, getAuth, requireAuth } from "@clerk/express";
-import { verifyUser } from "./middleware/authorization";
+import errorHandler from "./middleware/error";
 
 connectDB();
 

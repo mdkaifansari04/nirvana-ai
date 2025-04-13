@@ -4,9 +4,9 @@ import { microExerciseValidation } from "../../../../validation/micro-exercise-v
 
 const microExerciseRouter = Router({ mergeParams: true });
 
-microExerciseRouter.get("/", ME.getMicroExercises);
+microExerciseRouter.get("/:userId", ME.getUserMicroExercises);
 microExerciseRouter.post("/generate", ME.generateMicroExercise);
-microExerciseRouter.get("/:microExerciseId", ME.getMicroExerciseById);
+microExerciseRouter.get("/:microExerciseId/:userId", ME.getMicroExerciseById);
 microExerciseRouter.post("/:userId", microExerciseValidation, ME.saveMicroExerciseWithReport);
 microExerciseRouter.delete("/:microExerciseId", ME.deleteMicroExercise);
 

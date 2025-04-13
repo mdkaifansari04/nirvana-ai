@@ -90,7 +90,7 @@ export const saveMicroExerciseWithReport = async (req: CustomRequest, res: Respo
   }
 };
 
-export const getMicroExercises = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const getUserMicroExercises = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const { userId } = req.params;
 

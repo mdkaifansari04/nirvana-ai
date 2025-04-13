@@ -1,13 +1,13 @@
-import { Router } from "express";
-import { microExerciseController as ME } from "../../controller";
-import { microExerciseValidation } from "../../../../validation/micro-exercise-validation";
+import { Router } from 'express';
+import { microExerciseController as ME } from '../../controller';
+import { microExerciseValidation } from '../../../../validation/micro-exercise-validation';
 
 const microExerciseRouter = Router({ mergeParams: true });
 
-microExerciseRouter.get("/:userId", ME.getUserMicroExercises);
-microExerciseRouter.post("/generate", ME.generateMicroExercise);
-microExerciseRouter.get("/:microExerciseId/:userId", ME.getMicroExerciseById);
-microExerciseRouter.post("/:userId", microExerciseValidation, ME.saveMicroExerciseWithReport);
-microExerciseRouter.delete("/:microExerciseId", ME.deleteMicroExercise);
+microExerciseRouter.get('/:userId', ME.getUserMicroExercises);
+microExerciseRouter.post('/generate', ME.generateMicroExercise);
+microExerciseRouter.get('/:microExerciseId/:userId', ME.getMicroExerciseById);
+microExerciseRouter.post('/:userId', microExerciseValidation, ME.saveMicroExerciseWithReport);
+microExerciseRouter.delete('/:microExerciseId', ME.deleteMicroExercise);
 
 export default microExerciseRouter;

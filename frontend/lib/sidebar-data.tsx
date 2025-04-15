@@ -1,4 +1,4 @@
-import { BarChart2, BookOpen, Bot, FilePlus, Home, Users } from 'lucide-react';
+import { Activity, BarChart2, BookOpen, Bot, FilePlus, Home } from 'lucide-react';
 
 export const sidebarData = [
    {
@@ -26,7 +26,7 @@ export const sidebarData = [
    {
       title: 'Micro Exercises',
       url: '/dashboard/exercise',
-      icon: BookOpen,
+      icon: Activity,
    },
    {
       title: 'Chat',

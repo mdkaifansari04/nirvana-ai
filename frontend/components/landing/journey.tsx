@@ -20,15 +20,15 @@ export default function MentalWellness() {
                      <h3 className="text-2xl font-semibold mb-2">Smart AI Chatbots</h3>
                      <p className="text-muted-foreground mb-4">Our AI chatbots provide 24/7 support using evidence-based techniques like CBT, ACT, and mindfulness practices.</p>
                      <ul className="space-y-2">
-                        {features1.map((f, i) => (
-                           <li key={i} className="flex items-center gap-2 text-sm">
+                        {features1.map((feature, index) => (
+                           <li key={`feature1-${feature}`} className="flex items-center gap-2 text-sm">
                               <FaCheckCircle className="text-primary" />
-                              <span>{f}</span>
+                              <span>{feature}</span>
                            </li>
                         ))}
                      </ul>
                   </div>
-                  <button className="mt-4 inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-lg shadow hover:bg-secondary/90 transition-colors">
+                  <button type="button" className="mt-4 inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-lg shadow hover:bg-secondary/90 transition-colors">
                      Start Chatting →
                   </button>
                </div>
@@ -62,15 +62,15 @@ export default function MentalWellness() {
                      <h3 className="text-2xl font-semibold mb-2">CBT-based Micro Exercises</h3>
                      <p className="text-muted-foreground mb-4">Our micro-exercises help you identify cognitive distortions and develop healthier thinking habits in just minutes a day.</p>
                      <ul className="space-y-2">
-                        {features2.map((f, i) => (
-                           <li key={i} className="flex items-center gap-2 text-sm">
+                        {features2.map((feature, index) => (
+                           <li key={`feature2-${feature}`} className="flex items-center gap-2 text-sm">
                               <FaCheckCircle className="text-primary" />
-                              <span>{f}</span>
+                              <span>{feature}</span>
                            </li>
                         ))}
                      </ul>
                   </div>
-                  <button className="mt-4 inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-lg shadow hover:bg-secondary/90 transition-colors">
+                  <button type="button" className="mt-4 inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-lg shadow hover:bg-secondary/90 transition-colors">
                      Try Exercises →
                   </button>
                </div>

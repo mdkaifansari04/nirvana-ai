@@ -63,7 +63,7 @@ export default function JournalPage() {
             <div className="grid gap-6 md:grid-cols-3">
                {/* Summary Cards */}
                <Card className="overflow-hidden border-none shadow-md">
-                  <CardHeader className="flex flex-row items-center justify-between bg-white dark:bg-card">
+                  <CardHeader className="flex flex-row items-center justify-between dark:bg-card">
                      <CardTitle className="text-sm font-medium">Current Streak</CardTitle>
                      <Trophy className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -74,7 +74,7 @@ export default function JournalPage() {
                </Card>
 
                <Card className="overflow-hidden border-none shadow-md">
-                  <CardHeader className="flex flex-row items-center justify-between bg-white dark:bg-card">
+                  <CardHeader className="flex flex-row items-center justify-between dark:bg-card">
                      <CardTitle className="text-sm font-medium">Total Entries</CardTitle>
                      <Book className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -85,7 +85,7 @@ export default function JournalPage() {
                </Card>
 
                <Card className="overflow-hidden border-none shadow-md">
-                  <CardHeader className="flex flex-row items-center justify-between bg-white dark:bg-card">
+                  <CardHeader className="flex flex-row items-center justify-between dark:bg-card">
                      <CardTitle className="text-sm font-medium">This Month</CardTitle>
                      <Calendar className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>

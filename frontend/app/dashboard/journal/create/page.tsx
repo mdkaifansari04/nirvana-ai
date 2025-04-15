@@ -84,7 +84,7 @@ export default function Journal() {
                   </div>
 
                   <div className="space-y-4">
-                     <div className="p-3 bg-white rounded-lg border">
+                     <div className="p-3 rounded-lg border">
                         <div className="flex items-start gap-2">
                            <Sparkles className="w-4 h-4 text-amber-500 mt-1" />
                            <div>
@@ -94,7 +94,7 @@ export default function Journal() {
                         </div>
                      </div>
 
-                     <div className="p-3 bg-white rounded-lg border">
+                     <div className="p-3 rounded-lg border">
                         <div className="flex items-start gap-2">
                            <BookOpen className="w-4 h-4 text-emerald-500 mt-1" />
                            <div>
@@ -104,7 +104,7 @@ export default function Journal() {
                         </div>
                      </div>
 
-                     <div className="p-3 bg-white rounded-lg border">
+                     <div className="p-3 rounded-lg border">
                         <div className="flex items-start gap-2">
                            <Brain className="w-4 h-4 text-blue-500 mt-1" />
                            <div>
@@ -114,7 +114,7 @@ export default function Journal() {
                         </div>
                      </div>
 
-                     <div className="p-3 bg-white rounded-lg border">
+                     <div className="p-3 rounded-lg border">
                         <div className="flex items-start gap-2">
                            <Wand2 className="w-4 h-4 text-purple-500 mt-1" />
                            <div>

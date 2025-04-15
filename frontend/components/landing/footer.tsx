@@ -1,6 +1,5 @@
-import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from 'react-icons/fa';
 import Image from 'next/image';
-
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 const navLinks = [
    { label: 'Homepage', href: '/' },
@@ -24,7 +23,7 @@ export default function Footer() {
          <div className="max-w-6xl mx-auto text-center">
             <div className="mb-10">
                <div className="flex justify-center items-center gap-3">
-                    <Image src="/logo.svg" alt="Nirvana.AI Logo" width={32} height={32} className="h-8 w-8" />
+                  <Image src="/logo.svg" alt="Nirvana.AI Logo" width={32} height={32} className="h-8 w-8" />
                   <span className="text-white font-bold text-5xl">Nirvana.Ai</span>
                </div>
             </div>
@@ -38,9 +37,9 @@ export default function Footer() {
             </nav>
 
             <div className="flex justify-center gap-4 mb-8 text-xl">
-               {socialLinks.map((social, index) => (
+               {socialLinks.map((social) => (
                   <a
-                     key={index}
+                     key={social.href}
                      href={social.href}
                      target="_blank"
                      rel="noopener noreferrer"
@@ -54,11 +53,11 @@ export default function Footer() {
 
             <p className="text-s text-amber-100 mb-1">
                © COPYRIGHT {new Date().getFullYear()}, ALL RIGHTS RESERVED •{' '}
-               <a href="#" className="underline hover:text-foreground/70">
+               <a href="/terms" className="underline hover:text-foreground/70">
                   TERMS & CONDITIONS
                </a>{' '}
                •{' '}
-               <a href="#" className="underline hover:text-foreground/70">
+               <a href="/privacy" className="underline hover:text-foreground/70">
                   PRIVACY POLICY
                </a>
             </p>

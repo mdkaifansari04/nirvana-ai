@@ -112,3 +112,24 @@ export interface ExerciseSummary {
    averageMoodImprovement: number;
    streak: number;
 }
+
+export interface ActivityData {
+   date: string;
+   journal: number;
+   exercise: number;
+   message: number;
+}
+
+export interface MoodScore {
+   score: number;
+   label: string;
+   color: string;
+}
+
+export interface RecentMessage {
+   id: string;
+   content: string;
+   sender: 'user' | 'assistant';
+   avatar: string;
+   time: string;
+}

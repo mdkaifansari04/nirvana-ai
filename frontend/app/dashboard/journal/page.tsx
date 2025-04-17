@@ -228,6 +228,11 @@ export default function JournalPage() {
           pendingView={<WordSkeletonLoadingView />}
           view={
             <>
+              {sortedEntries.length === 0 && (
+                <div className="flex justify-center items-center h-full">
+                  <p className="text-muted-foreground">No entries found</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {sortedEntries.slice(0, visibleEntries).map((entry) => (
                   <Link key={entry._id} href={`/dashboard/journal/${entry._id}`} className="block">

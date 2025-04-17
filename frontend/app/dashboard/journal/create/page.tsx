@@ -19,8 +19,6 @@ export default function Journal() {
   const { toast } = useToast();
 
   const saveJournal = () => {
-    console.log("working");
-
     if (!post.trim() || !title.trim()) return;
     mutate(
       {
@@ -47,7 +45,6 @@ export default function Journal() {
         },
       }
     );
-    console.log("done");
   };
 
   return (

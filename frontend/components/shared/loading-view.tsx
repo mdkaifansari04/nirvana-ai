@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Clock, Trophy } from "lucide-react";
+import { Book, Calendar, Clock, Trophy } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
+import React from "react";
 
 export const ChatbotLoadingView = () => {
   return (
@@ -36,20 +37,20 @@ export const ChatLoadingView = () => {
 export default function CurrentStreakLoadingView() {
   return (
     <div className="grid gap-6 md:grid-cols-3">
-      <StreakCard />
-      <StreakCard />
-      <StreakCard />
+      <StreakCard icon={<Trophy className="h-4 w-4 text-muted-foreground" />} />
+      <StreakCard icon={<Book className="h-4 w-4 text-muted-foreground" />} />
+      <StreakCard icon={<Calendar className="h-4 w-4 text-muted-foreground" />} />
     </div>
   );
 }
 
-function StreakCard() {
+function StreakCard({ icon }: { icon: React.ReactNode }) {
   return (
-    <Card className="overflow-hidden border-none shadow-md">
+    <Card className="overflow-hidden border shadow-none">
       <CardContent className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <Skeleton className="h-4 w-24" />
-          <Trophy className="h-4 w-4 text-muted-foreground" />
+          {icon}
         </div>
         <Skeleton className="h-6 w-16" />
         <Skeleton className="h-4 w-32" />
@@ -83,6 +84,28 @@ function WordCardSkeleton() {
           <Skeleton className="h-4 w-24" /> {/* date */}
         </div>
       </CardContent>
+    </Card>
+  );
+}
+
+export function JournalCardSkeleton() {
+  return (
+    <Card className="w-full border-none shadow-md gap-0">
+      <div className="flex items-center justify-between mb-4 px-5">
+        <Skeleton className="h-6 w-32" />
+        <div className="flex items-center gap-4">
+          <Skeleton className="h-4 w-24" /> {/* Date */}
+          <Skeleton className="h-4 w-16" /> {/* Time */}
+        </div>
+      </div>
+
+      <Skeleton className="h-px w-full mb-4" />
+
+      {/* Content */}
+      <div className="px-5">
+        <Skeleton className="h-4 w-1/3 mb-2" />
+        <Skeleton className="h-4 w-2/3" />
+      </div>
     </Card>
   );
 }

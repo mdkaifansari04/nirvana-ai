@@ -25,7 +25,5 @@ export const chatWithChatbot = async (body: { prompt: string; chatbotId: string 
     throw new Error("Failed to fetch chat response");
   }
 
-  console.log(response);
-
   return response;
 };

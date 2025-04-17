@@ -18,7 +18,7 @@ export interface Topic {
 export interface ChatMessage {
   id: string;
   content: string;
-  sender: "user" | "assistant";
+  sender: "user" | "model";
   avatar?: string;
 }
 

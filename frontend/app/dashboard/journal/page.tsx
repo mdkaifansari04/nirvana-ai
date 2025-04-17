@@ -75,7 +75,7 @@ export default function JournalPage() {
             <>
               <div className="grid gap-6 md:grid-cols-3">
                 {/* Summary Cards */}
-                <Card className="overflow-hidden border-none shadow-md">
+                <Card className="overflow-hidden border shadow-none">
                   <CardHeader className="flex flex-row items-center justify-between dark:bg-card">
                     <CardTitle className="text-sm font-medium">Current Streak</CardTitle>
                     <Trophy className="h-4 w-4 text-muted-foreground" />
@@ -86,7 +86,7 @@ export default function JournalPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="overflow-hidden border-none shadow-md">
+                <Card className="overflow-hidden border shadow-none">
                   <CardHeader className="flex flex-row items-center justify-between dark:bg-card">
                     <CardTitle className="text-sm font-medium">Total Entries</CardTitle>
                     <Book className="h-4 w-4 text-muted-foreground" />
@@ -97,7 +97,7 @@ export default function JournalPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="overflow-hidden border-none shadow-md">
+                <Card className="overflow-hidden border shadow-none">
                   <CardHeader className="flex flex-row items-center justify-between dark:bg-card">
                     <CardTitle className="text-sm font-medium">This Month</CardTitle>
                     <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -113,7 +113,7 @@ export default function JournalPage() {
         />
 
         {/* Activity Calendar */}
-        <Card className="border-none shadow-md">
+        <Card className="border shadow-none">
           <CardHeader>
             <CardTitle>Writing Activity</CardTitle>
             <CardDescription>Your journaling frequency over the past 6 months</CardDescription>
@@ -231,7 +231,7 @@ export default function JournalPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {sortedEntries.slice(0, visibleEntries).map((entry) => (
                   <Link key={entry._id} href={`/dashboard/journal/${entry._id}`} className="block">
-                    <Card className="h-full border overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow duration-200">
+                    <Card className="h-full border overflow-hidden shadow-none hover:shadow-md transition-shadow duration-200">
                       <div className="p-6 py-2">
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="font-semibold truncate">{entry.title}</h3>

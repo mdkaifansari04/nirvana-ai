@@ -49,7 +49,7 @@ function StreakCard() {
       <CardContent className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <Skeleton className="h-4 w-24" />
-          <Trophy className="h-5 w-5 text-muted-foreground" />
+          <Trophy className="h-4 w-4 text-muted-foreground" />
         </div>
         <Skeleton className="h-6 w-16" />
         <Skeleton className="h-4 w-32" />

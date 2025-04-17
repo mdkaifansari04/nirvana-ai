@@ -1,31 +1,41 @@
-import type { Metadata } from 'next';
-import { Urbanist } from 'next/font/google';
-import './globals.css';
-import { APP_DESCRIPTION, APP_NAME } from '@/constants';
-import { Providers } from './providers';
+import type { Metadata } from "next";
+import { Urbanist } from "next/font/google";
+import "./globals.css";
+import { APP_DESCRIPTION, APP_NAME, CLERK_TEMPLATE_NAME } from "@/constants";
+import { ClientProvider } from "@/provider/client-provider";
+import { ClerkTokenProvider } from "@/provider/token-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "@/components/shared/toaster";
 
 const urbanist = Urbanist({
-   subsets: ['latin'],
-   weight: ['400', '500', '600'],
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-   title: APP_NAME,
-   description: APP_DESCRIPTION,
+  title: APP_NAME,
+  description: APP_DESCRIPTION,
 };
 
 export default function RootLayout({
-   children,
+  children,
 }: Readonly<{
-   children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-   return (
-      <html lang="en">
-         <Providers>
+  return (
+    <html lang="en">
+      <ClerkProvider>
+        <ClientProvider>
+          <ClerkTokenProvider templateName={CLERK_TEMPLATE_NAME}>
             <body className={`${urbanist.className} scroll-smooth antialiased`}>
-               <main>{children}</main>
+              <main>
+                {children}
+                <Toaster />
+              </main>
             </body>
-         </Providers>
-      </html>
-   );
+          </ClerkTokenProvider>
+        </ClientProvider>
+      </ClerkProvider>
+    </html>
+  );
 }

@@ -50,7 +50,8 @@ export const getUserJournals = async (req: CustomRequest, res: Response, next: N
 
 export const getJournalById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { userId, journalId } = req.params;
+    const { journalId } = req.params;
+    const { userId } = getAuth(req);
 
     const journal = await Journal.findOne({
       _id: journalId,

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useGetJournalById } from "@/hooks/query";
 // import { demoJournalEntries } from '@/lib/demo-journal-data';
 import { parseHTML } from "@/lib/utils";
 import { format } from "date-fns";
@@ -12,13 +13,17 @@ import React from "react";
 
 export default function JournalEntryPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = React.use(params);
-  // const entry = demoJournalEntries.find((entry) => entry.id === resolvedParams.id);
+  console.log(resolvedParams.id);
 
-  // if (!entry) {
-  //    return notFound();
-  // }
+  const { data: entry, isPending, isError, error } = useGetJournalById(resolvedParams.id);
 
-  return null;
+  if (isError) {
+    return <div>Error: {error?.message}</div>;
+  }
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container py-6 px-4 2xl:mx-auto">

@@ -47,9 +47,12 @@ export default function ChatPage() {
    };
 
    const { mutate: chatWithChatbot } = useChat();
-   const handleSubmit = (e: React.MouseEvent | React.KeyboardEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
+   const handleSubmit = (e?: React.MouseEvent | React.KeyboardEvent) => {
+      if (e) {
+         e.preventDefault();
+         e.stopPropagation();
+      }
+      
       console.log('working', prompt, selectedTopicId);
 
       if (prompt.length === 0) return;
@@ -137,6 +140,7 @@ export default function ChatPage() {
                            value={prompt}
                            placeholder="Send your message to Dr. freud..."
                            className="bg-card border-0 shadow-none pr-12 rounded-2xl"
+                           onSubmit={handleSubmit}
                         />
                         <button
                            onClick={handleSubmit}

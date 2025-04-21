@@ -262,54 +262,54 @@ export const demoExercises: MicroExercise[] = [
       session_goal: 'Managing work-life balance',
       quick_check_in: {
          mood_rating: 5,
-         primary_emotion: '',
+         primary_emotion: 'Neutral',
       },
       exercise_content: {
          qna: [
             {
                question: 'What aspects of your work-life balance need the most attention?',
-               answer: '',
+               answer: 'I need to better separate work hours from personal time.',
             },
             {
                question: 'How do you currently manage your time between work and personal activities?',
-               answer: '',
+               answer: 'I try to use a calendar but often work bleeds into evenings.',
             },
          ],
          mcq: [
             {
                question: 'How often do you work during your personal time?',
                options: ['Daily', 'Several times a week', 'Once a week', 'Occasionally', 'Never'],
-               answers: [],
+               answers: ['Several times a week'],
             },
             {
                question: 'Which work-life balance challenges do you face?',
                options: ['Difficulty disconnecting', 'Guilt about taking breaks', 'Overworking', 'Poor time management', 'Lack of boundaries'],
-               answers: [],
+               answers: ['Difficulty disconnecting', 'Overworking'],
             },
             {
                question: 'How does poor work-life balance affect you?',
                options: ['Reduced personal time', 'Increased stress', 'Relationship strain', 'Decreased productivity', 'Health issues'],
-               answers: [],
+               answers: ['Increased stress', 'Reduced personal time'],
             },
             {
                question: 'Which strategies have you tried to improve work-life balance?',
                options: ['Setting boundaries', 'Time blocking', 'Taking regular breaks', 'Delegating tasks', 'Scheduling personal time'],
-               answers: [],
+               answers: ['Time blocking', 'Taking regular breaks'],
             },
             {
                question: 'What would an ideal work-life balance look like for you?',
                options: ['Clear work hours', 'Regular exercise time', 'Family/personal time', 'Hobby time', 'Adequate rest'],
-               answers: [],
+               answers: ['Clear work hours', 'Family/personal time'],
             },
          ],
       },
       user_reflection: {
-         mood_rating_after: 5,
-         reflection: '',
+         mood_rating_after: 6,
+         reflection: 'I realized I need to be more intentional about separating work and personal time.',
       },
       ai_generated_report: {
-         review: '',
-         feedback: '',
+         review: 'You struggle with disconnecting from work and often work during personal time. This leads to increased stress and reduced personal time.',
+         feedback: 'Try implementing strict work hour boundaries and schedule non-negotiable personal time in your calendar.',
       },
       createdAt: today.toISOString(),
       updatedAt: today.toISOString(),
@@ -356,7 +356,6 @@ export const demoExerciseSummary: ExerciseSummary = (() => {
    };
 })();
 
-// Generate activity data (similar to journal)
 export const getActivityData = (): ActivityDay[] => {
    const dateRange = eachDayOfInterval({
       start: sixMonthsAgo,

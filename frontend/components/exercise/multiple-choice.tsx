@@ -1,59 +1,51 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { Check } from 'lucide-react';
 
 interface MultipleChoiceProps {
    question: string;
    options: string[];
-   initialSelectedOptions?: string[];
-   onSelectChange: (selected: string[]) => void;
-   multiSelect?: boolean;
+   selectedOptions: string[];
+   onChange?: (selectedOptions: string[]) => void;
+   readOnly?: boolean;
 }
 
-export function MultipleChoice({ question, options, initialSelectedOptions = [], onSelectChange, multiSelect = true }: MultipleChoiceProps) {
-   const [selectedOptions, setSelectedOptions] = useState<string[]>(initialSelectedOptions);
-
+export function MultipleChoice({ question, options, selectedOptions, onChange, readOnly = false }: MultipleChoiceProps) {
    const toggleOption = (option: string) => {
-      let newSelected: string[];
+      if (readOnly) return;
 
-      if (multiSelect) {
-         // For multi-select questions
-         if (selectedOptions.includes(option)) {
-            newSelected = selectedOptions.filter((item) => item !== option);
-         } else {
-            newSelected = [...selectedOptions, option];
-         }
-      } else {
-         // For single-select questions
-         newSelected = [option];
-      }
+      const newSelection = selectedOptions.includes(option) ? selectedOptions.filter((item) => item !== option) : [...selectedOptions, option];
 
-      setSelectedOptions(newSelected);
-      onSelectChange(newSelected);
+      onChange?.(newSelection);
    };
 
    return (
-      <Card className="w-full">
-         <CardHeader>
-            <CardTitle className="text-xl font-medium text-foreground">{question}</CardTitle>
-         </CardHeader>
-         <CardContent className="space-y-3">
+      <div className="mb-4 bg-muted/20 p-3 rounded-md border">
+         <h3 className="font-medium text-base">{question}</h3>
+         <hr className="my-4" />
+
+         <div className="space-y-2">
             {options.map((option) => (
                <button
                   key={`option-${option}`}
-                  type="button"
-                  className={cn(
-                     'w-full text-left px-4 py-3 rounded-lg border transition-all',
-                     selectedOptions.includes(option) ? 'bg-primary/10 border-primary text-primary font-medium' : 'bg-background border-border hover:border-primary/50'
-                  )}
                   onClick={() => toggleOption(option)}
+                  disabled={readOnly}
+                  aria-pressed={selectedOptions.includes(option)}
+                  type="button"
+                  className={`w-full text-left p-3 rounded border transition-all flex items-center
+                     ${selectedOptions.includes(option) ? 'bg-primary/10 border-primary text-foreground font-medium' : 'bg-background border hover:border-primary'}
+                     ${readOnly ? 'cursor-default' : 'cursor-pointer'}`}
                >
+                  <span
+                     className={`w-5 h-5 rounded-full mr-2 flex items-center justify-center
+                        ${selectedOptions.includes(option) ? 'bg-primary text-primary-foreground' : 'border'}`}
+                  >
+                     {selectedOptions.includes(option) && <Check className="w-3 h-3" />}
+                  </span>
                   {option}
                </button>
             ))}
-         </CardContent>
-      </Card>
+         </div>
+      </div>
    );
 }

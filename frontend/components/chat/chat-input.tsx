@@ -3,37 +3,37 @@ import { cn } from '@/lib/utils';
 import * as React from 'react';
 
 interface ChatInputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  onSubmit?: () => void;
+   onSubmit?: () => void;
 }
 
 const ChatInput = React.forwardRef<HTMLTextAreaElement, ChatInputProps>(({ className, onSubmit, ...props }, ref) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter') {
-      if (e.shiftKey) {
-        return;
-      }
-      
-      e.preventDefault();
-      
-      if (onSubmit) {
-        onSubmit();
-      }
-    }
-  };
+   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter') {
+         if (e.shiftKey) {
+            return;
+         }
 
-  return (
-    <Textarea
-      autoComplete="off"
-      ref={ref}
-      name="message"
-      onKeyDown={handleKeyDown}
-      className={cn(
-        'max-h-12 px-4 py-3 bg-background text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-md flex items-center h-16 resize-none',
-        className
-      )}
-      {...props}
-    />
-  );
+         e.preventDefault();
+
+         if (onSubmit) {
+            onSubmit();
+         }
+      }
+   };
+
+   return (
+      <Textarea
+         autoComplete="off"
+         ref={ref}
+         name="message"
+         onKeyDown={handleKeyDown}
+         className={cn(
+            'max-h-12 px-4 py-3 bg-background text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-md flex items-center h-16 resize-none',
+            className
+         )}
+         {...props}
+      />
+   );
 });
 ChatInput.displayName = 'ChatInput';
 

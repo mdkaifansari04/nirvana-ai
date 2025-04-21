@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { type Chat, type Response } from './response';
+import type { Chat, Response } from './response';
 import tokenInterceptors from './token-interceptor';
 
 const chatApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/chat` });

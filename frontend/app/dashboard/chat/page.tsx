@@ -52,7 +52,7 @@ export default function ChatPage() {
          e.preventDefault();
          e.stopPropagation();
       }
-      
+
       console.log('working', prompt, selectedTopicId);
 
       if (prompt.length === 0) return;

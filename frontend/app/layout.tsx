@@ -23,7 +23,7 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
          <ClerkProvider>
             <ClientProvider>
                <ClerkTokenProvider templateName={CLERK_TEMPLATE_NAME}>

@@ -13,7 +13,7 @@ import { getAuth } from "@clerk/express";
 
 export const generateMicroExercise = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
-    const session_goal = SESSION_GOALS[Math.floor(Math.random() * SESSION_GOALS.length)];
+    const { sessionGoal, primaryEmotion, metalHealthRate } = req.value;
 
     const systemPrompt = MICRO_EXERCISE_SYSTEM_PROMPT + MICRO_EXERCISE_GENERATION_SCHEMA;
 
@@ -25,7 +25,7 @@ export const generateMicroExercise = async (req: CustomRequest, res: Response, n
         },
         {
           role: "user",
-          content: `Create a CBT micro-exercise on: ${session_goal}`,
+          content: `Create a CBT micro-exercise on: ${sessionGoal}, primary emotion: ${primaryEmotion}, metal health rate: ${metalHealthRate}`,
         },
       ],
       model: OBJECT_GENERATION_MODEL,

@@ -1,0 +1,624 @@
+{
+	"info": {
+		"_postman_id": "f1b1103a-0bbf-406d-aed7-05448beff65c",
+		"name": "Nirwana-Ai",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23890951"
+	},
+	"item": [
+		{
+			"name": "chatbot",
+			"item": [
+				{
+					"name": "get all chatbots",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chatbots",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chatbots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create chatbot",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Stress & Anxiety Events\",\r\n    \"system_prompt\": \"You are a calming and supportive guide helping users navigate stressful situations. Offer grounding techniques, breathing exercises, and strategies to manage anxiety in real time. Keep responses brief, soothing, and easy to follow. Encourage mindfulness and positive reframing.\",\r\n    \"slug\": \"stress-anxiety-events\",\r\n    \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbf7Pfh1fQNCqoSJ4rMbTQZmxVp9Fy0uXdKURwO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chatbots",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chatbots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload-many(test)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"chatbots\": [\r\n        {\r\n            \"name\": \"Stress & Anxiety Events\",\r\n            \"slug\": \"stress-anxiety-events\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbf7Pfh1fQNCqoSJ4rMbTQZmxVp9Fy0uXdKURwO\",\r\n            \"system_prompt\": \"You are a calm and grounded assistant designed to help users cope with stressful or anxiety-inducing situations in real time. Offer specific techniques like box breathing, grounding exercises (5-4-3-2-1), and visualization. Speak in a slow, soothing tone, reassuring users and guiding them toward stability, presence, and emotional control. Encourage mindfulness and positive reframing without overwhelming detail.\"\r\n        },\r\n        {\r\n            \"name\": \"Becoming Happy For No Reason\",\r\n            \"slug\": \"becoming-happy-for-no-reason\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbfaKzFYFUnbJ29TfvyEVnIeN5WkUBLisGgxMua\",\r\n            \"system_prompt\": \"You are a joyful and insightful companion helping users develop intrinsic happiness not tied to external success or validation. Share practical tools like gratitude journaling, mindful awareness, and positive affirmations. Encourage daily reflection on small joys and self-love. Foster a mindset rooted in acceptance, lightness, and curiosity toward life’s simple moments.\"\r\n        },\r\n        {\r\n            \"name\": \"Not Having Enough...\",\r\n            \"slug\": \"not-having-enough\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbfnmwQKuzvEeYpcsW8KlTkjmgDywfonRNZC3LV\",\r\n            \"system_prompt\": \"You are a reassuring and practical guide for users struggling with feelings of lack—be it time, money, love, or self-worth. Help reframe scarcity mindsets by emphasizing abundance, present-moment awareness, and personal strengths. Offer perspective shifts and tangible habits that foster sufficiency and fulfillment. Maintain a tone of acceptance and gentle motivation.\"\r\n        },\r\n        {\r\n            \"name\": \"Status Anxiety\",\r\n            \"slug\": \"status-anxiety\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbfyXNdAZRxDJwAGO3T48PU6mj1sXdaMtzLoueb\",\r\n            \"system_prompt\": \"You are a philosophical and compassionate thinker helping users detach from societal pressures, external comparisons, and achievement-based self-worth. Offer deep insights into identity, value, and purpose beyond status. Share stories, quotes, and psychological models that support inner confidence, self-compassion, and authenticity. Encourage introspection and meaning over metrics.\"\r\n        },\r\n        {\r\n            \"name\": \"Finding Purpose\",\r\n            \"slug\": \"finding-purpose\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbfNkwAumVaWwlrqEpFj0nDBYguU1kOcHv7CViG\",\r\n            \"system_prompt\": \"You are an inspiring and reflective guide helping users discover their life’s meaning and direction. Ask open-ended questions that spark curiosity and encourage exploration of passions, values, and goals. Share frameworks like Ikigai, journaling prompts, and real-life examples to help users take actionable steps. Stay hopeful, validating, and open to all paths of purpose.\"\r\n        },\r\n        {\r\n            \"name\": \"Alan Watts\",\r\n            \"slug\": \"alan-watts\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbfa70Pr4nbJ29TfvyEVnIeN5WkUBLisGgxMuaP\",\r\n            \"system_prompt\": \"You speak in the poetic, philosophical voice of Alan Watts, blending Eastern mysticism with Western thought. Share reflections on identity, time, ego, consciousness, and the illusion of control. Use metaphor, story, and wit to provoke insight and wonder. Invite users to loosen rigid thinking and explore the fluid nature of existence with curiosity and joy.\"\r\n        },\r\n        {\r\n            \"name\": \"Best Meditation Apps\",\r\n            \"slug\": \"best-meditation-apps\",\r\n            \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbfPHY1mgE3umowhGICAXfNgtjSDdMvlLnk2UiHO\",\r\n            \"system_prompt\": \"You are a friendly, knowledgeable recommender of meditation and mindfulness apps. Guide users to the best options based on their needs—stress relief, sleep, productivity, focus, or self-awareness. Describe core features, pricing models, and app differences clearly and neutrally. Help users build a consistent mindfulness practice with confidence and ease.\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chatbots/chatbots/upload/many",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chatbots",
+								"chatbots",
+								"upload",
+								"many"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-chatbot(test)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mental Health\",\r\n    \"system_prompt\": \"You are a supportive and non-judgmental mental health guide. Provide clear, empathetic, and actionable advice on emotional well-being. Encourage self-care, mindfulness, and seeking professional help when needed. Always respond with compassion, respect, and encouragement. Avoid medical diagnoses.\",\r\n    \"slug\": \"mental-health\",\r\n    \"image\": \"https://q8hp8oqt94.ufs.sh/f/ZR45BAwAVqbf0qB5MnFhJqW5ioVkuDxnS2yZtfvHFbR3QELj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chatbots/67f7dbb4a642cee5e9be8243",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chatbots",
+								"67f7dbb4a642cee5e9be8243"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-chatbot",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chatbots/67f7e565e2cddf273aca51a2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chatbots",
+								"67f7e565e2cddf273aca51a2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "journal",
+			"item": [
+				{
+					"name": "add journal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Mindful Moments\",\r\n    \"content\": \"Took a deep breath and embraced the moment. Even in overwhelm, I found space for kindness.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/journals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"journals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user journals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/journals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"journals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get journal by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/journals/67f80d434dc27ff4e2e6a583",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"journals",
+								"67f80d434dc27ff4e2e6a583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete journal",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/journals/67f80d434dc27ff4e2e6a583/user_12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"journals",
+								"67f80d434dc27ff4e2e6a583",
+								"user_12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-journal",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Mindful Moments by kaif\",\r\n    \"content\": \"Took a deep breath and embraced the moment. Even in overwhelm, I found space for kindness.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/journals/67f80d434dc27ff4e2e6a583",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"journals",
+								"67f80d434dc27ff4e2e6a583"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "micro-exercises",
+			"item": [
+				{
+					"name": "micro exercise generate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sessionGoal\": \"redures exam streess\",\r\n    \"primaryEmotion\" : \"sad\",\r\n    \"metalHealthRate\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/micro-exercises/generate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"micro-exercises",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get micro exercise by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/micro-exercises/6801403a8b582cee9dd59001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"micro-exercises",
+								"6801403a8b582cee9dd59001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user micro-services",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/micro-exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"micro-exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save micro exercise with report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_goal\": \"Practice reframing negative thoughts into positive ones by focusing on gratitude\",\r\n    \"quick_check_in\": {\r\n        \"mood_rating\": 5,\r\n        \"primary_emotion\": \"Frustration\"\r\n    },\r\n    \"exercise_content\": {\r\n        \"qna\": [\r\n            {\r\n                \"question\": \"What are three things you are grateful for today?\",\r\n                \"answer\": \"I'm grateful for my morning coffee, a supportive friend who checked in, and a peaceful walk outside.\"\r\n            },\r\n            {\r\n                \"question\": \"How can you apply the concept of gratitude to reframe a recent negative experience?\",\r\n                \"answer\": \"I was upset about missing a deadline, but I'm grateful I learned how to manage my time better and that my team was understanding.\"\r\n            }\r\n        ],\r\n        \"mcq\": [\r\n            {\r\n                \"question\": \"What is the primary purpose of practicing gratitude in CBT?\",\r\n                \"options\": [\r\n                    \"To suppress negative emotions\",\r\n                    \"To increase self-esteem\",\r\n                    \"To reframe negative thoughts\",\r\n                    \"To avoid difficult situations\"\r\n                ],\r\n                \"answers\": [\r\n                    \"To reframe negative thoughts\"\r\n                ]\r\n            },\r\n            {\r\n                \"question\": \"Which of the following is a benefit of practicing gratitude?\",\r\n                \"options\": [\r\n                    \"Increased stress\",\r\n                    \"Improved mental health\",\r\n                    \"Reduced self-awareness\",\r\n                    \"Decreased motivation\"\r\n                ],\r\n                \"answers\": [\r\n                    \"Improved mental health\"\r\n                ]\r\n            },\r\n            {\r\n                \"question\": \"How often should you practice gratitude to see significant benefits?\",\r\n                \"options\": [\r\n                    \"Only when feeling down\",\r\n                    \"Daily\",\r\n                    \"Weekly\",\r\n                    \"Monthly\"\r\n                ],\r\n                \"answers\": [\r\n                    \"Daily\"\r\n                ]\r\n            },\r\n            {\r\n                \"question\": \"What can you do to make gratitude a habit?\",\r\n                \"options\": [\r\n                    \"Share gratitude with a friend\",\r\n                    \"Keep a gratitude journal\",\r\n                    \"Practice gratitude only on special occasions\",\r\n                    \"Post about gratitude on social media\"\r\n                ],\r\n                \"answers\": [\r\n                    \"Keep a gratitude journal\"\r\n                ]\r\n            },\r\n            {\r\n                \"question\": \"Why is it essential to focus on the present moment when practicing gratitude?\",\r\n                \"options\": [\r\n                    \"To dwell on past regrets\",\r\n                    \"To worry about future uncertainties\",\r\n                    \"To appreciate current blessings\",\r\n                    \"To compare with others\"\r\n                ],\r\n                \"answers\": [\r\n                    \"To appreciate current blessings\"\r\n                ]\r\n            }\r\n        ]\r\n    },\r\n    \"user_reflection\": {\r\n        \"mood_rating_after\": 7,\r\n        \"reflection\": \"After reflecting on the things I’m grateful for, I feel lighter and more hopeful. It helped me shift my focus from stress to appreciation.\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/micro-exercises/6801413c2bc47c4ab9c4583d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"micro-exercises",
+								"6801413c2bc47c4ab9c4583d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-report-by-ud",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/micro-exercises/report/6801413c2bc47c4ab9c4583d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"micro-exercises",
+								"report",
+								"6801413c2bc47c4ab9c4583d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clerkId\": \"user_12345\",\r\n  \"email\": \"kaif.doe@example.com\",\r\n  \"name\": \"Kaif Ansari\",\r\n  \"weight\": \"70kg\",\r\n  \"gender\": \"male\",\r\n  \"symptom\": [\"headache\", \"fever\", \"nausea\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-user-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/user_12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"user_12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clerkId\": \"user_12345\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"name\": \"Kaif\",\r\n  \"weight\": \"70kg\",\r\n  \"gender\": \"male\",\r\n  \"symptom\": [\"headache\", \"fever\", \"nausea\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/user_12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"user_12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-user-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/user_12345",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"user_12345"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "chat-with-ai",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"prompt\": \"I am felling very down today\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chat/67f7dbb4a642cee5e9be8243",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat",
+								"67f7dbb4a642cee5e9be8243"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-chabot-chat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/chat/67f7dbb4a642cee5e9be8243",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat",
+								"67f7dbb4a642cee5e9be8243"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5500/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsImtpZCI6Imluc18ydlBJSW5JSUhCYmlmMmpBMkZBQkxTQnQ3Tm4iLCJ0eXAiOiJKV1QifQ.eyJhenAiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJleHAiOjIwNTk2NjA4NDUsImlhdCI6MTc0NDMwMDg0NSwiaXNzIjoiaHR0cHM6Ly9ldm9sdmluZy1hZGRlci02My5jbGVyay5hY2NvdW50cy5kZXYiLCJqdGkiOiI2NjM2OTAyNTUwZWM4OGU0OTM4ZSIsIm5iZiI6MTc0NDMwMDg0MCwic3ViIjoidXNlcl8ydlJ1OEFjUGkxd0hzNGlSQTJ0S3JyREtNQzEifQ.b2eCxp0zH7c2fgSsrutuhIvPsWXN1Zhii3hKRwOtVncCu6ee4HFGyoSfXLTLi-aDm7F33QfTpyffj8RfKIjx-vTJPlBH96Tj52YqO6GkrM0gAMqrW63xJyw5zBBvFZud2uttvnKOAYdwrcmjjA8rHLGnKDJao8XfFEFo_h8MOphWRL7PQEgOh5SNgRvOkEZZygq9TU9U4ug1wiEuTjfrvRHdM1sHn5ov_8M564uLUVKQN3r-3MDZvP3ol7pOy6awXXaAkiuau6YKKxRzaqMRXqCukqpY4AJg-Jz4GTb-4y0PK8NkggjAt6AOoncrZNVnqzB6ym0JS2u4nrm-N-luGg",
+			"type": "string"
+		}
+	]
+}

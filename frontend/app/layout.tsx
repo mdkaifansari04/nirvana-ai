@@ -24,18 +24,18 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en" suppressHydrationWarning>
-         <ClerkProvider>
-            <ClientProvider>
-               <ClerkTokenProvider templateName={CLERK_TEMPLATE_NAME}>
-                  <body className={`${urbanist.className} scroll-smooth antialiased`}>
+         <body className={`${urbanist.className} scroll-smooth antialiased`}>
+            <ClerkProvider>
+               <ClientProvider>
+                  <ClerkTokenProvider templateName={CLERK_TEMPLATE_NAME}>
                      <main>
                         {children}
                         <Toaster />
                      </main>
-                  </body>
-               </ClerkTokenProvider>
-            </ClientProvider>
-         </ClerkProvider>
+                  </ClerkTokenProvider>
+               </ClientProvider>
+            </ClerkProvider>
+         </body>
       </html>
    );
 }

@@ -1,10 +1,36 @@
 'use client';
 
-import { demoDashboard } from '@/lib/demo-dashboard-data';
+import type { MicroExercise } from '@/data-access/response';
+import { isSameDay, subDays } from 'date-fns';
 import { CalendarDays, Trophy } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-export default function ExercisesStreak() {
-   const streak = demoDashboard.exerciseStreak;
+interface ExercisesStreakProps {
+   microExercises: MicroExercise[];
+}
+
+export default function ExercisesStreak({ microExercises }: ExercisesStreakProps) {
+   const [streak, setStreak] = useState(0);
+
+   useEffect(() => {
+      const calculateStreak = () => {
+         let currentStreak = 0;
+         let currentDate = new Date();
+
+         while (true) {
+            const hasEntryOnDay = microExercises.some((exercise) => isSameDay(new Date(exercise.createdAt), currentDate));
+
+            if (!hasEntryOnDay) break;
+
+            currentStreak++;
+            currentDate = subDays(currentDate, 1);
+         }
+
+         return currentStreak;
+      };
+
+      setStreak(calculateStreak());
+   }, [microExercises]);
 
    return (
       <div className="flex flex-col items-center justify-center text-center space-y-2">

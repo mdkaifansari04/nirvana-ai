@@ -24,10 +24,7 @@ export default function QueryWrapper(props: QueryWrapperProps) {
    return (
       <AnimatePresence mode="wait">
          {canShowData ? <div className={props.className}>{props.view}</div> : null}
-         {showError && props.error ? 
-            <QueryErrorIndicator errorMessage={props.error instanceof Error ? props.error.message : String(props.error)} /> 
-            : null
-         }
+         {showError && props.error ? <QueryErrorIndicator errorMessage={props.error instanceof Error ? props.error.message : String(props.error)} /> : null}
          {props.isPending && (showDefaultPendingView ? <DefaultLoader /> : props.pendingView)}
          {showEmptyData && props.emptyDataView}
       </AnimatePresence>

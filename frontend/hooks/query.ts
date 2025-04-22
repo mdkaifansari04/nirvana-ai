@@ -1,5 +1,6 @@
 import * as Chat from '@/data-access/chat';
 import * as Chatbot from '@/data-access/chatbot';
+import * as Dashboard from '@/data-access/dashboard';
 import * as Journal from '@/data-access/journal';
 import * as MicroExercise from '@/data-access/micro-exercies';
 import { useQuery } from '@tanstack/react-query';
@@ -44,5 +45,12 @@ export const useGetMicroExerciseReportById = (id: string) => {
    return useQuery({
       queryKey: ['getMicroExerciseReportById', id],
       queryFn: () => MicroExercise.getMicroExerciseReportById(id),
+   });
+};
+
+export const useGetDashboardData = () => {
+   return useQuery({
+      queryKey: ['getDashboardData'],
+      queryFn: () => Dashboard.getDashboardData(),
    });
 };

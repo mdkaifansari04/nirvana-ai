@@ -1,13 +1,77 @@
 'use client';
 
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { demoDashboard } from '@/lib/demo-dashboard-data';
+import type { Chat, Journal, MicroExercise } from '@/data-access/response';
+import { format, subDays } from 'date-fns';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-export default function ActivityChart() {
-   const data = demoDashboard.activityData;
+interface ActivityChartProps {
+   journals: Journal[];
+   microExercises: MicroExercise[];
+   chats: Chat[];
+}
 
-   const chartConfig = demoDashboard.chartConfig;
+export default function ActivityChart({ journals, microExercises, chats }: ActivityChartProps) {
+   const today = new Date();
+
+   const dates = Array.from({ length: 30 }, (_, i) => {
+      const date = subDays(today, i);
+      return format(date, 'yyyy-MM-dd');
+   }).reverse();
+
+   const data = dates.map((date) => ({
+      date,
+      journal: 0,
+      exercise: 0,
+      message: 0,
+   }));
+
+   journals.forEach((journal) => {
+      const journalDate = format(new Date(journal.createdAt), 'yyyy-MM-dd');
+      const dataPoint = data.find((d) => d.date === journalDate);
+      if (dataPoint) {
+         dataPoint.journal += 1;
+      }
+   });
+
+   microExercises.forEach((exercise) => {
+      const exerciseDate = format(new Date(exercise.createdAt), 'yyyy-MM-dd');
+      const dataPoint = data.find((d) => d.date === exerciseDate);
+      if (dataPoint) {
+         dataPoint.exercise += 1;
+      }
+   });
+
+   chats.forEach((chat) => {
+      const chatDate = format(new Date(chat.createdAt), 'yyyy-MM-dd');
+      const dataPoint = data.find((d) => d.date === chatDate);
+      if (dataPoint) {
+         dataPoint.message += 1;
+      }
+   });
+
+   const chartConfig = {
+      journal: {
+         label: 'Journal Entries',
+         color: 'hsl(var(--chart-1))',
+      },
+      exercise: {
+         label: 'Exercises',
+         color: 'hsl(var(--chart-2))',
+      },
+      message: {
+         label: 'Messages',
+         color: 'hsl(var(--chart-4))',
+      },
+   };
+
+   if (!journals.length && !microExercises.length && !chats.length) {
+      return (
+         <div className="container py-6 px-4 2xl:mx-auto">
+            <h1 className="text-lg text-center">No data available to show</h1>
+         </div>
+      );
+   }
 
    return (
       <div className="h-full flex flex-col">

@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-import * as Chat from '@/data-access/chat';
-import * as Chatbot from '@/data-access/chatbot';
-import * as Dashboard from '@/data-access/dashboard';
-import * as Journal from '@/data-access/journal';
-import * as MicroExercise from '@/data-access/micro-exercies';
-import { useQuery } from '@tanstack/react-query';
-=======
 import * as Chat from "@/data-access/chat";
 import * as Chatbot from "@/data-access/chatbot";
+import * as Dashboard from "@/data-access/dashboard";
 import * as Journal from "@/data-access/journal";
 import * as MicroExercise from "@/data-access/micro-exercises";
 import { useQuery } from "@tanstack/react-query";
->>>>>>> 4fac5b4 (Refactor micro-exercise functionality: remove old API, add new endpoints, and implement Zustand store for generated questions)
 
 export function useGetChatbots() {
   return useQuery({
@@ -57,8 +49,8 @@ export const useGetMicroExerciseReportById = (id: string) => {
 };
 
 export const useGetDashboardData = () => {
-   return useQuery({
-      queryKey: ['getDashboardData'],
-      queryFn: () => Dashboard.getDashboardData(),
-   });
+  return useQuery({
+    queryKey: ["getDashboardData"],
+    queryFn: () => Dashboard.getDashboardData(),
+  });
 };

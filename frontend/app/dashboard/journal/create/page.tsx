@@ -34,7 +34,7 @@ export default function Journal() {
             },
             onError: (error: Error) => {
                toast({
-                  title: 'Failed to save journal entry', 
+                  title: 'Failed to save journal entry',
                   description: getErrorMessage(error),
                   variant: 'destructive',
                });

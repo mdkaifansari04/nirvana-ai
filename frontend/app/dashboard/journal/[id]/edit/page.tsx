@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useGetJournalById } from '@/hooks/query';
 import { useUpdateJournal } from '@/hooks/mutation';
+import { useGetJournalById } from '@/hooks/query';
 import { useToast } from '@/hooks/use-toast';
 import { getErrorMessage } from '@/lib/utils';
 import { ArrowLeft, BookOpen, Brain, HelpCircle, Save, Sparkles, Wand2 } from 'lucide-react';
@@ -48,11 +48,11 @@ export default function EditJournal({ params }: { params: Promise<{ id: string }
             },
             onError: (error: Error) => {
                toast({
-                  title: 'Failed to update journal entry', 
+                  title: 'Failed to update journal entry',
                   description: getErrorMessage(error),
                   variant: 'destructive',
                });
-            }
+            },
          }
       );
    };
@@ -151,4 +151,4 @@ export default function EditJournal({ params }: { params: Promise<{ id: string }
          </div>
       </div>
    );
-} 
+}

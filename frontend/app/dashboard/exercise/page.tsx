@@ -3,18 +3,18 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getMicroServices } from '@/data-access/micro-exercises';
-import { MicroExercise } from '@/data-access/response';
+import type { MicroExercise } from '@/data-access/response';
 import type { ExerciseSummary } from '@/types';
+import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 import { Activity, ArrowUp, Award, Calendar, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 
 export default function ExerciseDashboardPage() {
    const { data: exercises = [], isLoading: loading } = useQuery({
       queryKey: ['userExercises'],
-      queryFn: getMicroServices
+      queryFn: getMicroServices,
    });
 
    const [summary, setSummary] = useState<ExerciseSummary>({
@@ -57,29 +57,25 @@ export default function ExerciseDashboardPage() {
    const generateActivityData = () => {
       const data = [];
       const today = new Date();
-      
+
       // Generate 180 days (6 months) of activity data
       for (let i = 180; i >= 0; i--) {
          const date = new Date(today);
          date.setDate(today.getDate() - i);
-         
+
          // Check if there's an exercise on this date
-         const hasExerciseOnDate = exercises.some(exercise => {
+         const hasExerciseOnDate = exercises.some((exercise) => {
             const exerciseDate = new Date(exercise.createdAt);
-            return (
-               exerciseDate.getDate() === date.getDate() &&
-               exerciseDate.getMonth() === date.getMonth() &&
-               exerciseDate.getFullYear() === date.getFullYear()
-            );
+            return exerciseDate.getDate() === date.getDate() && exerciseDate.getMonth() === date.getMonth() && exerciseDate.getFullYear() === date.getFullYear();
          });
-         
+
          data.push({
             date: date.toISOString().split('T')[0],
             count: hasExerciseOnDate ? 1 : 0,
-            level: hasExerciseOnDate ? 1 : 0
+            level: hasExerciseOnDate ? 1 : 0,
          });
       }
-      
+
       return data;
    };
 
@@ -200,7 +196,9 @@ export default function ExerciseDashboardPage() {
                                        <ArrowUp className="w-3 h-3 mr-1" />
                                        {exercise.quick_check_in.mood_rating} → {exercise.user_reflection.mood_rating_after}
                                     </span>
-                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground">{exercise.quick_check_in.primary_emotion}</span>
+                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground">
+                                       {exercise.quick_check_in.primary_emotion}
+                                    </span>
                                  </div>
                               </div>
                               <Button variant="outline" size="sm" asChild className="mt-4">

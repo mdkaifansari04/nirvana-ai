@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getMicroExerciseReportById, getMicroServices } from '@/data-access/micro-exercises';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { ArrowRightCircle, BarChart3, BrainCircuit, Calendar, CheckCircle2, ChevronLeft, Lightbulb, MessageSquare, Sparkles, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { getMicroServices, getMicroExerciseReportById } from '@/data-access/micro-exercises';
 
 export default function ExercisePage() {
    const params = useParams();
@@ -19,12 +19,10 @@ export default function ExercisePage() {
    const { data: exercise, isLoading: exerciseLoading } = useQuery({
       queryKey: ['exercise', id],
       queryFn: () => {
-         const exercises = getMicroServices().then(exercises => 
-            exercises.find(e => e._id === id)
-         );
+         const exercises = getMicroServices().then((exercises) => exercises.find((e) => e._id === id));
          return exercises;
       },
-      enabled: !!id
+      enabled: !!id,
    });
 
    const { data: report, isLoading: reportLoading } = useQuery({
@@ -35,7 +33,7 @@ export default function ExercisePage() {
          }
          return null;
       },
-      enabled: !!exercise && typeof exercise.ai_generated_report === 'string'
+      enabled: !!exercise && typeof exercise.ai_generated_report === 'string',
    });
 
    const formatDate = (dateString: string) => {
@@ -103,13 +101,13 @@ export default function ExercisePage() {
 
    const moodBefore = exercise.quick_check_in.mood_rating;
    const moodAfter = exercise.user_reflection.mood_rating_after;
-   
-   let aiReport = "No AI analysis available";
-   if (report && report.final_reflection && report.final_reflection.ai_summary) {
+
+   let aiReport = 'No AI analysis available';
+   if (report?.final_reflection?.ai_summary) {
       aiReport = report.final_reflection.ai_summary;
    } else if (typeof exercise.ai_generated_report === 'object' && exercise.ai_generated_report) {
-      const reportObj = exercise.ai_generated_report as any;
-      aiReport = reportObj.feedback || reportObj.review || "No AI analysis available";
+      const reportObj = exercise.ai_generated_report as Record<string, string>;
+      aiReport = reportObj.feedback || reportObj.review || 'No AI analysis available';
    }
 
    return (
@@ -280,7 +278,10 @@ export default function ExercisePage() {
                               </div>
                               <div>
                                  <p className="text-sm text-muted-foreground">Mood Change</p>
-                                 <p className="text-2xl font-bold">{moodAfter - moodBefore > 0 ? '+' : ''}{moodAfter - moodBefore} points</p>
+                                 <p className="text-2xl font-bold">
+                                    {moodAfter - moodBefore > 0 ? '+' : ''}
+                                    {moodAfter - moodBefore} points
+                                 </p>
                               </div>
                            </div>
 
@@ -289,11 +290,11 @@ export default function ExercisePage() {
                               <div>
                                  <p className="text-sm text-muted-foreground">Key Insight</p>
                                  <p className="font-medium text-lg text-chart-1">
-                                    {moodAfter > moodBefore 
-                                       ? 'This exercise improved your mood' 
-                                       : moodAfter === moodBefore 
-                                       ? 'This exercise maintained your mood'
-                                       : 'This exercise helped process emotions'}
+                                    {moodAfter > moodBefore
+                                       ? 'This exercise improved your mood'
+                                       : moodAfter === moodBefore
+                                         ? 'This exercise maintained your mood'
+                                         : 'This exercise helped process emotions'}
                                  </p>
                               </div>
                            </div>

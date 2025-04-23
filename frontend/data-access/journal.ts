@@ -19,3 +19,9 @@ export const getJournalById = async (body: { id: string }) => {
    const { data } = await journalApi.get<Response<Journal>>(`/${body.id}`);
    return data.data;
 };
+
+export const updateJournal = async (body: { id: string; title: string; content: string }) => {
+   const { id, ...updateData } = body;
+   const { data } = await journalApi.put<Response<Journal>>(`/${id}`, updateData);
+   return data.data;
+};

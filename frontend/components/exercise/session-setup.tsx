@@ -27,7 +27,7 @@ export function SessionSetup({ onComplete }: SessionSetupProps) {
   const handleSubmit = () => {
     if (isValid) {
       generateMicroExercise(
-        { sessionGoal, primaryEmotion, metalHealthRate: moodRating },
+        { sessionGoal, primaryEmotion, mentalHealthRate: moodRating },
         {
           onSuccess: (data) => {
             toast({

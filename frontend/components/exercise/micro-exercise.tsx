@@ -10,21 +10,26 @@ import { MoodRating } from "./mood-rating";
 import { MultipleChoice } from "./multiple-choice";
 import { QuestionAnswer } from "./question-answer";
 import { GeneratedExercisesQuestion } from "@/data-access/response";
+import { useSubmitMicroExercise } from "@/hooks/mutation";
+import { useToast } from "@/hooks/use-toast";
+import { getErrorMessage } from "@/lib/utils";
 
 interface MicroExerciseProps {
   exerciseContent: GeneratedExercisesQuestion;
   sessionGoal: string;
   initialMoodRating: number;
   initialEmotion: string;
-  onComplete: (data: { qnaAnswers: { [index: number]: string }; mcqAnswers: { [index: number]: string[] }; moodRatingAfter: number; reflection: string }) => void;
+  onComplete: (data: { qnaAnswers: { [index: number]: string }; mcqAnswers: { [index: number]: string }; moodRatingAfter: number; reflection: string }) => void;
 }
 
 export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating, initialEmotion, onComplete }: MicroExerciseProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [qnaAnswers, setQnaAnswers] = useState<{ [index: number]: string }>({});
-  const [mcqAnswers, setMcqAnswers] = useState<{ [index: number]: string[] }>({});
+  const [mcqAnswers, setMcqAnswers] = useState<{ [index: number]: string }>({});
   const [moodRatingAfter, setMoodRatingAfter] = useState(initialMoodRating);
   const [reflection, setReflection] = useState("");
+  const { mutate: submitMicroExercise, isPending } = useSubmitMicroExercise();
+  const { toast } = useToast();
 
   // totalSteps = 1 (QnA step) + Number of MCQ questions + 1 (Reflection step)
   const totalSteps = 1 + exerciseContent.core_exercise.mcq.length + 1;
@@ -33,13 +38,55 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
     if (currentStep < totalSteps - 1 && isStepValid()) {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === totalSteps - 1) {
-      onComplete({
-        qnaAnswers,
-        mcqAnswers,
-        moodRatingAfter,
-        reflection,
-      });
+      handleSubmit();
     }
+  };
+
+  const handleSubmit = () => {
+    const submissionData = {
+      session_goal: sessionGoal,
+      quick_check_in: {
+        mood_rating: initialMoodRating,
+        primary_emotion: initialEmotion,
+      },
+      exercise_content: {
+        qna: exerciseContent.core_exercise.qna.map((q, i) => ({
+          question: q.question,
+          answer: qnaAnswers[i] || "",
+        })),
+        mcq: exerciseContent.core_exercise.mcq.map((m, i) => ({
+          question: m.question,
+          options: m.options,
+          answers: [mcqAnswers[i] || ""],
+        })),
+      },
+      user_reflection: {
+        mood_rating_after: moodRatingAfter,
+        reflection,
+      },
+    };
+
+    submitMicroExercise(submissionData, {
+      onSuccess: () => {
+        toast({
+          title: "Exercise submitted successfully",
+          description: "Your exercise has been saved to the database",
+        });
+        onComplete({
+          qnaAnswers,
+          mcqAnswers,
+          moodRatingAfter,
+          reflection,
+        });
+      },
+      onError: (error) => {
+        toast({
+          title: "Error submitting exercise",
+          description: getErrorMessage(error),
+          variant: "destructive",
+        });
+      },
+    });
   };
 
   const handleBack = () => {
@@ -57,7 +104,7 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
     if (currentStep > 0 && currentStep < totalSteps - 1) {
       // MCQ step
       const mcqIndex = currentStep - 1;
-      return mcqAnswers[mcqIndex] && mcqAnswers[mcqIndex].length > 0;
+      return mcqAnswers[mcqIndex] && mcqAnswers[mcqIndex].trim() !== "";
     }
 
     if (currentStep === totalSteps - 1) {
@@ -75,10 +122,10 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
     }));
   };
 
-  const updateMCQAnswer = (index: number, options: string[]) => {
+  const updateMCQAnswer = (index: number, option: string) => {
     setMcqAnswers((prev) => ({
       ...prev,
-      [index]: options,
+      [index]: option,
     }));
   };
 
@@ -115,7 +162,12 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
               Question {currentStep} of {exerciseContent.core_exercise.mcq.length}
             </h3>
             {currentStep - 1 < exerciseContent.core_exercise.mcq.length ? (
-              <MultipleChoice question={exerciseContent.core_exercise.mcq[currentStep - 1].question} options={exerciseContent.core_exercise.mcq[currentStep - 1].options} selectedOptions={mcqAnswers[currentStep - 1] || []} onChange={(options) => updateMCQAnswer(currentStep - 1, options)} />
+              <MultipleChoice 
+                question={exerciseContent.core_exercise.mcq[currentStep - 1].question} 
+                options={exerciseContent.core_exercise.mcq[currentStep - 1].options} 
+                selectedOption={mcqAnswers[currentStep - 1] || ""} 
+                onChange={(option) => updateMCQAnswer(currentStep - 1, option)} 
+              />
             ) : (
               <div className="p-4 bg-muted/20 rounded-lg border text-center">
                 <p className="text-muted-foreground">Loading next question...</p>
@@ -148,8 +200,8 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
             <div />
           )}
 
-          <Button onClick={handleNext} disabled={!isStepValid()}>
-            {currentStep === totalSteps - 1 ? "Complete" : "Next"}
+          <Button onClick={handleNext} disabled={!isStepValid() || isPending}>
+            {currentStep === totalSteps - 1 ? (isPending ? "Submitting..." : "Complete") : "Next"}
             <ChevronRight className="ml-1 h-4 w-4" />
           </Button>
         </div>

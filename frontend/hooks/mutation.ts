@@ -18,9 +18,23 @@ export const useCreateJournal = () => {
   });
 };
 
+export const useUpdateJournal = () => {
+  return useMutation({
+    mutationKey: ["updateJournal"],
+    mutationFn: Journal.updateJournal,
+  });
+};
+
 export const useGenerateMicroExercise = () => {
   return useMutation({
     mutationKey: ["generateMicroExercise"],
     mutationFn: MicroExercise.generateMicroExercise,
+  });
+};
+
+export const useSubmitMicroExercise = () => {
+  return useMutation({
+    mutationKey: ["submitMicroExercise"],
+    mutationFn: MicroExercise.submitMicroExercise,
   });
 };

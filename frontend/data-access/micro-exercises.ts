@@ -15,7 +15,33 @@ export const getMicroExerciseReportById = async (id: string) => {
   return data.data;
 };
 
-export const generateMicroExercise = async (body: { sessionGoal: string; primaryEmotion: string; metalHealthRate: number }) => {
+export const generateMicroExercise = async (body: { sessionGoal: string; primaryEmotion: string; mentalHealthRate: number }) => {
   const { data } = await microExerciseApi.post<Response<GeneratedExercisesQuestion>>("/generate", body);
+  return data.data;
+};
+
+export const submitMicroExercise = async (body: {
+  session_goal: string;
+  quick_check_in: {
+    mood_rating: number;
+    primary_emotion: string;
+  };
+  exercise_content: {
+    qna: {
+      question: string;
+      answer: string;
+    }[];
+    mcq: {
+      question: string;
+      options: string[];
+      answers: string[];
+    }[];
+  };
+  user_reflection: {
+    mood_rating_after: number;
+    reflection: string;
+  };
+}) => {
+  const { data } = await microExerciseApi.post<Response<MicroExercise>>("/", body);
   return data.data;
 };

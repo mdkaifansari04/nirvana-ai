@@ -5,36 +5,38 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ExerciseService } from '@/services/exercise.service';
-import type { MicroExercise } from '@/types';
 import { format } from 'date-fns';
-import { ArrowRightCircle, BarChart3, BrainCircuit, Calendar, CheckCircle2, ChevronLeft, FileText, Lightbulb, MessageSquare, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowRightCircle, BarChart3, BrainCircuit, Calendar, CheckCircle2, ChevronLeft, Lightbulb, MessageSquare, Sparkles, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getMicroServices, getMicroExerciseReportById } from '@/data-access/micro-exercises';
 
 export default function ExercisePage() {
    const params = useParams();
-   const [exercise, setExercise] = useState<MicroExercise | null>(null);
-   const [loading, setLoading] = useState(true);
+   const id = params.id as string;
 
-   useEffect(() => {
-      const fetchExercise = async () => {
-         if (!params.id) return;
+   const { data: exercise, isLoading: exerciseLoading } = useQuery({
+      queryKey: ['exercise', id],
+      queryFn: () => {
+         const exercises = getMicroServices().then(exercises => 
+            exercises.find(e => e._id === id)
+         );
+         return exercises;
+      },
+      enabled: !!id
+   });
 
-         try {
-            const data = await ExerciseService.getExerciseById(params.id as string);
-            setExercise(data);
-         } catch (error) {
-            console.error('Failed to fetch exercise:', error);
-         } finally {
-            setLoading(false);
+   const { data: report, isLoading: reportLoading } = useQuery({
+      queryKey: ['exercise-report', exercise?.ai_generated_report],
+      queryFn: () => {
+         if (typeof exercise?.ai_generated_report === 'string') {
+            return getMicroExerciseReportById(exercise.ai_generated_report);
          }
-      };
-
-      fetchExercise();
-   }, [params.id]);
+         return null;
+      },
+      enabled: !!exercise && typeof exercise.ai_generated_report === 'string'
+   });
 
    const formatDate = (dateString: string) => {
       try {
@@ -77,7 +79,7 @@ export default function ExercisePage() {
       return emotions[lowerEmotion] || '🙂';
    };
 
-   if (loading) {
+   if (exerciseLoading || reportLoading) {
       return (
          <div className="flex items-center justify-center min-h-screen bg-background">
             <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary" />
@@ -101,6 +103,14 @@ export default function ExercisePage() {
 
    const moodBefore = exercise.quick_check_in.mood_rating;
    const moodAfter = exercise.user_reflection.mood_rating_after;
+   
+   let aiReport = "No AI analysis available";
+   if (report && report.final_reflection && report.final_reflection.ai_summary) {
+      aiReport = report.final_reflection.ai_summary;
+   } else if (typeof exercise.ai_generated_report === 'object' && exercise.ai_generated_report) {
+      const reportObj = exercise.ai_generated_report as any;
+      aiReport = reportObj.feedback || reportObj.review || "No AI analysis available";
+   }
 
    return (
       <div className="min-h-screen bg-gradient-to-b from-background to-accent/10 py-10">
@@ -201,7 +211,7 @@ export default function ExercisePage() {
                         <Tabs defaultValue="student">
                            <TabsList className="mb-6 w-full grid grid-cols-2">
                               <TabsTrigger value="student">Student Reflection</TabsTrigger>
-                              <TabsTrigger value="ai">AI Recommendations</TabsTrigger>
+                              <TabsTrigger value="ai">AI Analysis</TabsTrigger>
                            </TabsList>
 
                            <TabsContent value="student">
@@ -214,7 +224,7 @@ export default function ExercisePage() {
                               <div className="bg-primary/5 p-5 rounded-xl border border-primary/20 shadow-sm">
                                  <div className="flex gap-3">
                                     <Sparkles className="h-5 w-5 text-primary shrink-0 mt-1" />
-                                    <p className="text-card-foreground leading-relaxed">{exercise.ai_generated_report.feedback}</p>
+                                    <p className="text-card-foreground leading-relaxed">{aiReport}</p>
                                  </div>
                               </div>
                            </TabsContent>
@@ -225,21 +235,6 @@ export default function ExercisePage() {
 
                {/* Right column - 1/2 width */}
                <div className="md:col-span-1 space-y-6">
-                  {/* Reflection Analysis */}
-                  <Card>
-                     <CardHeader>
-                        <div className="flex items-center gap-2">
-                           <FileText className="h-5 w-5 text-primary" />
-                           <CardTitle>Reflection Analysis</CardTitle>
-                        </div>
-                     </CardHeader>
-                     <CardContent>
-                        <div className="bg-primary/5 p-4 rounded-xl border border-primary/20">
-                           <p className="text-card-foreground italic leading-relaxed">"{exercise.ai_generated_report.review}"</p>
-                        </div>
-                     </CardContent>
-                  </Card>
-
                   {/* MCQ Evaluation */}
                   <Card>
                      <CardHeader>
@@ -280,38 +275,46 @@ export default function ExercisePage() {
                      <CardContent>
                         <div className="space-y-5">
                            <div className="bg-accent/50 rounded-xl p-4 border border-border flex items-center gap-4">
-                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">🔥</div>
+                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">
+                                 {moodAfter > moodBefore ? '🚀' : moodAfter === moodBefore ? '🔄' : '🌱'}
+                              </div>
                               <div>
-                                 <p className="text-sm text-muted-foreground">Daily Streak</p>
-                                 <p className="text-2xl font-bold">5 days</p>
+                                 <p className="text-sm text-muted-foreground">Mood Change</p>
+                                 <p className="text-2xl font-bold">{moodAfter - moodBefore > 0 ? '+' : ''}{moodAfter - moodBefore} points</p>
                               </div>
                            </div>
 
                            <div className="bg-accent/50 rounded-xl p-4 border border-border flex items-center gap-4">
-                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">🚀</div>
+                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">💡</div>
                               <div>
-                                 <p className="text-sm text-muted-foreground">Progress Level</p>
-                                 <p className="font-medium text-lg text-chart-1">Improving</p>
+                                 <p className="text-sm text-muted-foreground">Key Insight</p>
+                                 <p className="font-medium text-lg text-chart-1">
+                                    {moodAfter > moodBefore 
+                                       ? 'This exercise improved your mood' 
+                                       : moodAfter === moodBefore 
+                                       ? 'This exercise maintained your mood'
+                                       : 'This exercise helped process emotions'}
+                                 </p>
                               </div>
                            </div>
 
                            <div className="bg-background rounded-xl p-5 border border-border">
                               <p className="text-base font-semibold mb-4 flex items-center gap-2.5">
                                  <Lightbulb className="h-5 w-5 text-primary" />
-                                 Daily Recommendations
+                                 Recommendations
                               </p>
                               <ul className="space-y-4">
                                  <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
                                     <ArrowRightCircle className="h-5 w-5 text-primary" />
-                                    <span className="text-sm text-foreground/90">Continue daily mindfulness practice</span>
+                                    <span className="text-sm text-foreground/90">Continue with regular assessments to track your mental well-being</span>
                                  </li>
                                  <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
                                     <ArrowRightCircle className="h-5 w-5 text-primary" />
-                                    <span className="text-sm text-foreground/90">Track your triggers with the Stress Diary feature</span>
+                                    <span className="text-sm text-foreground/90">Practice mindfulness techniques that resonated with you</span>
                                  </li>
                                  <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
                                     <ArrowRightCircle className="h-5 w-5 text-primary" />
-                                    <span className="text-sm text-foreground/90">Try Progressive Muscle Relaxation before bed</span>
+                                    <span className="text-sm text-foreground/90">Reflect on your answers to gain deeper insight into your thought patterns</span>
                                  </li>
                               </ul>
                            </div>

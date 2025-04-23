@@ -2,66 +2,84 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useCreateJournal } from '@/hooks/mutation';
+import { useGetJournalById } from '@/hooks/query';
+import { useUpdateJournal } from '@/hooks/mutation';
 import { useToast } from '@/hooks/use-toast';
 import { getErrorMessage } from '@/lib/utils';
 import { ArrowLeft, BookOpen, Brain, HelpCircle, Save, Sparkles, Wand2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 
 const TextEditor = dynamic(() => import('@/components/text-editor'), { ssr: false });
 
-export default function Journal() {
+export default function EditJournal({ params }: { params: Promise<{ id: string }> }) {
+   const resolvedParams = React.use(params);
+   const router = useRouter();
+   const { data: journal, isPending: isLoading } = useGetJournalById(resolvedParams.id);
    const [title, setTitle] = useState('');
-   const [post, setPost] = useState('');
-   const { mutate, isPending: isSaving } = useCreateJournal();
+   const [content, setContent] = useState('');
+   const { mutate, isPending: isSaving } = useUpdateJournal();
    const { toast } = useToast();
 
-   const saveJournal = () => {
-      if (!post.trim() || !title.trim()) return;
+   useEffect(() => {
+      if (journal) {
+         setTitle(journal.title);
+         setContent(journal.content);
+      }
+   }, [journal]);
+
+   const updateJournal = () => {
+      if (!content.trim() || !title.trim()) return;
       mutate(
          {
+            id: resolvedParams.id,
             title,
-            content: post,
+            content,
          },
          {
             onSuccess: () => {
                toast({
-                  title: 'Journal entry saved',
-                  description: 'Your journal entry has been saved successfully.',
+                  title: 'Journal entry updated',
+                  description: 'Your journal entry has been updated successfully.',
                });
+               router.push(`/dashboard/journal/${resolvedParams.id}`);
             },
             onError: (error: Error) => {
                toast({
-                  title: 'Failed to save journal entry', 
+                  title: 'Failed to update journal entry', 
                   description: getErrorMessage(error),
                   variant: 'destructive',
                });
-            },
-            onSettled: () => {
-               setTitle('');
-               setPost('');
-            },
+            }
          }
       );
    };
+
+   if (isLoading) {
+      return (
+         <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+         </div>
+      );
+   }
 
    return (
       <div className="container py-6 px-4 2xl:mx-auto">
          <div className="flex justify-between items-center mb-6">
             <div className="flex items-center gap-2">
-               <Link href="/dashboard/journal">
+               <Link href={`/dashboard/journal/${resolvedParams.id}`}>
                   <Button variant="ghost" size="icon">
                      <ArrowLeft className="w-4 h-4" />
                   </Button>
                </Link>
-               <h1 className="text-2xl font-bold">Create Journal Entry</h1>
+               <h1 className="text-2xl font-bold">Edit Journal Entry</h1>
             </div>
             <div className="flex items-center gap-2">
-               <Button onClick={saveJournal} disabled={isSaving || !title.trim() || !post.trim()}>
+               <Button onClick={updateJournal} disabled={isSaving || !title.trim() || !content.trim()}>
                   <Save className="w-4 h-4 mr-2" />
-                  {isSaving ? 'Saving...' : 'Save Entry'}
+                  {isSaving ? 'Saving...' : 'Save Changes'}
                </Button>
             </div>
          </div>
@@ -77,7 +95,7 @@ export default function Journal() {
                      className="file:text-xl md:text-2xl font-medium file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-15 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                   />
                </div>
-               <TextEditor content={post} onChange={setPost} />
+               <TextEditor content={content} onChange={setContent} />
             </div>
 
             <div className="md:col-span-1">
@@ -123,7 +141,7 @@ export default function Journal() {
                            <Wand2 className="w-4 h-4 text-purple-500 mt-1" />
                            <div>
                               <h3 className="font-medium text-sm">Auto-Save Feature</h3>
-                              <p className="text-sm text-muted-foreground">Your journal entries auto-save every few seconds, but you can manually save using the Save button.</p>
+                              <p className="text-sm text-muted-foreground">Your changes are not automatically saved. Remember to click the Save Changes button when you're done.</p>
                            </div>
                         </div>
                      </div>
@@ -133,4 +151,4 @@ export default function Journal() {
          </div>
       </div>
    );
-}
+} 

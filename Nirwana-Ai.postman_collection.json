@@ -271,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"sessionGoal\": \"redures exam streess\",\r\n    \"primaryEmotion\" : \"sad\",\r\n    \"metalHealthRate\" : 1\r\n}",
+							"raw": "{\r\n    \"sessionGoal\": \"redures exam streess\",\r\n    \"primaryEmotion\" : \"sad\",\r\n    \"mentalHealthRate\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

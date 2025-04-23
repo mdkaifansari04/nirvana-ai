@@ -44,7 +44,7 @@ export const generateMicroExerciseValidation = (req: CustomRequest, res: Respons
   const schema = Joi.object({
     sessionGoal: Joi.string().required(),
     primaryEmotion: Joi.string().required(),
-    metalHealthRate: Joi.number().min(1).max(10).required(),
+    mentalHealthRate: Joi.number().min(1).max(10).required(),
   });
 
   validateSchema({ schema, req, next });

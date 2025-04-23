@@ -15,7 +15,7 @@ export const getMicroExerciseReportById = async (id: string) => {
    return data.data;
 };
 
-export const generateMicroExercise = async (body: { sessionGoal: string; primaryEmotion: string; metalHealthRate: number }) => {
+export const generateMicroExercise = async (body: { sessionGoal: string; primaryEmotion: string; mentalHealthRate: number }) => {
    const { data } = await microExerciseApi.post<Response<GeneratedExercisesQuestion>>('/generate', body);
    return data.data;
 };

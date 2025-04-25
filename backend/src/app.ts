@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://nirawana-ai.vercel.app'"],
     credentials: true,
   })
 );
@@ -22,14 +22,6 @@ app.use(clerkMiddleware());
 // app.use(requireAuth());
 
 app.use(morgan("dev"));
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 app.use(express.json());
 app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({

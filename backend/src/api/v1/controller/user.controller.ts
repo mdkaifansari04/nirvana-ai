@@ -7,8 +7,7 @@ import { User } from "../models/user.model";
 // Create a new user
 export const createUser = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
-    const { clerkId, email, name } = req.value;
-    const user = await User.create({ clerkId, email, name });
+    const user = await User.create(req.value);
 
     res.status(201).json({
       success: true,

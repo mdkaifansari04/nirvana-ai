@@ -11,6 +11,7 @@ export const userValidation = (req: CustomRequest, _res: Response, next: NextFun
     weight: Joi.string().allow("").optional(),
     gender: Joi.string().allow("").optional(),
     symptom: Joi.array().items(Joi.string()).optional(),
+    age: Joi.number().optional().allow(),
   });
 
   validateSchema({ schema, req, next });

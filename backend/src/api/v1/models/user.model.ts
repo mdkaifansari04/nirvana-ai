@@ -17,6 +17,7 @@ const userSchema = new Schema({
   weight: {
     type: String,
   },
+  age: Number,
   gender: {
     type: String,
   },

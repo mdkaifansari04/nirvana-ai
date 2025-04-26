@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en" suppressHydrationWarning>
-         <body className={`${urbanist.className} scroll-smooth antialiased`}>
+         <body className={`${urbanist.className} scroll-smooth antialiased bg-[#F7F4F2]`}>
             <ClerkProvider>
                <ClientProvider>
                   <ClerkTokenProvider templateName={CLERK_TEMPLATE_NAME}>

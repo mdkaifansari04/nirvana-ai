@@ -1,38 +1,53 @@
+import Image from "next/image";
+import Link from "next/link";
+import { Mockup, MockupFrame } from "@/components/ui/mockup";
+import { ArrowRight } from "lucide-react";
+
 const Hero = () => {
-   return (
-      <section className="bg-[#F5F3F1] py-20 px-6">
-         <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between">
-            <div className="md:w-1/2 text-center mx-auto">
-               <span className="text-sm font-semibold uppercase tracking-wide text-gray-700">Our Mission</span>
+  return (
+    <section className="relative pt-16 pb-8 md:py-24">
+      <div className="container mx-auto text-center">
+        <h1 className="max-w-4xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+          <p className="font-normal">
+            Your <span className="italic">journey</span> to
+          </p>
+          <p className="font-bold">mental wellness</p>
+          <p className="font-normal">
+            starts <span className="italic font-bold">here</span>
+          </p>
+        </h1>
 
-               <h1 className="text-5xl md:text-6xl font-bold my-6 leading-snug text-[#3B2D26]">
-                  Empathic <br /> Mental Health <br />
-                  <span className="text-[#A6563E]">AI Companion</span>
-               </h1>
+        <p className="max-w-2xl mx-auto mt-6 text-xl text-muted-foreground">
+          Step into a world of cutting-edge technology and compassionate care,
+          tailored to your unique needs.
+        </p>
 
-               <p className="text-lg md:text-2xl text-gray-600 mb-8 max-w-xl mx-auto md:mx-0">Step into a world of cutting-edge technology and compassionate care, tailored to your unique needs.</p>
+        <Link
+          href="/sign-up"
+          className="w-56 sm:w-64 md:w-72 mt-10 mx-auto inline-flex items-center justify-center px-8 py-3 text-base md:text-lg font-medium transition-all duration-300 bg-foreground text-background rounded-full hover:bg-foreground/90 hover:scale-105 hover:shadow-lg gap-3 group"
+        >
+          Get Started
+          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+        </Link>
 
-               <div className="flex flex-col sm:flex-row gap-4 justify-center  mx-auto ">
-                  <button type="button" className="bg-[#3B2D26] text-white px-6 py-3 rounded-full">
-                     Try Demo
-                  </button>
-                  <button type="button" className="border border-[#3B2D26] text-[#3B2D26] px-6 py-3 rounded-full">
-                     Get Started
-                  </button>
-               </div>
-            </div>
-            {/* <div className="md:w-1/2 flex justify-center mb-10 md:mb-0">
-          <Image
-            src={frameImg}
-            alt="App Mockups"
-            className="w-full h-auto max-w-xl"
-            priority
-            quality={90}
-          />
-        </div> */}
-         </div>
-      </section>
-   );
+        <div className="relative mt-16">
+          <MockupFrame>
+            <Mockup type="responsive">
+              <Image
+                src="/hero.png"
+                alt="Nirvana AI Interface"
+                width={5000}
+                height={5000}
+                className="w-full h-full"
+                priority
+              />
+            </Mockup>
+          </MockupFrame>
+          <div className="rounded-b-lg absolute bottom-0 left-0 right-0 w-full h-[100px] md:h-[200px] lg:h-[300px] bg-gradient-to-t from-secondary/80 to-transparent z-10" />
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Hero;

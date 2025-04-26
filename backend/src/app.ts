@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://nirawana-ai.vercel.app"],
+    origin: ["http://localhost:3000", "https://nirwana-ai.vercel.app"],
     credentials: true,
   })
 );

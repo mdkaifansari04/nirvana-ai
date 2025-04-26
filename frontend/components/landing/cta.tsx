@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Cta = () => {
   return (
-    <section className="relative bg-white border border-amber-900 text-black px-6 py-20 rounded-[2.5rem] mt-16 sm:mx-8 md:mx-16 shadow-lg overflow-hidden">
+    <section className="relative border border-amber-900 text-black px-6 py-20 rounded-[2.5rem] mt-16 sm:mx-8 md:mx-16 shadow-lg overflow-hidden">
       <svg
         className="absolute -top-10 -right-10 w-64 h-64 text-black/10 rotate-12"
         fill="none"

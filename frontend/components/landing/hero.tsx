@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <section className="relative pt-16 pb-8 md:py-24">
       <div className="container mx-auto text-center">
-        <h1 className="max-w-4xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+        <h1 className="max-w-4xl mx-auto text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
           <p className="font-normal">
             Your <span className="italic">journey</span> to
           </p>

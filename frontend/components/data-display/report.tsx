@@ -105,7 +105,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </div>
          {/* Header Section */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex flex-col md:flex-row justify-between gap-4">
                   <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </Card>
          {/* Mood Summary */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex items-center gap-2 mb-4">
                   <BarChart3 className="h-5 w-5 text-primary dark:text-purple-400" />
@@ -184,7 +184,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </Card>
          {/* Reflection Analysis */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex items-center gap-2 mb-4">
                   <FileText className="h-5 w-5 text-primary dark:text-purple-400" />
@@ -197,7 +197,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </Card>
          {/* Exercise QnA */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex items-center gap-2 mb-4">
                   <MessageSquare className="h-5 w-5 text-primary dark:text-purple-400" />
@@ -241,7 +241,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </Card>
          {/* MCQ Evaluation */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex items-center gap-2 mb-4">
                   <BrainCircuit className="h-5 w-5 text-primary dark:text-purple-400" />
@@ -275,7 +275,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </Card>
          {/* Final Reflection */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex items-center gap-2 mb-4">
                   <Sparkles className="h-5 w-5 text-primary dark:text-purple-400" />
@@ -306,7 +306,7 @@ export default function ReportPage({ report }: ReportPageProps) {
             </div>
          </Card>
          {/* Progress Insights */}
-         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-gray-800 border-none">
+         <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">
             <div className="p-6">
                <div className="flex items-center gap-2 mb-4">
                   <TrendingUp className="h-5 w-5 text-primary dark:text-purple-400" />

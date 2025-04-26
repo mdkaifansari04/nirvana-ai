@@ -28,9 +28,7 @@ export default function Footer() {
                ))}
             </nav>
 
-            <p className="text-s text-secondary mb-1">
-               © COPYRIGHT {new Date().getFullYear()}. ALL RIGHTS RESERVED •{' '}
-            </p>
+            <p className="text-s text-secondary mb-1">© COPYRIGHT {new Date().getFullYear()}. ALL RIGHTS RESERVED • </p>
 
             <p className="text-s text-secondary">Built by Xcoders</p>
          </div>

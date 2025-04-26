@@ -9,9 +9,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useCallback, useEffect } from 'react';
 
 const steps = [
-   { id: 0, name: 'Personal Info' },
-   { id: 1, name: 'Health Data' },
-   { id: 2, name: 'Symptoms' },
+   { id: 0, name: 'Health Info' },
+   { id: 1, name: 'Symptoms' },
 ];
 
 export default function OnboardPage() {
@@ -21,7 +20,7 @@ export default function OnboardPage() {
    const [healthInput, setHealthInput] = useState('');
    const [stepValidationState, setStepValidationState] = useState<boolean[]>([false, false, true]);
 
-   const { email, setEmail, age, setAge, weight, setWeight, gender, setGender, name, setName, healthSymptoms, setHealthSymptoms } = useOnboardingStore();
+   const { age, setAge, weight, setWeight, gender, setGender, healthSymptoms, setHealthSymptoms } = useOnboardingStore();
 
    const validateStep = useCallback(
       (step: number): boolean => {
@@ -29,22 +28,7 @@ export default function OnboardPage() {
          let isValid = true;
 
          switch (step) {
-            case 0: // Personal Info step (Name, Age, Email)
-               // Validate email
-               if (!email) {
-                  newErrors.email = 'Email is required';
-                  isValid = false;
-               } else if (!/\S+@\S+\.\S+/.test(email)) {
-                  newErrors.email = 'Email is invalid';
-                  isValid = false;
-               }
-
-               // Validate name
-               if (!name) {
-                  newErrors.name = 'Name is required';
-                  isValid = false;
-               }
-
+            case 0: // Health Data step (Age, Weight, Gender)
                // Validate age
                if (!age) {
                   newErrors.age = 'Age is required';
@@ -53,9 +37,7 @@ export default function OnboardPage() {
                   newErrors.age = 'Age must be a valid number between 1 and 120';
                   isValid = false;
                }
-               break;
 
-            case 1: // Health Data step (Weight, Gender)
                // Validate weight
                if (!weight) {
                   newErrors.weight = 'Weight is required';
@@ -72,7 +54,7 @@ export default function OnboardPage() {
                }
                break;
 
-            case 2: // Health Symptoms - no required validation
+            case 1: // Health Symptoms - no required validation
                isValid = true;
                break;
          }
@@ -80,7 +62,7 @@ export default function OnboardPage() {
          setErrors(newErrors);
          return isValid;
       },
-      [email, age, name, weight, gender]
+      [age, weight, gender]
    );
 
    // Use a separate effect to update step validation state
@@ -121,8 +103,6 @@ export default function OnboardPage() {
 
    const handleSubmit = () => {
       const userData = {
-         email,
-         name,
          age: Number(age),
          weight: Number(weight),
          gender,
@@ -193,43 +173,11 @@ export default function OnboardPage() {
 
                {/* Step content */}
                <div className="bg-muted/50 border border-border p-4 sm:p-8 rounded-xl shadow-sm">
+                  {/* Health Info step */}
                   {activeStep === 0 && (
-                     <div className="flex flex-col sm:flex-row gap-8">
-                        <div className="space-y-6 flex-1">
-                           <h2 className="text-xl font-semibold text-foreground">Tell us about yourself</h2>
-
-                           {/* Name field */}
-                           <div className="space-y-2">
-                              <label htmlFor="name-input" className="text-sm font-medium">
-                                 Your name
-                              </label>
-                              <Input
-                                 id="name-input"
-                                 type="text"
-                                 placeholder="Your full name"
-                                 value={name}
-                                 onChange={(e) => setName(e.target.value)}
-                                 className={`h-12 text-base ${errors.name ? 'border-red-500' : ''}`}
-                              />
-                              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-                           </div>
-
-                           {/* Email field */}
-                           <div className="space-y-2">
-                              <label htmlFor="email-input" className="text-sm font-medium">
-                                 Your email
-                              </label>
-                              <Input
-                                 id="email-input"
-                                 type="email"
-                                 placeholder="you@example.com"
-                                 value={email}
-                                 onChange={(e) => setEmail(e.target.value)}
-                                 className={`h-12 text-base ${errors.email ? 'border-red-500' : ''}`}
-                              />
-                              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                           </div>
-
+                     <div className="space-y-6">
+                        <h2 className="text-xl sm:text-2xl font-semibold">Health Information</h2>
+                        <div className="space-y-4">
                            {/* Age field */}
                            <div className="space-y-2">
                               <label htmlFor="age-input" className="text-sm font-medium">
@@ -245,92 +193,77 @@ export default function OnboardPage() {
                               />
                               {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
                            </div>
-                        </div>
 
-                        <div className="hidden sm:block flex-1">
-                           <Image src="/user.svg" alt="User illustration" width={300} height={300} className="w-full h-auto" />
+                           {/* Weight field */}
+                           <div className="space-y-2">
+                              <label htmlFor="weight-input" className="text-sm font-medium">
+                                 Your weight (kg)
+                              </label>
+                              <Input
+                                 id="weight-input"
+                                 type="number"
+                                 placeholder="Your weight in kilograms"
+                                 value={weight}
+                                 onChange={(e) => setWeight(e.target.value)}
+                                 className={`h-12 text-base ${errors.weight ? 'border-red-500' : ''}`}
+                              />
+                              {errors.weight && <p className="text-red-500 text-sm">{errors.weight}</p>}
+                           </div>
+
+                           {/* Gender selection */}
+                           <div className="space-y-2">
+                              <p className="text-sm font-medium">Your gender</p>
+                              <div className="grid grid-cols-2 gap-4">
+                                 <button
+                                    type="button"
+                                    onClick={() => setGender('male')}
+                                    className={`h-30 relative flex-1 rounded-2xl overflow-hidden border-2 transition-all ${
+                                       gender === 'male' ? 'border-black' : 'border-neutral-200 hover:border-neutral-300'
+                                    }`}
+                                 >
+                                    <div
+                                       className={`
+                                       p-4 flex items-start
+                                       bg-[#F5F5F5] bg-opacity-30
+                                    `}
+                                    >
+                                       <div className="flex flex-col items-start">
+                                          <span className="flex items-center text-2xl font-medium mb-1">Male</span>
+                                       </div>
+                                       <div className="flex-grow">
+                                          <Image src="/male.svg" width={180} height={180} alt="Male" className="ml-auto" />
+                                       </div>
+                                    </div>
+                                 </button>
+                                 <button
+                                    type="button"
+                                    onClick={() => setGender('female')}
+                                    className={`h-30 relative flex-1 rounded-2xl overflow-hidden border-2 transition-all ${
+                                       gender === 'female' ? 'border-black' : 'border-neutral-200 hover:border-neutral-300'
+                                    }`}
+                                 >
+                                    <div
+                                       className={`
+                                       p-4 flex items-start
+                                       bg-[#F5F5F5] bg-opacity-30
+                                    `}
+                                    >
+                                       <div className="flex flex-col items-start">
+                                          <span className="flex items-center text-2xl font-medium mb-1">Female</span>
+                                       </div>
+                                       <div className="flex-grow">
+                                          <Image src="/female.svg" width={180} height={180} alt="Female" className="ml-auto" />
+                                       </div>
+                                    </div>
+                                 </button>
+                              </div>
+                              {errors.gender && <p className="text-red-500 text-sm mt-2">{errors.gender}</p>}
+                           </div>
                         </div>
                      </div>
                   )}
 
                   {activeStep === 1 && (
-                     <div className="space-y-6">
-                        <h2 className="text-xl font-semibold text-neutral-900">Your health information</h2>
-
-                        {/* Weight field */}
-                        <div className="space-y-2">
-                           <label htmlFor="weight-input" className="text-sm font-medium">
-                              Your weight (in kg)
-                           </label>
-                           <Input
-                              id="weight-input"
-                              type="number"
-                              placeholder="Your weight in kilograms"
-                              value={weight}
-                              onChange={(e) => setWeight(e.target.value)}
-                              className={`h-12 text-base ${errors.weight ? 'border-red-500' : ''}`}
-                           />
-                           {errors.weight && <p className="text-red-500 text-sm">{errors.weight}</p>}
-                        </div>
-
-                        {/* Gender selection */}
-                        <div className="space-y-2">
-                           <label htmlFor="gender-input" className="text-sm font-medium">
-                              Your gender
-                           </label>
-                           {/* Hidden input for accessibility */}
-                           <input type="hidden" id="gender-input" value={gender || ''} aria-hidden="true" />
-                           <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 mt-2">
-                              <button
-                                 type="button"
-                                 onClick={() => setGender('male')}
-                                 className={`h-30 relative flex-1 rounded-2xl overflow-hidden border-2 transition-all ${
-                                    gender === 'male' ? 'border-black' : 'border-neutral-200 hover:border-neutral-300'
-                                 }`}
-                              >
-                                 <div
-                                    className={`
-                        p-4 flex items-start
-                        bg-[#F5F5F5] bg-opacity-30
-                      `}
-                                 >
-                                    <div className="flex flex-col items-start">
-                                       <span className="flex items-center text-2xl font-medium mb-1">Male</span>
-                                    </div>
-                                    <div className="flex-grow">
-                                       <Image src="/male.svg" width={180} height={180} alt="Male" className="ml-auto" />
-                                    </div>
-                                 </div>
-                              </button>
-
-                              <button
-                                 type="button"
-                                 onClick={() => setGender('female')}
-                                 className={`h-30 relative flex-1 rounded-2xl overflow-hidden border-2 transition-all ${
-                                    gender === 'female' ? 'border-black' : 'border-neutral-200 hover:border-neutral-300'
-                                 }`}
-                              >
-                                 <div
-                                    className={`
-                        p-4 flex items-start
-                        bg-[#F5F5F5] bg-opacity-30
-                      `}
-                                 >
-                                    <div className="flex flex-col items-start">
-                                       <span className="flex items-center text-2xl font-medium mb-1">Female</span>
-                                    </div>
-                                    <div className="flex-grow">
-                                       <Image src="/female.svg" width={180} height={180} alt="Female" className="ml-auto" />
-                                    </div>
-                                 </div>
-                              </button>
-                           </div>
-                           {errors.gender && <p className="text-red-500 text-sm mt-2">{errors.gender}</p>}
-                        </div>
-                     </div>
-                  )}
-
-                  {activeStep === 2 && (
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-4">
                            <h2 className="text-xl font-semibold text-neutral-900">Any health symptoms you're experiencing?</h2>

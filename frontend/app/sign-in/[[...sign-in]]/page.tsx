@@ -17,7 +17,7 @@ export default function SignInPage() {
             </div>
             <div className="w-full lg:w-1/2 flex items-center justify-center">
                <div className="w-full max-w-md">
-                  <SignIn path="/sign-in" signUpUrl="/sign-up" afterSignInUrl="/onboard" routing="path" />
+                  <SignIn path="/sign-in" signUpUrl="/sign-up" afterSignInUrl="/dashboard" routing="path" />
                </div>
             </div>
          </div>

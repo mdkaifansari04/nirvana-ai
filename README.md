@@ -44,9 +44,22 @@ A working professional feels overwhelmed by stress but can’t fit traditional t
 
 ### Your Approach:
 
-- Why you chose this problem
-- Key challenges you addressed
-- Any pivots, brainstorms, or breakthroughs during hacking
+**Why we chose this problem:**  
+We built Nirvana.AI because we needed it ourselves. Mental health tools often feel like chores, but we wanted something simple and powerful that helps people offload, understand, and evolve their minds—on their terms.  
+
+**Key challenges we addressed:**  
+1. **Designing the Report Schema:** Structuring a flexible yet detailed JSON schema for AI-generated mental health reports was tricky.  
+2. **Prompt Engineering:** Getting the AI to generate empathetic, human-like reports required refining prompts through experimentation.  
+3. **Data Aggregation:** Combining past conversations, reports, and exercises into meaningful, context-aware outputs was complex.  
+4. **User Privacy:** Ensuring sensitive mental health data was secure and handled with care was critical.  
+
+**Pivots, brainstorms, or breakthroughs:**  
+- Iterated on the schema design to balance detail and flexibility.  
+- Fine-tuned prompts to blend structure with emotional intelligence.  
+- Developed layered methods to feed context into the AI for better outputs.  
+- Implemented encryption and anonymized storage to protect user privacy.  
+
+We didn’t just build this because it sounded cool—we built it because it mattered.
 
 ---
 
@@ -68,24 +81,38 @@ A working professional feels overwhelmed by stress but can’t fit traditional t
 
 ---
 
-<!--
 ## ✨ Key Features
 
-Highlight the most important features of your project:
+- Rich Journaling
+  A beautiful, distraction-free editor for brain dumps, emotional logs, and daily reflections.
 
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
-- ✅ Feature 4
+  ![image](https://github.com/user-attachments/assets/c8748784-72fd-4e89-bb35-f5070cec3b4a)
 
-Add images, GIFs, or screenshots if helpful!
+- AI Chat
+  Talk with an empathetic AI that adapts to your emotional state and history. Not just a bot — a guide.
+
+  ![image](https://github.com/user-attachments/assets/ea15316c-0b6b-4e2f-b858-6c170e74e608)
+
+- Micro-Exercises
+  Quick CBT-based activities to boost resilience, fight spiralling thoughts, and build better habits.
+
+  ![image](https://github.com/user-attachments/assets/0a3ea86c-bd3f-4a43-8661-a985969ccf27)
+
+- Mood Tracking
+  Visualise your emotional health over time with smart analytics, without feeling like you're "being measured."
+
+  ![image](https://github.com/user-attachments/assets/2334982c-c874-4fdd-bcdf-7fdfcf8167bb)
+
+- Privacy First: Fully encrypted, anonymised storage. Your mind is yours alone.
 
 ---
 
 ## 📽️ Demo & Deliverables
 
-- **Demo Video Link:** [Paste YouTube or Loom link here]
+- **Demo Video Link:** [Youtube](https://youtu.be/Yo5_u46kiN0)
+<!--
 - **Pitch Deck / PPT Link:** [Paste Google Slides / PDF link here]
+-->
 
 ---
 
@@ -101,46 +128,60 @@ Add images, GIFs, or screenshots if helpful!
 
 ### Requirements:
 - Node.js
-- Groq API KEY
+- Bun (for package and task management)
+- MongoDB
+- Environment Variables:
+  - Backend:
+    ```dotenv
+    PORT=5500
+    GROQ_API_KEY=
+    MONGO_URL=
+    CLERK_PUBLISHABLE_KEY=
+    CLERK_SECRET_KEY=
+    ```
+  - Frontend:
+    ```dotenv
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+    CLERK_SECRET_KEY=
+    NEXT_PUBLIC_HOST_URL=
+    ```
 
 ### Local Setup:
 ```bash
-# Clone the repo
-git clone https://github.com/your-team/project-name
+# Backend Setup
+cd backend
+bun i # Install dependencies
+bun dev # Start backend server
 
-# Install dependencies
-cd project-name
-npm install
-
-# Start development server
-npm run dev
+# Frontend Setup
+cd frontend
+bun i # Install dependencies
+bun dev # Start frontend server
 ```
 
-Provide any backend/frontend split or environment setup notes here.
+#### Notes:
+- Ensure MongoDB is running and accessible via the `MONGO_URL` environment variable.
+- Obtain and configure the required Clerk API keys (`CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`).
+- The `GROQ_API_KEY` must be set for backend functionality.
 
 ---
 
-## 🧬 Future Scope
+## 🧬 Future Scope  
 
-List improvements, extensions, or follow-up features:
+List of improvements, extensions, or follow-up features:  
 
-- 📈 More integrations
-- 🛡️ Security enhancements
-- 🌐 Localization / broader accessibility
-
----
-
-## 📎 Resources / Credits
-
-- APIs or datasets used
-- Open source libraries or tools referenced
-- Acknowledgements
+- 📈 **More integrations**: Sync with fitness trackers, calendars, and other wellness apps for a holistic experience.  
+- 🛡️ **Security enhancements**: Explore advanced encryption methods and biometric authentication for added safety.  
+- 🧠 **Advanced AI insights**: Introduce predictive analytics and deeper emotional trend analysis.  
 
 ---
 
 ## 🏁 Final Words
 
-Share your hackathon journey — challenges, learnings, fun moments, or shout-outs!
+At HackHazards 2025, we didn’t just code — we solved. The world is drowning in anxiety, overthinking, and burnout, and traditional tools either feel out of reach or too shallow to make a real impact. So, we built **Nirvana.AI**, a mental health companion designed for clarity, depth, and real reflection.  
+
+This journey wasn’t easy. From nailing the perfect AI tone to ensuring user privacy, every step pushed us to think deeper and build smarter. But through late-night brainstorming, countless iterations, and moments of breakthrough, we created something we’re truly proud of.  
+
+Shout-out to our team for their relentless energy and to everyone at HackHazards for inspiring us to tackle what matters. Here’s to building tools that help people breathe easier. 💙
 
 ---
--->

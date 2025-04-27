@@ -91,10 +91,10 @@ export default function ExerciseDashboardPage() {
 
    return (
       <div className="container py-6 px-4 2xl:mx-auto">
-         <div className="flex justify-between items-center mb-6">
+         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-6">
             <h1 className="text-2xl font-bold">Mental Health Assessments</h1>
-            <Link href="/dashboard/exercise/new">
-               <Button>
+            <Link href="/dashboard/exercise/new" className="w-full sm:w-auto">
+               <Button className="w-full sm:w-auto">
                   <ChevronRight className="w-4 h-4" />
                   Start New Assessment
                </Button>

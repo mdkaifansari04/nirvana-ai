@@ -6,7 +6,7 @@ import * as React from 'react';
 import MessageLoading from './message-loading';
 
 // ChatBubble
-const chatBubbleVariant = cva('flex gap-2 max-w-[60%] items-end relative group', {
+const chatBubbleVariant = cva('flex gap-2 max-w-[80%] md:max-w-[60%] items-end relative group', {
    variants: {
       variant: {
          received: 'self-start',

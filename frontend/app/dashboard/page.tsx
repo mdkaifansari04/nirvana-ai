@@ -100,7 +100,7 @@ export default function DashboardPage() {
 
                <Card className="overflow-hidden">
                   <div className="flex flex-col md:flex-row h-full">
-                     <div className="md:w-2/5 p-6 flex items-center">
+                     <div className="md:w-2/5 p-6 py-0 flex items-center">
                         <div>
                            <h3 className="text-xl font-semibold mb-1">Current Mood</h3>
                            <p className="text-sm text-muted-foreground">Your emotional state right now</p>

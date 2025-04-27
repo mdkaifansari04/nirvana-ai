@@ -49,7 +49,7 @@ export default function Journal() {
 
    return (
       <div className="container py-6 px-4 2xl:mx-auto">
-         <div className="flex justify-between items-center mb-6">
+         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-6">
             <div className="flex items-center gap-2">
                <Link href="/dashboard/journal">
                   <Button variant="ghost" size="icon">

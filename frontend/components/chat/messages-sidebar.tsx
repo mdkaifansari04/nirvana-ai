@@ -28,13 +28,12 @@ export function MessagesSidebar({ selectedTopicId, onTopicSelect, resetChat }: T
    };
 
    return (
-      <div className="w-80 border-r bg-background flex flex-col">
+      <div className="w-full border-r bg-background flex flex-col">
          <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold text-lg text-primary" href="/dashboard">
-               <span className="text-primary">🔗</span>
-               Topics
-               {/* <span className="ml-auto text-primary">24</span> */}
+            <Link className="font-semibold text-lg text-primary" href="/dashboard">
+               <span className="text-primary">🔗 Topics</span>
             </Link>
+            <span className="ml-auto text-primary">{chatbots?.length}</span>
          </div>
          <QueryWrapper
             isError={isError}
@@ -59,13 +58,6 @@ export function MessagesSidebar({ selectedTopicId, onTopicSelect, resetChat }: T
                </button>
             ))}
          />
-
-         {/* <div className="mt-auto p-4">
-        <button type="button" className="w-full bg-primary text-primary-foreground rounded-full py-3 px-4 flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
-          <Plus className="h-4 w-4" />
-          Add a New Conversation
-        </button>
-      </div> */}
       </div>
    );
 }

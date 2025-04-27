@@ -310,8 +310,8 @@ export default function OnboardPage() {
                 Next
               </Button>
             ) : (
-              <Button type="button" onClick={handleSubmit} className="w-full sm:w-1/2 h-10 sm:h-12">
-                Submit 🎉
+              <Button disabled={isUpdatingUser} type="button" onClick={handleSubmit} className="w-full sm:w-1/2 h-10 sm:h-12">
+                {isUpdatingUser ? "Submitting... " : "Submit 🎉"}
               </Button>
             )}
           </div>

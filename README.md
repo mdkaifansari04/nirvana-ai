@@ -110,9 +110,7 @@ We didn’t just build this because it sounded cool—we built it because it mat
 ## 📽️ Demo & Deliverables
 
 - **Demo Video Link:** [Youtube](https://youtu.be/Yo5_u46kiN0)
-<!--
-- **Pitch Deck / PPT Link:** [Paste Google Slides / PDF link here]
--->
+- **Pitch Deck / PPT Link:** [PPT](https://drive.google.com/file/d/1zFREp9sex8p9wddV6gfIZxE_opcSbpSg/view?usp=sharing)
 
 ---
 

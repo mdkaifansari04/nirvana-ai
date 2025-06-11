@@ -66,7 +66,7 @@ export interface MicroExercise {
          answers: string[];
       }[];
    };
-   ai_generated_report: string;
+   ai_generated_report: MicroExerciseReport;
    createdAt: string;
    updatedAt: string;
    __v: number;

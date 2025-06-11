@@ -1,10 +1,10 @@
+import { getAuth } from "@clerk/express";
 import type { NextFunction, Response } from "express";
-import { OBJECT_GENERATION_MODEL, TEXT_GENERATION_MODEL } from "../../../constants/llms";
+import { OBJECT_GENERATION_MODEL } from "../../../constants/llms";
 import {
   MICRO_EXERCISE_FEEDBACK_SCHEMA,
   MICRO_EXERCISE_GENERATION_SCHEMA,
-  MICRO_EXERCISE_REPORT_SCHEMA,
-  SESSION_GOALS,
+  MICRO_EXERCISE_REPORT_SCHEMA
 } from "../../../constants/micro-exercises-schema";
 import {
   getUserPromptForReportGeneration,
@@ -19,7 +19,6 @@ import { Chat } from "../models/chat.model";
 import { MicroExercise } from "../models/micro-exercise.model";
 import { Report } from "../models/report.model";
 import { User } from "../models/user.model";
-import { getAuth } from "@clerk/express";
 
 export const generateMicroExercise = async (
   req: CustomRequest,
@@ -101,6 +100,8 @@ export const saveMicroExerciseWithReport = async (
     const { userId } = getAuth(req);
     const filledMicroExercise = req.value;
 
+    console.log('userId', userId);
+
     const user = await User.findOne({ clerkId: userId });
     if (!user) return next(new ErrorResponse("User not found.", 500));
 
@@ -130,7 +131,7 @@ export const saveMicroExerciseWithReport = async (
 
     const aiGeneratedReport = JSON.parse(chat_completion.choices[0]?.message.content ?? "{}");
     const report = await Report.create({ userClerkId: userId, ...aiGeneratedReport });
-    if (!report) return next(new ErrorResponse("Error occured while genearting report.", 500));
+    if (!report) return next(new ErrorResponse("Error occured while generating report.", 500));
 
     const completedExercise = await MicroExercise.create({
       userClerkId: userId,
@@ -181,7 +182,7 @@ export const getMicroExerciseById = async (
     const microExercise = await MicroExercise.findOne({
       _id: microExerciseId,
       userClerkId: userId,
-    });
+    }).populate("ai_generated_report");
 
     if (!microExercise) {
       return next(new ErrorResponse("Micro exercise not found or unauthorized", 404));

@@ -52,3 +52,13 @@ export const getFeedback = async (body: {
    const { data } = await microExerciseApi.post<Response<Feedback>>('/feedback', body);
    return data.data;
 };
+
+export const getMicroExerciseReportByExerciseId = async (exerciseId: string) => {
+   const { data } = await microExerciseApi.get<Response<MicroExerciseReport>>(`/report/${exerciseId}`);
+   return data.data;
+};
+
+export const getMicroExerciseById = async (id: string) => {
+   const { data } = await microExerciseApi.get<Response<MicroExercise>>(`/${id}`);
+   return data.data;
+};

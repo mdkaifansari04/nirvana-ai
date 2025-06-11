@@ -5,36 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getMicroExerciseReportById, getMicroServices } from '@/data-access/micro-exercises';
-import { useQuery } from '@tanstack/react-query';
+import { useGetMicroExerciseById } from '@/hooks/query';
 import { format } from 'date-fns';
-import { ArrowRightCircle, BarChart3, BrainCircuit, Calendar, CheckCircle2, ChevronLeft, Lightbulb, MessageSquare, Sparkles, TrendingUp } from 'lucide-react';
+import { Activity, ArrowRightCircle, BarChart3, Brain, BrainCircuit, Calendar, CalendarDays, CheckCircle2, ChevronLeft, Frown, Lightbulb, MessageSquare, Rocket, Sparkles, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 export default function ExercisePage() {
    const params = useParams();
    const id = params.id as string;
-
-   const { data: exercise, isLoading: exerciseLoading } = useQuery({
-      queryKey: ['exercise', id],
-      queryFn: () => {
-         const exercises = getMicroServices().then((exercises) => exercises.find((e) => e._id === id));
-         return exercises;
-      },
-      enabled: !!id,
-   });
-
-   const { data: report, isLoading: reportLoading } = useQuery({
-      queryKey: ['exercise-report', exercise?.ai_generated_report],
-      queryFn: () => {
-         if (typeof exercise?.ai_generated_report === 'string') {
-            return getMicroExerciseReportById(exercise.ai_generated_report);
-         }
-         return null;
-      },
-      enabled: !!exercise && typeof exercise.ai_generated_report === 'string',
-   });
+   const { data: exercise, isLoading: exerciseLoading } = useGetMicroExerciseById(id)
 
    const formatDate = (dateString: string) => {
       try {
@@ -77,7 +57,7 @@ export default function ExercisePage() {
       return emotions[lowerEmotion] || '🙂';
    };
 
-   if (exerciseLoading || reportLoading) {
+   if (exerciseLoading) {
       return (
          <div className="flex items-center justify-center min-h-screen bg-background">
             <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary" />
@@ -102,13 +82,13 @@ export default function ExercisePage() {
    const moodBefore = exercise.quick_check_in.mood_rating;
    const moodAfter = exercise.user_reflection.mood_rating_after;
 
-   let aiReport = 'No AI analysis available';
-   if (report?.final_reflection?.ai_summary) {
-      aiReport = report.final_reflection.ai_summary;
-   } else if (typeof exercise.ai_generated_report === 'object' && exercise.ai_generated_report) {
-      const reportObj = exercise.ai_generated_report as Record<string, string>;
-      aiReport = reportObj.feedback || reportObj.review || 'No AI analysis available';
+   let ai_summary = 'No AI analysis available';
+   if (exercise?.ai_generated_report?.final_reflection?.ai_summary) {
+      ai_summary = exercise.ai_generated_report.final_reflection.ai_summary;
    }
+
+
+   const ai_report = exercise.ai_generated_report;
 
    return (
       <div className="min-h-screen bg-gradient-to-b from-background to-accent/10 py-10">
@@ -162,12 +142,20 @@ export default function ExercisePage() {
                               <Progress value={moodAfter * 10} className="h-3 rounded-full" />
                            </div>
 
-                           <div className="flex items-center gap-3 p-3 bg-accent rounded-lg mt-4">
+                           <div className="flex items-center gap-3 p-3 bg-accent/50 rounded-lg mt-4">
                               <div className="text-3xl">{getEmotionEmoji(exercise.quick_check_in.primary_emotion)}</div>
                               <div>
                                  <p className="text-sm text-muted-foreground">Primary Emotion</p>
                                  <p className="font-medium text-lg">{exercise.quick_check_in.primary_emotion}</p>
                               </div>
+                           </div>
+                           <div className="flex flex-col gap-1 p-3 bg-accent/50 rounded-lg mt-4">
+                              <p className="text-md text-primary font-semibold flex gap-2 items-center"> <BarChart3 className="w-4 h-4 text-primary" /> Emotion Shift Summary</p>
+                              <p className="font-medium text-sm text-muted-foreground">{ai_report.mood_summary.emotion_shift_summary}</p>
+                           </div>
+                           <div className="flex flex-col gap-2 p-3 bg-accent/50 rounded-lg mt-4">
+                              <p className="text-md text-primary font-semibold flex gap-2 items-center"> <Brain className="w-4 h-4 text-primary" /> Reflection Analysis</p>
+                              <p className="font-medium text-sm text-muted-foreground">{ai_report.reflection_analysis.summary}</p>
                            </div>
                         </div>
                      </CardContent>
@@ -193,6 +181,19 @@ export default function ExercisePage() {
                                  </div>
                               </div>
                            ))}
+                        </div>
+
+                        <div className="bg-background rounded-xl p-5 border border-border mt-4">
+                           <p className="text-base font-semibold mb-4 flex items-center gap-2.5">
+                              <Lightbulb className="h-5 w-5 text-primary" />
+                              Recommendations
+                           </p>
+                           <ul className="space-y-4">
+                              <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
+                                 <ArrowRightCircle className="!h-5 !w-5 text-primary" />
+                                 <span className="text-sm text-foreground/90 w-full">{ai_report.exercise_qna.recommendation}</span>
+                              </li>
+                           </ul>
                         </div>
                      </CardContent>
                   </Card>
@@ -222,7 +223,7 @@ export default function ExercisePage() {
                               <div className="bg-primary/5 p-5 rounded-xl border border-primary/20 shadow-sm">
                                  <div className="flex gap-3">
                                     <Sparkles className="h-5 w-5 text-primary shrink-0 mt-1" />
-                                    <p className="text-card-foreground leading-relaxed">{aiReport}</p>
+                                    <p className="text-card-foreground leading-relaxed">{ai_summary}</p>
                                  </div>
                               </div>
                            </TabsContent>
@@ -259,6 +260,20 @@ export default function ExercisePage() {
                               </div>
                            ))}
                         </div>
+                        <div className="bg-background rounded-xl p-5 border border-border mt-4">
+                           <p className="text-base font-semibold mb-4 flex items-center gap-2.5">
+                              <Lightbulb className="h-5 w-5 text-primary" />
+                              Recommendations
+                           </p>
+                           <ul className="space-y-4">
+                              {ai_report.mcq_evaluation.recommendations.map((recommendation) => (
+                                 <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
+                                    <ArrowRightCircle className="!h-5 !w-5 text-primary" />
+                                    <span className="text-sm text-foreground/90 w-full">{recommendation}</span>
+                                 </li>
+                              ))}
+                           </ul>
+                        </div>
                      </CardContent>
                   </Card>
 
@@ -271,10 +286,28 @@ export default function ExercisePage() {
                         </div>
                      </CardHeader>
                      <CardContent>
-                        <div className="space-y-5">
+                        <div className="space-y-3">
                            <div className="bg-accent/50 rounded-xl p-4 border border-border flex items-center gap-4">
                               <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">
-                                 {moodAfter > moodBefore ? '🚀' : moodAfter === moodBefore ? '🔄' : '🌱'}
+                                 <CalendarDays className="h-5 w-5 text-primary" />
+                              </div>
+                              <div>
+                                 <p className="text-sm text-muted-foreground">Streak</p>
+                                 <p className="font-medium text-lg text-chart-1">
+                                    {ai_report.progress_insights.daily_streak} days
+                                 </p>
+                              </div>
+                           </div>
+                           <div className="bg-accent/50 rounded-xl p-4 border border-border flex items-center gap-4">
+
+                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">
+                                 {moodAfter > moodBefore ? (
+                                    <Rocket className="h-5 w-5 text-primary" />
+                                 ) : moodAfter === moodBefore ? (
+                                    <Activity className="h-5 w-5 text-primary" />
+                                 ) : (
+                                    <Frown className="h-5 w-5 text-primary" />
+                                 )}
                               </div>
                               <div>
                                  <p className="text-sm text-muted-foreground">Mood Change</p>
@@ -286,37 +319,32 @@ export default function ExercisePage() {
                            </div>
 
                            <div className="bg-accent/50 rounded-xl p-4 border border-border flex items-center gap-4">
-                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">💡</div>
+                              <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">
+                                 <Lightbulb className="h-5 w-5 text-primary" />
+                              </div>
                               <div>
                                  <p className="text-sm text-muted-foreground">Key Insight</p>
                                  <p className="font-medium text-lg text-chart-1">
                                     {moodAfter > moodBefore
                                        ? 'This exercise improved your mood'
                                        : moodAfter === moodBefore
-                                         ? 'This exercise maintained your mood'
-                                         : 'This exercise helped process emotions'}
+                                          ? 'This exercise maintained your mood'
+                                          : 'This exercise helped process emotions'}
                                  </p>
                               </div>
                            </div>
-
                            <div className="bg-background rounded-xl p-5 border border-border">
                               <p className="text-base font-semibold mb-4 flex items-center gap-2.5">
                                  <Lightbulb className="h-5 w-5 text-primary" />
                                  Recommendations
                               </p>
                               <ul className="space-y-4">
-                                 <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
-                                    <ArrowRightCircle className="h-5 w-5 text-primary" />
-                                    <span className="text-sm text-foreground/90">Continue with regular assessments to track your mental well-being</span>
-                                 </li>
-                                 <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
-                                    <ArrowRightCircle className="h-5 w-5 text-primary" />
-                                    <span className="text-sm text-foreground/90">Practice mindfulness techniques that resonated with you</span>
-                                 </li>
-                                 <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
-                                    <ArrowRightCircle className="h-5 w-5 text-primary" />
-                                    <span className="text-sm text-foreground/90">Reflect on your answers to gain deeper insight into your thought patterns</span>
-                                 </li>
+                                 {ai_report.progress_insights.recommendations.map((recommendation) => (
+                                    <li className="flex items-start gap-4 p-4 rounded-lg border bg-white">
+                                       <ArrowRightCircle className="!h-5 !w-5 text-primary" />
+                                       <span className="text-sm text-foreground/90 w-full">{recommendation}</span>
+                                    </li>
+                                 ))}
                               </ul>
                            </div>
                         </div>

@@ -10,17 +10,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { MicroExerciseReport } from '@/data-access/response';
 import { format } from 'date-fns';
 import { AlertCircle, BarChart3, BrainCircuit, Calendar, CheckCircle2, Download, FileText, Lightbulb, MessageSquare, Sparkles, Target, TrendingUp } from 'lucide-react';
-import { useState } from 'react';
 
 interface ReportPageProps {
    report: MicroExerciseReport;
 }
 
 export default function ReportPage({ report }: ReportPageProps) {
-   const handleDownloadPDF = () => {
-      // PDF download functionality would be implemented here
-      alert('Downloading PDF report...');
-   };
+
 
    const formatDate = (dateString: string) => {
       try {
@@ -97,12 +93,6 @@ export default function ReportPage({ report }: ReportPageProps) {
             <h1 className="text-3xl font-bold text-primary bg-clip-text">
                Nirwana AI <span className="text-xl font-normal text-gray-700 dark:text-gray-300">Wellness Report</span>
             </h1>
-            <div className="flex gap-2">
-               <Button className="!rounded-sm" variant="outline" size="sm" onClick={handleDownloadPDF}>
-                  <Download className="h-4 w-4 mr-2" />
-                  Download PDF
-               </Button>
-            </div>
          </div>
          {/* Header Section */}
          <Card className="mb-6 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-none">

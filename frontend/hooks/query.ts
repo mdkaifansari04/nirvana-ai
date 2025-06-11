@@ -41,6 +41,13 @@ export const useGetMicroServices = () => {
    });
 };
 
+export const useGetMicroExerciseById = (id: string) => {
+   return useQuery({
+      queryKey: ['getMicroExerciseById', id],
+      queryFn: () => MicroExercise.getMicroExerciseById(id),
+   });
+};
+
 export const useGetMicroExerciseReportById = (id: string) => {
    return useQuery({
       queryKey: ['getMicroExerciseReportById', id],

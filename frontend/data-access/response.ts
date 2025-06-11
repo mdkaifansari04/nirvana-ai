@@ -136,3 +136,8 @@ export interface WellnessCard {
    emoji: string;
    category: string;
 }
+
+export interface Feedback {
+   emoji: string;
+   message: string;
+}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { GeneratedExercisesQuestion, MicroExercise, MicroExerciseReport, Response } from './response';
+import type { Feedback, GeneratedExercisesQuestion, MicroExercise, MicroExerciseReport, Response } from './response';
 import tokenInterceptors from './token-interceptor';
 
 const microExerciseApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/micro-exercises` });
@@ -43,5 +43,12 @@ export const submitMicroExercise = async (body: {
    };
 }) => {
    const { data } = await microExerciseApi.post<Response<MicroExercise>>('/', body);
+   return data.data;
+};
+
+export const getFeedback = async (body: {
+   userContext: string;
+}) => {
+   const { data } = await microExerciseApi.post<Response<Feedback>>('/feedback', body);
    return data.data;
 };

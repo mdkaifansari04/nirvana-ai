@@ -158,3 +158,29 @@ export const MICRO_EXERCISE_REPORT_SCHEMA = JSON.stringify(
    null,
    4
 );
+
+
+export const MICRO_EXERCISE_FEEDBACK_SCHEMA = JSON.stringify(
+   {
+      title: "Feedback",
+      type: "object",
+      properties: {
+         emoji: {
+            type: "string",
+            title: "Emoji",
+            pattern: "^[\\u{1F300}-\\u{1FAFF}\\u{2600}-\\u{26FF}]+$",
+            description: "An emoji that reflects the mood or feedback",
+         },
+         message: {
+            type: "string",
+            title: "Motivational Message",
+            description: "Short uplifting message or affirmation",
+            minLength: 5,
+            maxLength: 120,
+         },
+      },
+      required: ["emoji", "message"],
+   },
+   null,
+   2
+);

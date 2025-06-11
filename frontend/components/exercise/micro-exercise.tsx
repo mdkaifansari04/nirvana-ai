@@ -19,10 +19,13 @@ interface MicroExerciseProps {
    sessionGoal: string;
    initialMoodRating: number;
    initialEmotion: string;
+   handleQnaFeedback: (qnaAnswers: { [index: number]: string }) => Promise<void>;
+   handleMcqFeedback: (mcqAnswers: { [index: number]: string }) => Promise<void>;
+   setShowFeedback: (show: boolean) => void;
    onComplete: (data: { qnaAnswers: { [index: number]: string }; mcqAnswers: { [index: number]: string }; moodRatingAfter: number; reflection: string }) => void;
 }
 
-export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating, initialEmotion, onComplete }: MicroExerciseProps) {
+export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating, initialEmotion, onComplete, handleQnaFeedback, handleMcqFeedback }: MicroExerciseProps) {
    const [currentStep, setCurrentStep] = useState(0);
    const [qnaAnswers, setQnaAnswers] = useState<{ [index: number]: string }>({});
    const [mcqAnswers, setMcqAnswers] = useState<{ [index: number]: string }>({});
@@ -34,12 +37,19 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
    // totalSteps = 1 (QnA step) + Number of MCQ questions + 1 (Reflection step)
    const totalSteps = 1 + exerciseContent.core_exercise.mcq.length + 1;
 
-   const handleNext = () => {
+   const handleNext = async () => {
+      if (currentStep === 0) await handleQnaFeedback(qnaAnswers);
+      if (currentStep === totalSteps - 2) {
+         console.log('mcqAnswers', mcqAnswers);
+         await handleMcqFeedback(mcqAnswers);
+      }
       if (currentStep < totalSteps - 1 && isStepValid()) {
          setCurrentStep(currentStep + 1);
       } else if (currentStep === totalSteps - 1) {
          handleSubmit();
       }
+
+
    };
 
    const handleSubmit = () => {

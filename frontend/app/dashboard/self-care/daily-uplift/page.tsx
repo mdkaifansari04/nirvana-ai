@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { ScrollDownText } from '@/components/data-display/scroll-down-text';
 import { FadeImg } from '@/components/shared/fade-img';
-import StackingCards, { StackingCardItem } from '@/fancy/components/blocks/stacking-cards';
+import StackingCards, { StackingCardItem } from '@/components/ui/stacking-cards';
 import { cn } from '@/lib/utils';
 import { useWellnessCardStore } from '@/store/wellness-card';
 

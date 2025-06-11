@@ -1,10 +1,11 @@
 import type { NextFunction, Response } from "express";
 import { OBJECT_GENERATION_MODEL, TEXT_GENERATION_MODEL } from "../../../constants/llms";
 import {
+  MICRO_EXERCISE_FEEDBACK_SCHEMA,
   MICRO_EXERCISE_GENERATION_SCHEMA,
   MICRO_EXERCISE_REPORT_SCHEMA,
   SESSION_GOALS,
-} from "../../../constants/micro-exercises";
+} from "../../../constants/micro-exercises-schema";
 import {
   getUserPromptForReportGeneration,
   MICRO_EXERCISE_FEEDBACK_PROMPT,
@@ -63,7 +64,7 @@ export const getFeedbackForEachStep = async (
   try {
     const { userContext } = req.value
 
-    const systemPrompt = MICRO_EXERCISE_FEEDBACK_PROMPT;
+    const systemPrompt = MICRO_EXERCISE_FEEDBACK_PROMPT + MICRO_EXERCISE_FEEDBACK_SCHEMA;
 
     const chat_completion = await groq.chat.completions.create({
       messages: [
@@ -76,12 +77,13 @@ export const getFeedbackForEachStep = async (
           content: `This is user context to a reflection or MCQ question: ${userContext}`,
         },
       ],
-      model: TEXT_GENERATION_MODEL,
+      model: OBJECT_GENERATION_MODEL,
       temperature: 0.4,
       stream: false,
+      response_format: { type: "json_object" },
     });
 
-    const feedback = chat_completion.choices?.[0]?.message?.content ?? "";
+    const feedback = JSON.parse(chat_completion.choices?.[0]?.message?.content ?? "{}");
     res.status(200).json({ success: true, data: feedback });
 
   } catch (error) {

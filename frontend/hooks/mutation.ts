@@ -54,3 +54,10 @@ export const useGetWellnessCard = () => {
       mutationFn: WellnessCard.getWellnessCard,
    });
 };
+
+export const useGetFeedback = () => {
+   return useMutation({
+      mutationKey: ['getFeedback'],
+      mutationFn: MicroExercise.getFeedback,
+   });
+};

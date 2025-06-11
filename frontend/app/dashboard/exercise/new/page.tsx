@@ -1,8 +1,12 @@
 'use client';
 
+import { FeedbackModal } from '@/components/data-display/feedback-modal';
 import { CoreExercise } from '@/components/exercise/core-exercise';
 import { MicroExercise } from '@/components/exercise/micro-exercise';
 import { SessionSetup } from '@/components/exercise/session-setup';
+import { Feedback } from '@/data-access/response';
+import { useGetFeedback } from '@/hooks/mutation';
+import { useToast } from '@/hooks/use-toast';
 import useMicroExerciseStore from '@/store/micro-exercise';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -20,18 +24,68 @@ export default function NewExercisePage() {
    const [sessionGoal, setSessionGoal] = useState('');
    const [moodRating, setMoodRating] = useState(5);
    const [primaryEmotion, setPrimaryEmotion] = useState('');
+   const [showFeedback, setShowFeedback] = useState<boolean>(false);
+   const [feedback, setFeedback] = useState<Feedback | null>(null);
    const { generatedQuestion } = useMicroExerciseStore();
-
+   const { mutate: getFeedback } = useGetFeedback();
+   const { toast } = useToast();
    const handleSessionSetup = async (data: { sessionGoal: string; moodRating: number; primaryEmotion: string }) => {
       setSessionGoal(data.sessionGoal);
       setMoodRating(data.moodRating);
       setPrimaryEmotion(data.primaryEmotion);
-
       setCurrentStage(ExerciseStage.MICRO_EXERCISE);
    };
 
    const handleMicroExerciseComplete = async () => {
       router.push('/dashboard/exercise');
+   };
+
+   const handleQnaFeedback = async (qnaAnswers: { [index: number]: string }) => {
+      const userContext = `
+      I have session goal: ${sessionGoal}
+      I have mood rating: ${moodRating}
+      I have primary emotion: ${primaryEmotion}
+
+      I have answered the following questions:
+      ${JSON.stringify(qnaAnswers)}
+      `;
+      getFeedback({ userContext }, {
+         onSuccess: (data) => {
+            setFeedback(data);
+            setShowFeedback(true);
+         },
+         onError: (error) => {
+            toast({
+               title: 'Error',
+               description: 'Failed to get feedback',
+               variant: 'destructive',
+            });
+         },
+      });
+   };
+
+   const handleMcqFeedback = async (mcqAnswers: { [index: number]: string }) => {
+      const userContext = `
+      I have session goal: ${sessionGoal}
+      I have mood rating: ${moodRating}
+      I have primary emotion: ${primaryEmotion}
+
+      I have answered the following multiple choice questions:
+      ${JSON.stringify(mcqAnswers)}
+      `;
+      getFeedback({ userContext }, {
+         onSuccess: (data) => {
+            setFeedback(data);
+            setShowFeedback(true);
+         },
+         onError: (error) => {
+            toast({
+               title: 'Error',
+               description: 'Failed to get feedback',
+               variant: 'destructive',
+            });
+         },
+      });
    };
 
    const renderCurrentStage = () => {
@@ -53,7 +107,16 @@ export default function NewExercisePage() {
 
          case ExerciseStage.MICRO_EXERCISE:
             return generatedQuestion ? (
-               <MicroExercise exerciseContent={generatedQuestion} sessionGoal={sessionGoal} initialMoodRating={moodRating} initialEmotion={primaryEmotion} onComplete={handleMicroExerciseComplete} />
+               <MicroExercise
+                  handleQnaFeedback={handleQnaFeedback}
+                  handleMcqFeedback={handleMcqFeedback}
+                  setShowFeedback={setShowFeedback}
+                  exerciseContent={generatedQuestion}
+                  sessionGoal={sessionGoal}
+                  initialMoodRating={moodRating}
+                  initialEmotion={primaryEmotion}
+                  onComplete={handleMicroExerciseComplete}
+               />
             ) : null;
 
          default:
@@ -80,6 +143,12 @@ export default function NewExercisePage() {
          </div>
 
          {renderCurrentStage()}
+
+         {showFeedback && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex items-center justify-center bg-black/35">
+               <FeedbackModal setShowFeedback={setShowFeedback} feedback={feedback} />
+            </div>
+         )}
       </div>
    );
 }

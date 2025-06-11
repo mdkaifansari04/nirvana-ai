@@ -16,8 +16,6 @@ interface ReportPageProps {
 }
 
 export default function ReportPage({ report }: ReportPageProps) {
-
-
    const formatDate = (dateString: string) => {
       try {
          return format(new Date(dateString), "PPP 'at' p");

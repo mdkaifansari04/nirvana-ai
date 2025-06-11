@@ -49,19 +49,22 @@ export default function NewExercisePage() {
       I have answered the following questions:
       ${JSON.stringify(qnaAnswers)}
       `;
-      getFeedback({ userContext }, {
-         onSuccess: (data) => {
-            setFeedback(data);
-            setShowFeedback(true);
-         },
-         onError: (error) => {
-            toast({
-               title: 'Error',
-               description: 'Failed to get feedback',
-               variant: 'destructive',
-            });
-         },
-      });
+      getFeedback(
+         { userContext },
+         {
+            onSuccess: (data) => {
+               setFeedback(data);
+               setShowFeedback(true);
+            },
+            onError: (error) => {
+               toast({
+                  title: 'Error',
+                  description: 'Failed to get feedback',
+                  variant: 'destructive',
+               });
+            },
+         }
+      );
    };
 
    const handleMcqFeedback = async (mcqAnswers: { [index: number]: string }) => {
@@ -73,19 +76,22 @@ export default function NewExercisePage() {
       I have answered the following multiple choice questions:
       ${JSON.stringify(mcqAnswers)}
       `;
-      getFeedback({ userContext }, {
-         onSuccess: (data) => {
-            setFeedback(data);
-            setShowFeedback(true);
-         },
-         onError: (error) => {
-            toast({
-               title: 'Error',
-               description: 'Failed to get feedback',
-               variant: 'destructive',
-            });
-         },
-      });
+      getFeedback(
+         { userContext },
+         {
+            onSuccess: (data) => {
+               setFeedback(data);
+               setShowFeedback(true);
+            },
+            onError: (error) => {
+               toast({
+                  title: 'Error',
+                  description: 'Failed to get feedback',
+                  variant: 'destructive',
+               });
+            },
+         }
+      );
    };
 
    const renderCurrentStage = () => {

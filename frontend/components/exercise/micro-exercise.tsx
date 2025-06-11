@@ -48,8 +48,6 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
       } else if (currentStep === totalSteps - 1) {
          handleSubmit();
       }
-
-
    };
 
    const handleSubmit = () => {

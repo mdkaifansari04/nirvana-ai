@@ -7,14 +7,30 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useGetMicroExerciseById } from '@/hooks/query';
 import { format } from 'date-fns';
-import { Activity, ArrowRightCircle, BarChart3, Brain, BrainCircuit, Calendar, CalendarDays, CheckCircle2, ChevronLeft, Frown, Lightbulb, MessageSquare, Rocket, Sparkles, TrendingUp } from 'lucide-react';
+import {
+   Activity,
+   ArrowRightCircle,
+   BarChart3,
+   Brain,
+   BrainCircuit,
+   Calendar,
+   CalendarDays,
+   CheckCircle2,
+   ChevronLeft,
+   Frown,
+   Lightbulb,
+   MessageSquare,
+   Rocket,
+   Sparkles,
+   TrendingUp,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 export default function ExercisePage() {
    const params = useParams();
    const id = params.id as string;
-   const { data: exercise, isLoading: exerciseLoading } = useGetMicroExerciseById(id)
+   const { data: exercise, isLoading: exerciseLoading } = useGetMicroExerciseById(id);
 
    const formatDate = (dateString: string) => {
       try {
@@ -87,7 +103,6 @@ export default function ExercisePage() {
       ai_summary = exercise.ai_generated_report.final_reflection.ai_summary;
    }
 
-
    const ai_report = exercise.ai_generated_report;
 
    return (
@@ -150,11 +165,17 @@ export default function ExercisePage() {
                               </div>
                            </div>
                            <div className="flex flex-col gap-1 p-3 bg-accent/50 rounded-lg mt-4">
-                              <p className="text-md text-primary font-semibold flex gap-2 items-center"> <BarChart3 className="w-4 h-4 text-primary" /> Emotion Shift Summary</p>
+                              <p className="text-md text-primary font-semibold flex gap-2 items-center">
+                                 {' '}
+                                 <BarChart3 className="w-4 h-4 text-primary" /> Emotion Shift Summary
+                              </p>
                               <p className="font-medium text-sm text-muted-foreground">{ai_report.mood_summary.emotion_shift_summary}</p>
                            </div>
                            <div className="flex flex-col gap-2 p-3 bg-accent/50 rounded-lg mt-4">
-                              <p className="text-md text-primary font-semibold flex gap-2 items-center"> <Brain className="w-4 h-4 text-primary" /> Reflection Analysis</p>
+                              <p className="text-md text-primary font-semibold flex gap-2 items-center">
+                                 {' '}
+                                 <Brain className="w-4 h-4 text-primary" /> Reflection Analysis
+                              </p>
                               <p className="font-medium text-sm text-muted-foreground">{ai_report.reflection_analysis.summary}</p>
                            </div>
                         </div>
@@ -293,13 +314,10 @@ export default function ExercisePage() {
                               </div>
                               <div>
                                  <p className="text-sm text-muted-foreground">Streak</p>
-                                 <p className="font-medium text-lg text-chart-1">
-                                    {ai_report.progress_insights.daily_streak} days
-                                 </p>
+                                 <p className="font-medium text-lg text-chart-1">{ai_report.progress_insights.daily_streak} days</p>
                               </div>
                            </div>
                            <div className="bg-accent/50 rounded-xl p-4 border border-border flex items-center gap-4">
-
                               <div className="h-12 w-12 rounded-full bg-chart-1/20 flex items-center justify-center text-xl">
                                  {moodAfter > moodBefore ? (
                                     <Rocket className="h-5 w-5 text-primary" />
@@ -328,8 +346,8 @@ export default function ExercisePage() {
                                     {moodAfter > moodBefore
                                        ? 'This exercise improved your mood'
                                        : moodAfter === moodBefore
-                                          ? 'This exercise maintained your mood'
-                                          : 'This exercise helped process emotions'}
+                                         ? 'This exercise maintained your mood'
+                                         : 'This exercise helped process emotions'}
                                  </p>
                               </div>
                            </div>

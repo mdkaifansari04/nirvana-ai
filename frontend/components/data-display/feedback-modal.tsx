@@ -2,7 +2,7 @@ import { ScratchToReveal } from '@/components/magicui/scratch-to-reveal';
 import { Feedback } from '@/data-access/response';
 import { X } from 'lucide-react';
 
-export function FeedbackModal(props: { setShowFeedback: (show: boolean) => void, feedback: Feedback | null }) {
+export function FeedbackModal(props: { setShowFeedback: (show: boolean) => void; feedback: Feedback | null }) {
    return (
       <div className="relative">
          <ScratchToReveal

@@ -74,23 +74,10 @@ export default function SelfCareLabDashboard() {
    const { toast } = useToast();
    const router = useRouter();
    const handleGetWellnessCard = async () => {
-      await getWellnessCard(
-         { userContext: 'I am a student of computer science and engineering' },
-         {
-            onSuccess: (data) => {
-               setWellnessCard(data);
-               router.push('/dashboard/self-care/daily-uplift');
-            },
-            onError: (error) => {
-               toast({
-                  title: 'Error',
-                  description: getErrorMessage(error),
-                  variant: 'destructive',
-               });
-            },
-         }
-      );
+      await getWellnessCard();
+      router.push('/dashboard/self-care/daily-uplift');
    };
+
    return (
       <div className="w-full overscroll-x-hidden min-h-screen bg-slate-50">
          {/* Animated Background Elements */}
@@ -109,7 +96,7 @@ export default function SelfCareLabDashboard() {
             {/* Feature Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                <SelfCareCard feature={wellnessFeatures[0]} index={0} handleClick={handleGetWellnessCard} />
-               <SelfCareCard feature={wellnessFeatures[1]} index={1} handleClick={handleGetWellnessCard} />
+               <SelfCareCard feature={wellnessFeatures[1]} index={1} handleClick={() => router.push('/dashboard/self-care/music-deck')} />
                <SelfCareCard feature={wellnessFeatures[2]} index={2} handleClick={handleGetWellnessCard} />
                <SelfCareCard feature={wellnessFeatures[3]} index={3} handleClick={handleGetWellnessCard} />
                <SelfCareCard feature={wellnessFeatures[4]} index={4} handleClick={handleGetWellnessCard} />

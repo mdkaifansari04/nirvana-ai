@@ -22,7 +22,7 @@ export default function page() {
    const [container, setContainer] = useState<HTMLElement | null>(null);
    const { wellnessCard } = useWellnessCardStore();
    return (
-      <div className="h-[calc(100vh-4rem)] overflow-hidden text-white" ref={(node) => setContainer(node)}>
+      <div className="h-[calc(100vh-5rem)] overflow-auto text-white" ref={(node) => setContainer(node)}>
          <StackingCards totalCards={wellnessCard?.length || 0} scrollOptons={{ container: { current: container } }}>
             <div className="relative h-[620px] w-full z-10 text-2xl md:text-7xl font-bold uppercase flex justify-center items-center text-primary whitespace-pre">
                <ScrollDownText /> ↓

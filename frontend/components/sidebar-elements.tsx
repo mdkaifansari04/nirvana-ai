@@ -37,7 +37,7 @@ export function SidebarElements({ items, iconClassNames }: SidebarElementsProps)
                <div key={item.title} className="flex flex-col">
                   <div
                      className={cn(
-                        'border border-border/20 flex cursor-pointer items-center gap-2 rounded-lg px-3 group-data-[collapsible=icon]:py-4 py-2 text-sm transition-all text-background/50 hover:text-background',
+                        'border border-border/20 flex cursor-pointer items-center gap-2 rounded-xl px-3 group-data-[collapsible=icon]:py-3.5 group-data-[collapsible=icon]:px-2 py-2 text-sm transition-all text-background/50 hover:text-background',
                         isActive && 'bg-accent text-foreground hover:text-foreground/50'
                      )}
                      onClick={() => (hasChildren ? toggleItem(item.title) : null)}
@@ -75,7 +75,7 @@ export function SidebarElements({ items, iconClassNames }: SidebarElementsProps)
                                  key={child.title}
                                  href={child.url}
                                  className={cn(
-                                    'border border-border/20 flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:text-white',
+                                    'border border-border/20 flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition-all hover:text-white',
                                     isChildActive && 'bg-accent text-foreground hover:text-foreground/50'
                                  )}
                               >

@@ -2,6 +2,7 @@ import * as Chat from "@/data-access/chat";
 import * as Journal from "@/data-access/journal";
 import * as MicroExercise from "@/data-access/micro-exercises";
 import * as User from "@/data-access/user";
+import * as WellnessCard from "@/data-access/wellness-card";
 
 import { useMutation } from "@tanstack/react-query";
 
@@ -44,5 +45,13 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationKey: ["user-update"],
     mutationFn: User.updateUser,
+  });
+};
+
+
+export const useGetWellnessCard = () => {
+  return useMutation({
+    mutationKey: ["getWellnessCard"],
+    mutationFn: WellnessCard.getWellnessCard,
   });
 };

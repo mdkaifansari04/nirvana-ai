@@ -1,7 +1,16 @@
 import type { NextFunction, Response } from "express";
-import { OBJECT_GENERATION_MODEL } from "../../../constants/llms";
-import { MICRO_EXERCISE_GENERATION_SCHEMA, MICRO_EXERCISE_REPORT_SCHEMA, SESSION_GOALS } from "../../../constants/micro-exercises";
-import { getUserPromptForReportGeneration, MICRO_EXERCISE_REPORT_PROMPT, MICRO_EXERCISE_SYSTEM_PROMPT } from "../../../constants/prompt";
+import { OBJECT_GENERATION_MODEL, TEXT_GENERATION_MODEL } from "../../../constants/llms";
+import {
+  MICRO_EXERCISE_GENERATION_SCHEMA,
+  MICRO_EXERCISE_REPORT_SCHEMA,
+  SESSION_GOALS,
+} from "../../../constants/micro-exercises";
+import {
+  getUserPromptForReportGeneration,
+  MICRO_EXERCISE_FEEDBACK_PROMPT,
+  MICRO_EXERCISE_REPORT_PROMPT,
+  MICRO_EXERCISE_SYSTEM_PROMPT,
+} from "../../../constants/prompt";
 import ErrorResponse from "../../../helper/errorResponse";
 import { groq } from "../../../lib/groq";
 import type { CustomRequest } from "../../../types";
@@ -11,7 +20,11 @@ import { Report } from "../models/report.model";
 import { User } from "../models/user.model";
 import { getAuth } from "@clerk/express";
 
-export const generateMicroExercise = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const generateMicroExercise = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { sessionGoal, primaryEmotion, mentalHealthRate } = req.value;
 
@@ -38,11 +51,50 @@ export const generateMicroExercise = async (req: CustomRequest, res: Response, n
     res.status(200).json({ success: true, data: exerciseContent });
   } catch (error) {
     console.error(error);
-    next(error);
+    next(new ErrorResponse("Failed to generate micro exercise : " + error, 500));
   }
 };
 
-export const saveMicroExerciseWithReport = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const getFeedbackForEachStep = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userContext } = req.value
+
+    const systemPrompt = MICRO_EXERCISE_FEEDBACK_PROMPT;
+
+    const chat_completion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
+        {
+          role: "user",
+          content: `This is user context to a reflection or MCQ question: ${userContext}`,
+        },
+      ],
+      model: TEXT_GENERATION_MODEL,
+      temperature: 0.4,
+      stream: false,
+    });
+
+    const feedback = chat_completion.choices?.[0]?.message?.content ?? "";
+    res.status(200).json({ success: true, data: feedback });
+
+  } catch (error) {
+    console.error(error);
+    next(new ErrorResponse("Failed to get feedback for each step : " + error, 500));
+  }
+};
+
+export const saveMicroExerciseWithReport = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { userId } = getAuth(req);
     const filledMicroExercise = req.value;
@@ -64,7 +116,12 @@ export const saveMicroExerciseWithReport = async (req: CustomRequest, res: Respo
         { role: "system", content: systemPrompt },
         {
           role: "user",
-          content: getUserPromptForReportGeneration({ user, filledMicroExercise, pastConversations: messages, pastReports: reports }),
+          content: getUserPromptForReportGeneration({
+            user,
+            filledMicroExercise,
+            pastConversations: messages,
+            pastReports: reports,
+          }),
         },
       ],
     });
@@ -87,11 +144,15 @@ export const saveMicroExerciseWithReport = async (req: CustomRequest, res: Respo
     res.status(200).json({ success: true, data: microExercise });
   } catch (error) {
     console.error("Error saving micro exercise:", error);
-    next(error);
+    next(new ErrorResponse("Failed to save micro exercise : " + error, 500));
   }
 };
 
-export const getUserMicroExercises = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const getUserMicroExercises = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { userId } = getAuth(req);
 
@@ -102,11 +163,15 @@ export const getUserMicroExercises = async (req: CustomRequest, res: Response, n
     res.status(200).json({ success: true, data: microExercises });
   } catch (error) {
     console.error(error);
-    next(error);
+    next(new ErrorResponse("Failed to get user micro exercises : " + error, 500));
   }
 };
 
-export const getMicroExerciseById = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const getMicroExerciseById = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { userId } = getAuth(req);
     const { microExerciseId } = req.params;
@@ -123,11 +188,15 @@ export const getMicroExerciseById = async (req: CustomRequest, res: Response, ne
     res.status(200).json({ success: true, data: microExercise });
   } catch (error) {
     console.error("Error fetching micro exercise:", error);
-    next(error);
+    next(new ErrorResponse("Failed to get micro exercise by id : " + error, 500));
   }
 };
 
-export const deleteMicroExercise = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const deleteMicroExercise = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { userId } = getAuth(req);
     const { microExerciseId } = req.params;
@@ -144,7 +213,7 @@ export const deleteMicroExercise = async (req: CustomRequest, res: Response, nex
     res.status(200).json({ success: true, message: "Micro exercise deleted" });
   } catch (error) {
     console.error("Error deleting micro exercise:", error);
-    next(error);
+    next(new ErrorResponse("Failed to delete micro exercise : " + error, 500));
   }
 };
 
@@ -165,6 +234,7 @@ export const getReportById = async (req: CustomRequest, res: Response, next: Nex
     res.status(200).json({ success: true, message: "Report", data: report });
   } catch (error) {
     console.error("Error fetching report:", error);
-    next(error);
+    next(new ErrorResponse("Failed to get report by id : " + error, 500));
   }
 };
+

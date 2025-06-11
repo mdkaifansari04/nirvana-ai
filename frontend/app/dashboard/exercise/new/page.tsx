@@ -9,8 +9,7 @@ import { useState } from 'react';
 
 enum ExerciseStage {
    SETUP = 0,
-   CORE_EXERCISE = 1,
-   MICRO_EXERCISE = 2,
+   MICRO_EXERCISE = 1,
 }
 
 export default function NewExercisePage() {
@@ -28,10 +27,6 @@ export default function NewExercisePage() {
       setMoodRating(data.moodRating);
       setPrimaryEmotion(data.primaryEmotion);
 
-      setCurrentStage(ExerciseStage.CORE_EXERCISE);
-   };
-
-   const handleStartExercise = () => {
       setCurrentStage(ExerciseStage.MICRO_EXERCISE);
    };
 
@@ -55,9 +50,6 @@ export default function NewExercisePage() {
       switch (currentStage) {
          case ExerciseStage.SETUP:
             return <SessionSetup onComplete={handleSessionSetup} />;
-
-         case ExerciseStage.CORE_EXERCISE:
-            return generatedQuestion ? <CoreExercise exerciseContent={generatedQuestion} sessionGoal={sessionGoal} onStartExercise={handleStartExercise} /> : null;
 
          case ExerciseStage.MICRO_EXERCISE:
             return generatedQuestion ? (
@@ -83,7 +75,7 @@ export default function NewExercisePage() {
                         return <div key={`stage-${String(stage)}`} className={`w-3 h-3 rounded-full ${stageNumber <= currentStage ? 'bg-primary' : 'bg-muted'}`} />;
                      })}
                </div>
-               <span className="text-sm text-muted-foreground">Stage {currentStage + 1} of 3</span>
+               <span className="text-sm text-muted-foreground">Stage {currentStage + 1} of 2</span>
             </div>
          </div>
 

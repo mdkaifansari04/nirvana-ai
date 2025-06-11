@@ -1,4 +1,4 @@
-import { Activity, BarChart2, BookOpen, Bot, FilePlus, Home } from 'lucide-react';
+import { Activity, BarChart2, BookOpen, Bot, FilePlus, HeartHandshake, Home } from 'lucide-react';
 
 export const sidebarData = [
    {
@@ -27,6 +27,11 @@ export const sidebarData = [
       title: 'Micro Exercises',
       url: '/dashboard/exercise',
       icon: Activity,
+   },
+   {
+      title: 'Self Care Lab',
+      url: '/dashboard/self-care',
+      icon: HeartHandshake,
    },
    {
       title: 'Chat',

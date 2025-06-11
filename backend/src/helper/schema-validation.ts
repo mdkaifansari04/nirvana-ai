@@ -8,10 +8,8 @@ export const validateSchema = ({ schema, req, next }: { schema: Schema; req: Cus
 
   if (error) {
     console.error("Validation error ->", error.details); // 👈 Add this
-    return next(error);
+    return next(new ErrorResponse(error.details.map((detail) => detail.message).join(", "), 400));
   }
-  console.log(req.body);
-
   req.value = value;
   next();
 };

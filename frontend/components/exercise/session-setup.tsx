@@ -56,17 +56,17 @@ export function SessionSetup({ onComplete }: SessionSetupProps) {
          </CardHeader>
          <CardContent className="space-y-6">
             <div>
-               <h2 className="text-lg font-medium mb-3">What is your goal for today's exercise?</h2>
-               <Input value={sessionGoal} onChange={(e) => setSessionGoal(e.target.value)} placeholder="e.g., Managing anxiety, Improving sleep, etc." className="w-full" />
+               <h2 className="text-lg font-medium mb-3">What would you like to focus on or work through today?</h2>
+               <Input value={sessionGoal} onChange={(e) => setSessionGoal(e.target.value)} placeholder="e.g., I want to feel less anxious about my exam" className="w-full" />
             </div>
 
             <div>
-               <h2 className="text-lg font-medium mb-3">What is your primary emotion right now?</h2>
+               <h2 className="text-lg font-medium mb-3">What emotion feels strongest to you right now?</h2>
                <EmotionSelector selectedEmotion={primaryEmotion} onSelectEmotion={setPrimaryEmotion} />
             </div>
 
             <div>
-               <h2 className="text-lg font-medium mb-3">How would you rate your mental well-being?</h2>
+               <h2 className="text-lg font-medium mb-3">If you had to describe your mental space today on a scale of 1 to 10, what would it be?</h2>
                <MoodRating value={moodRating} onChange={setMoodRating} />
             </div>
 

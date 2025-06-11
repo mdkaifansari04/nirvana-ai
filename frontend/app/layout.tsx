@@ -33,11 +33,6 @@ export default function RootLayout({
                 {children}
                 <Toaster />
               </main>
-              <Script
-                defer
-                data-domain="www.nirwana-ai.vercel.app"
-                src="https://getanalyzr.vercel.app/tracking-script.js"
-              />
             </ClerkTokenProvider>
           </ClientProvider>
         </ClerkProvider>

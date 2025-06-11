@@ -49,3 +49,12 @@ export const generateMicroExerciseValidation = (req: CustomRequest, res: Respons
 
   validateSchema({ schema, req, next });
 };
+
+
+export const contextValidation = (req: CustomRequest, res: Response, next: NextFunction) => {
+  const schema = Joi.object().keys({
+    userContext: Joi.string().required(),
+  })
+
+  validateSchema({ schema, req, next });
+}

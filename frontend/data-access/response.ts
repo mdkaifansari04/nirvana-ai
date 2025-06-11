@@ -129,3 +129,11 @@ export interface GeneratedExercisesQuestion {
       mcq: { question: string; options: string[] }[];
    };
 }
+
+
+export interface WellnessCard {
+   quote: string;
+   action: string;
+   emoji: string;
+   category: string;
+}

@@ -5,6 +5,7 @@ import microExerciseRouter from './micro-exercise/router';
 import journalRouter from './journal/router';
 import userRouter from './user/router';
 import chatRouter from './chat/router';
+import wellnessCardRouter from './wellness-card/route';
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use('/users', userRouter);
 router.use('/micro-exercises', microExerciseRouter);
 router.use('/journals', journalRouter);
 router.use('/chat', chatRouter);
+router.use('/wellness-cards', wellnessCardRouter);
 
 export default router;

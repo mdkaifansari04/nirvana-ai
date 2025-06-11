@@ -40,7 +40,7 @@ export default function MindfulBreathing() {
         },
     ];
     return (
-        <DraggableCardContainer className="flex relative justify-center items-center w-full min-h-screen overflow-clip">
+        <DraggableCardContainer className="flex relative justify-center items-center w-full h-[calc(100vh-4rem)] overflow-clip">
             <p className="absolute top-1/2 mx-auto max-w-sm text-2xl font-black text-center -translate-y-3/4 text-neutral-400 md:text-4xl dark:text-neutral-800">
                 If its your first day at Fight Club, you have to fight.
             </p>

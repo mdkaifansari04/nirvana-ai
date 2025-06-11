@@ -18,11 +18,11 @@ const randomImages = [
    'https://plus.unsplash.com/premium_vector-1738935247692-1c2f2c924fd8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjJ8cXRlOUpsdkd3dG98fGVufDB8fHx8fA%3D%3D',
 ];
 
-export default function StackingCardsDemo() {
+export default function page() {
    const [container, setContainer] = useState<HTMLElement | null>(null);
    const { wellnessCard } = useWellnessCardStore();
    return (
-      <div className="h-[620px] overflow-auto text-white" ref={(node) => setContainer(node)}>
+      <div className="h-[calc(100vh-4rem)] overflow-hidden text-white" ref={(node) => setContainer(node)}>
          <StackingCards totalCards={wellnessCard?.length || 0} scrollOptons={{ container: { current: container } }}>
             <div className="relative h-[620px] w-full z-10 text-2xl md:text-7xl font-bold uppercase flex justify-center items-center text-primary whitespace-pre">
                <ScrollDownText /> ↓
@@ -31,12 +31,12 @@ export default function StackingCardsDemo() {
                return (
                   <StackingCardItem key={index} index={index} className="h-[620px]">
                      <div className={cn(bgColors[index % bgColors.length], 'h-[80%] sm:h-[70%] flex-col sm:flex-row aspect-video px-8 py-10 flex w-11/12 rounded-3xl mx-auto relative')}>
-                        <div className="flex-1 flex flex-col justify-center">
-                           <h3 className="font-bold text-2xl mb-5 text-primary">{quote}</h3>
+                        <div className="flex flex-col flex-1 justify-center">
+                           <h3 className="mb-5 text-2xl font-bold text-primary">{quote}</h3>
                            <p className="text-secondary-foreground">{action}</p>
                         </div>
 
-                        <div className="w-full sm:w-1/2 rounded-xl aspect-video relative overflow-hidden">
+                        <div className="overflow-hidden relative w-full rounded-xl sm:w-1/2 aspect-video">
                            <FadeImg src={randomImages[index % randomImages.length]} alt={quote} className="object-cover w-full h-full" />
                         </div>
                      </div>

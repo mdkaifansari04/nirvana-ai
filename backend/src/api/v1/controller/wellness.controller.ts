@@ -9,6 +9,7 @@ import { groq } from "lib/groq";
 import { WELLNESS_CARD_GENERATION_SCHEMA } from "constants/wellness-card";
 import { OBJECT_GENERATION_MODEL } from "constants/llms";
 import ErrorResponse from "helper/errorResponse";
+import { Report } from "../models/report.model";
 
 export const getWellness = async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
@@ -55,13 +56,16 @@ export const deleteWellnessCard = async (req: CustomRequest, res: Response, next
 
 export const generateWellnessCard = async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
-        const { userContext } = req.value;
         const systemPrompt = WELLNESS_CARD_PROMPT + WELLNESS_CARD_GENERATION_SCHEMA;
+        const { userId } = getAuth(req);
 
+        const reports = await Report.find({ userClerkId: userId })
+            .sort({ createdAt: -1 })
+            .limit(2);
         const chat_completion = await groq.chat.completions.create({
             messages: [
                 { role: "system", content: systemPrompt },
-                { role: "user", content: userContext },
+                { role: "user", content: reports.map((report) => report).join("\n") },
             ],
             model: OBJECT_GENERATION_MODEL,
             temperature: 0.4,

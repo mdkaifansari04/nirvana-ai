@@ -130,7 +130,6 @@ export interface GeneratedExercisesQuestion {
    };
 }
 
-
 export interface WellnessCard {
    quote: string;
    action: string;

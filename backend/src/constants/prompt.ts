@@ -178,6 +178,6 @@ Tone: Calm, supportive, human.
 
 (make sure that whatever you are generating is relevant to the user context provided. Also the motivation should be relevant to the user context and the action should be relevant to the user context)
 
-[atleast 4 cards]
+[atleast 5 cards]
 you need to generate the card in JSON format like: 
 `;

@@ -50,5 +50,5 @@ export const WELLNESS_CARD_GENERATION_SCHEMA = JSON.stringify(
         type: 'object',
     },
     null,
-    4
+    5
 );

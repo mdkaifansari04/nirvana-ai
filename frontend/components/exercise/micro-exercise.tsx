@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { MoodRating } from './mood-rating';
 import { MultipleChoice } from './multiple-choice';
 import { QuestionAnswer } from './question-answer';
+import { useRouter } from 'next/navigation';
 
 interface MicroExerciseProps {
    exerciseContent: GeneratedExercisesQuestion;
@@ -33,6 +34,7 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
    const [reflection, setReflection] = useState('');
    const { mutate: submitMicroExercise, isPending } = useSubmitMicroExercise();
    const { toast } = useToast();
+   const router = useRouter();
 
    // totalSteps = 1 (QnA step) + Number of MCQ questions + 1 (Reflection step)
    const totalSteps = 1 + exerciseContent.core_exercise.mcq.length + 1;
@@ -75,7 +77,7 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
       };
 
       submitMicroExercise(submissionData, {
-         onSuccess: () => {
+         onSuccess: (response) => {
             toast({
                title: 'Exercise submitted successfully',
                description: 'Your exercise has been saved to the database',
@@ -86,7 +88,9 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
                moodRatingAfter,
                reflection,
             });
+            router.push(`/dashboard/exercise/${response._id}`);
          },
+
          onError: (error) => {
             toast({
                title: 'Error submitting exercise',

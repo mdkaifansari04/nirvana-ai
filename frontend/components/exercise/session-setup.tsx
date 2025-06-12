@@ -30,10 +30,6 @@ export function SessionSetup({ onComplete }: SessionSetupProps) {
             { sessionGoal, primaryEmotion, mentalHealthRate: moodRating },
             {
                onSuccess: (data) => {
-                  toast({
-                     title: 'Exercise generated successfully',
-                     description: 'Your exercise has been generated successfully',
-                  });
                   setGeneratedQuestion(data);
                   onComplete({ sessionGoal, moodRating, primaryEmotion });
                },

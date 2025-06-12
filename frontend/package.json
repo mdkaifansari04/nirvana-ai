@@ -37,7 +37,7 @@
       "clsx": "^2.1.1",
       "date-fns": "^4.1.0",
       "dompurify": "^3.2.5",
-      "framer-motion": "^12.7.3",
+      "framer-motion": "^12.17.0",
       "gl-matrix": "^3.4.3",
       "html-react-parser": "^5.2.3",
       "lucide-react": "^0.487.0",

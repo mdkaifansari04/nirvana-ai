@@ -26,11 +26,22 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import confetti from "canvas-confetti";
+import { useEffect } from 'react';
 
 export default function ExercisePage() {
    const params = useParams();
    const id = params.id as string;
    const { data: exercise, isLoading: exerciseLoading } = useGetMicroExerciseById(id);
+
+   useEffect(() => {
+      const hasVisited = localStorage.getItem(`exercise-${id}-visited`);
+      console.log('hasVisited', hasVisited);
+      if (!hasVisited) {
+         showConfetti();
+         localStorage.setItem(`exercise-${id}-visited`, 'true');
+      }
+   }, [id]);
 
    const formatDate = (dateString: string) => {
       try {
@@ -38,6 +49,36 @@ export default function ExercisePage() {
       } catch (e) {
          return dateString;
       }
+   };
+
+   const showConfetti = () => {
+      const end = Date.now() + 3 * 1000; // 3 seconds
+      const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+
+      const frame = () => {
+         if (Date.now() > end) return;
+
+         confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            startVelocity: 60,
+            origin: { x: 0, y: 0.5 },
+            colors: colors,
+         });
+         confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            startVelocity: 60,
+            origin: { x: 1, y: 0.5 },
+            colors: colors,
+         });
+
+         requestAnimationFrame(frame);
+      };
+
+      frame();
    };
 
    const getEmotionEmoji = (emotion: string) => {
@@ -111,6 +152,7 @@ export default function ExercisePage() {
             <div className="rounded-xl mb-8 overflow-hidden shadow-md relative">
                <div className="bg-gradient-to-r from-primary/90 to-chart-1/90 p-8 text-white">
                   <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+
                      <div>
                         <h1 className="text-3xl font-bold tracking-tight">Assessment Report: {exercise.session_goal}</h1>
                         <p className="text-primary-foreground/90 mt-2 flex items-center">
@@ -346,8 +388,8 @@ export default function ExercisePage() {
                                     {moodAfter > moodBefore
                                        ? 'This exercise improved your mood'
                                        : moodAfter === moodBefore
-                                         ? 'This exercise maintained your mood'
-                                         : 'This exercise helped process emotions'}
+                                          ? 'This exercise maintained your mood'
+                                          : 'This exercise helped process emotions'}
                                  </p>
                               </div>
                            </div>

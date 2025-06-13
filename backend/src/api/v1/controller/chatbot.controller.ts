@@ -7,7 +7,6 @@ import { getAuth } from "@clerk/express";
 // CREATE chatbot
 export const createChatbot = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const { name, system_prompt, slug, image } = req.value;
-  console.log("value", req.value);
 
   try {
     const chatbot = await Chatbot.create({ name, system_prompt, slug, image });
@@ -28,7 +27,6 @@ export const getAllChatbots = async (req: CustomRequest, res: Response, next: Ne
   try {
     const chatbots = await Chatbot.find({});
     const { userId } = getAuth(req);
-    console.log(userId);
 
     res.status(200).json({
       success: true,

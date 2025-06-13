@@ -43,7 +43,6 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
    const handleNext = async () => {
       if (currentStep === 0) await handleQnaFeedback(qnaAnswers);
       if (currentStep === totalSteps - 2) {
-         console.log('mcqAnswers', mcqAnswers);
          await handleMcqFeedback(mcqAnswers);
       }
       if (currentStep < totalSteps - 1 && isStepValid()) {

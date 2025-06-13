@@ -61,8 +61,6 @@ export default function ChatPage() {
          e.stopPropagation();
       }
 
-      console.log('working', prompt, selectedTopicId);
-
       if (prompt.length === 0) return;
       if (!selectedTopicId)
          return toast({
@@ -78,7 +76,6 @@ export default function ChatPage() {
          },
          {
             onSuccess: (response) => {
-               console.log('response', response);
                handleStream(response);
             },
             onError: (error) => {

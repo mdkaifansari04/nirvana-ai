@@ -126,8 +126,6 @@ const SpeechToTextButton = ({ setText }: { setText: (text: string) => void }) =>
             finalTimeoutRef.current = setTimeout(() => {
                 if (recognitionRef.current) {
                     recognitionRef.current.stop();
-                    // Log the final text when stopping
-                    console.log('Final text:', [...finalisedText, interimText].join(' '));
                     setText([...finalisedText, interimText].join(' '));
                 }
             }, 500); // 500ms delay to capture final words

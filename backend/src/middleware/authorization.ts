@@ -6,7 +6,6 @@ import ErrorResponse from '../helper/errorResponse';
 
 export const verifyUser = (req: CustomRequest, res: Response, next: NextFunction) => {
    const publicKey = process.env.CLERK_PEM_PUBLIC_KEY!;
-   console.log(publicKey);
 
    // Retrieve session token from either `__session` cookie for a same-origin request
    // or from the `Authorization` header for cross-origin requests
@@ -31,7 +30,6 @@ export const verifyUser = (req: CustomRequest, res: Response, next: NextFunction
       // if (decoded.azp && !permittedOrigins.includes(decoded.azp)) {
       //   throw new Error("Invalid 'azp' claim");
       // }
-      console.log(decoded);
 
       res.status(200).json({ sessionToken: decoded });
    } catch (error) {

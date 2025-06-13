@@ -37,7 +37,6 @@ export default function ExercisePage() {
 
    useEffect(() => {
       const hasVisited = localStorage.getItem(`exercise-${id}-visited`);
-      console.log('hasVisited', hasVisited);
       if (!hasVisited) {
          showConfetti();
          localStorage.setItem(`exercise-${id}-visited`, 'true');

@@ -1,6 +1,8 @@
 'use client';
 
 import { Textarea } from '@/components/ui/textarea';
+import TextToSpeech from '../action/text-to-speech';
+
 
 interface QuestionAnswerProps {
    question: string;
@@ -20,6 +22,7 @@ export function QuestionAnswer({ question, answer, onChange, readOnly = false }:
          ) : (
             <Textarea value={answer} onChange={(e) => onChange?.(e.target.value)} placeholder="Type your answer here..." className="w-full min-h-[120px]" />
          )}
+         <TextToSpeech setText={onChange!} />
       </div>
    );
 }

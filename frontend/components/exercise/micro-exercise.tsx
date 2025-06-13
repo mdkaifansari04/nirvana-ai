@@ -8,12 +8,13 @@ import { useSubmitMicroExercise } from '@/hooks/mutation';
 import { useToast } from '@/hooks/use-toast';
 import { getErrorMessage } from '@/lib/utils';
 import type { ExerciseContent, MCQ, QnA } from '@/types';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Mic } from 'lucide-react';
 import { useState } from 'react';
 import { MoodRating } from './mood-rating';
 import { MultipleChoice } from './multiple-choice';
 import { QuestionAnswer } from './question-answer';
 import { useRouter } from 'next/navigation';
+import TextToSpeech from '../action/text-to-speech';
 
 interface MicroExerciseProps {
    exerciseContent: GeneratedExercisesQuestion;
@@ -199,6 +200,7 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
                      <h3 className="text-lg font-medium mb-3">Share your thoughts and feelings</h3>
                      <p className="text-muted-foreground text-sm mb-3">Express any insights or reflections you've had during this exercise.</p>
                      <Textarea value={reflection} onChange={(e) => setReflection(e.target.value)} placeholder="I've realized that..." className="w-full min-h-[150px]" />
+                     <TextToSpeech setText={setReflection} />
                   </div>
                </div>
             )}
@@ -221,3 +223,5 @@ export function MicroExercise({ exerciseContent, sessionGoal, initialMoodRating,
       </Card>
    );
 }
+
+

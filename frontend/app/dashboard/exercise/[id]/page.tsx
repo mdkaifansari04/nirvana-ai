@@ -28,6 +28,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import confetti from "canvas-confetti";
 import { useEffect } from 'react';
+import { SmoothCursor } from '@/components/ui/smooth-cursor';
 
 export default function ExercisePage() {
    const params = useParams();
@@ -152,7 +153,7 @@ export default function ExercisePage() {
             <div className="rounded-xl mb-8 overflow-hidden shadow-md relative">
                <div className="bg-gradient-to-r from-primary/90 to-chart-1/90 p-8 text-white">
                   <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-
+                     <SmoothCursor />
                      <div>
                         <h1 className="text-3xl font-bold tracking-tight">Assessment Report: {exercise.session_goal}</h1>
                         <p className="text-primary-foreground/90 mt-2 flex items-center">

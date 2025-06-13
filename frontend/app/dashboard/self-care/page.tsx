@@ -131,7 +131,7 @@ const SelfCareCard = (props: SelfCareCardProps) => {
             className={`${feature.comingSoon ? 'pointer-events-none' : ''}`}
          >
             <motion.div
-               className={`group relative bg-white rounded-3xl p-8 transition-all duration-300 cursor-pointer border backdrop-blur-sm h-full  ${feature.comingSoon ? 'cursor-not-allowed' : ''}`}
+               className={`group relative bg-white rounded-3xl p-8 transition-all duration-300 cursor-pointer border backdrop-blur-sm min-h-[17rem]  ${feature.comingSoon ? 'cursor-not-allowed' : ''}`}
             >
                {/* Illustration */}
                <div className={`flex justify-center mb-6 ${feature.comingSoon ? 'opacity-50' : ''}`}>

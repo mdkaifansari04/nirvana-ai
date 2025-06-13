@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button, type ButtonProps } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
@@ -23,16 +23,16 @@ const chatBubbleVariant = cva('flex gap-2 max-w-[80%] md:max-w-[60%] items-end r
    },
 });
 
-interface ChatBubbleProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatBubbleVariant> {}
+interface ChatBubbleProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof chatBubbleVariant> { }
 
 const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(({ className, variant, layout, children, ...props }, ref) => (
    <div className={cn(chatBubbleVariant({ variant, layout, className }), 'relative group')} ref={ref} {...props}>
       {React.Children.map(children, (child) =>
          React.isValidElement(child) && typeof child.type !== 'string'
             ? React.cloneElement(child, {
-                 variant,
-                 layout,
-              } as React.ComponentProps<typeof child.type>)
+               variant,
+               layout,
+            } as React.ComponentProps<typeof child.type>)
             : child
       )}
    </div>
@@ -100,7 +100,7 @@ const ChatBubbleTimestamp: React.FC<ChatBubbleTimestampProps> = ({ timestamp, cl
 );
 
 // ChatBubbleAction
-type ChatBubbleActionProps = ButtonProps & {
+type ChatBubbleActionProps = React.ComponentProps<typeof Button> & {
    icon: React.ReactNode;
 };
 

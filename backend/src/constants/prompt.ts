@@ -48,7 +48,7 @@ You Should NOT:
 - Push the user to “just do it” — motivate gently
 
 
-NOTE: Make sure to give short and to the point response, dont give big or lengthy responses.
+NOTE: Make sure to give short and to the point response, and also you should act like a human and not like a robot adding emotion to your response [but shorter].
 ` as const;
 
 export const CHATBOT_SYSTEM_PROMPTS: {

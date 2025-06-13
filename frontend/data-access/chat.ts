@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { Chat, Response } from './response';
 import tokenInterceptors from './token-interceptor';
+import { accessTokenStorage } from '@/utils/token-storage';
 
 const chatApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/chat` });
 chatApi.interceptors.request.use(tokenInterceptors);
@@ -15,6 +16,7 @@ export const chatWithChatbot = async (body: { prompt: string; chatbotId: string 
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',
+         'Authorization': `Bearer ${accessTokenStorage.get()}`
       },
       body: JSON.stringify({
          prompt: body.prompt,

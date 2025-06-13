@@ -5,4 +5,5 @@ const chatRouter = express.Router({ mergeParams: true });
 
 chatRouter.post("/:chatbotId", chatValidation, CC.chat);
 chatRouter.get("/:chatbotId", CC.getChatsByChatbotId);
+
 export default chatRouter;

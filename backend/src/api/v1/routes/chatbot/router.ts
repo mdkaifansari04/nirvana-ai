@@ -6,6 +6,7 @@ const chatbotRouter = express.Router({ mergeParams: true });
 
 chatbotRouter.get('/', CC.getAllChatbots);
 chatbotRouter.post('/', chatbotValidation, CC.createChatbot);
+chatbotRouter.post('/upload/many', CC.uploadManyChatbot);
 chatbotRouter.put('/:id', CC.updateChatbot);
 chatbotRouter.delete('/:id', CC.deleteChatbot);
 chatbotRouter.post('/upload/many', CC.createManyChatbot);

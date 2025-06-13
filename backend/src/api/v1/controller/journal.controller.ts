@@ -2,7 +2,6 @@ import type { Request, Response, NextFunction } from "express";
 import { Journal } from "../models/journal.model";
 import type { CustomRequest } from "../../../types";
 import ErrorResponse from "../../../helper/errorResponse";
-import dayjs from "dayjs";
 import { getAuth } from "@clerk/express";
 import { User } from "../models/user.model";
 
@@ -10,7 +9,6 @@ export const addJournal = async (req: CustomRequest, res: Response, next: NextFu
   try {
     const { userId } = getAuth(req);
     const { title, content } = req.value;
-
     const user = await User.findOne({ clerkId: userId });
     if (!user) return next(new ErrorResponse("User not found", 404));
 

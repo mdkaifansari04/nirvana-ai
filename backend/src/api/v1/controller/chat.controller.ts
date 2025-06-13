@@ -17,7 +17,7 @@ export const chat = async (req: CustomRequest, res: Response, next: NextFunction
     const chatbot = await Chatbot.findById(chatbotId);
     if (!chatbot) return next(new ErrorResponse("Chatbot not found !", 404));
 
-    const systemPrompt = `${CHAT_SYSTEM_PROMPT} and you are specliazed in ${chatbot?.name} and keep this in mind ${chatbot?.system_prompt}`;
+    const systemPrompt = `${CHAT_SYSTEM_PROMPT} and you are specialized in ${chatbot?.name} and keep this in mind ${chatbot?.system_prompt}`;
     const stream = await groq.chat.completions.create({
       model: TEXT_GENERATION_MODEL,
       messages: [
@@ -64,9 +64,6 @@ export const chat = async (req: CustomRequest, res: Response, next: NextFunction
     );
     await chatSession.save();
 
-    if (!chatSession) {
-      console.log("Error occired while saving the chats");
-    }
   } catch (error) {
     console.error(error);
     next(new ErrorResponse(error, 500));
@@ -76,7 +73,6 @@ export const chat = async (req: CustomRequest, res: Response, next: NextFunction
 export const getChatsByChatbotId = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const { userId } = getAuth(req);
-    console.log(userId);
 
     const chats = await Chat.find({ chatbot: req.params.chatbotId, userClerkId: userId });
 

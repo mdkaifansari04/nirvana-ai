@@ -120,3 +120,23 @@ export const createManyChatbot = async (req: CustomRequest, res: Response, next:
     return next(new ErrorResponse("Internal server error", 500));
   }
 };
+
+export const uploadManyChatbot = async (req: CustomRequest, res: Response, next: NextFunction) => {
+  try {
+    const { chatbots } = req.body;
+
+    if (!Array.isArray(chatbots)) {
+      return next(new ErrorResponse("Internal server error", 500));
+    }
+
+    const createdChatbots = await Chatbot.insertMany(chatbots, { ordered: false });
+
+    res.status(201).json({
+      message: "Chatbots created successfully.",
+      data: createdChatbots,
+    });
+  } catch (error) {
+    console.error(error);
+    return next(new ErrorResponse("Internal server error", 500));
+  }
+};

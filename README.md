@@ -1,3 +1,3 @@
 # Nirvana AI
 
-version : 0.0.01
+version : 0.01

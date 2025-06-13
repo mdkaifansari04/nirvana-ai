@@ -74,8 +74,19 @@ export default function SelfCareLabDashboard() {
    const { toast } = useToast();
    const router = useRouter();
    const handleGetWellnessCard = async () => {
-      await getWellnessCard();
-      router.push('/dashboard/self-care/daily-uplift');
+      await getWellnessCard(undefined, {
+         onSuccess: (data) => {
+            setWellnessCard(data);
+            router.push('/dashboard/self-care/daily-uplift');
+         },
+         onError: (error) => {
+            toast({
+               title: 'Error',
+               description: getErrorMessage(error),
+               variant: 'destructive',
+            });
+         },
+      });
    };
 
    return (

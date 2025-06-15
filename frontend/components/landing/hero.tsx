@@ -7,7 +7,7 @@ const Hero = () => {
    return (
       <section className="relative pt-16 pb-8 md:py-24">
          <div className="container mx-auto text-center">
-            <h1 className="max-w-4xl mx-auto text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+            <h1 className="max-w-4xl mx-auto text-4xl md:text-6xl lg:text-7xl font-bold leading-20 text-primary">
                <p className="font-normal">
                   Your <span className="italic">journey</span> to
                </p>
@@ -27,14 +27,14 @@ const Hero = () => {
                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
 
-            <div className="relative mt-16">
+            {/* <div className="relative mt-16">
                <MockupFrame>
                   <Mockup type="responsive">
                      <Image src="/hero.png" alt="Nirvana AI Interface" width={5000} height={5000} className="w-full h-full" priority />
                   </Mockup>
                </MockupFrame>
                <div className="rounded-b-lg absolute bottom-0 left-0 right-0 w-full h-[100px] md:h-[200px] lg:h-[300px] bg-gradient-to-t from-secondary/80 to-transparent z-10" />
-            </div>
+            </div> */}
          </div>
       </section>
    );

@@ -4,6 +4,7 @@ import Footer from '@/components/landing/footer';
 import Hero from '@/components/landing/hero';
 import MentalWellness from '@/components/landing/journey';
 import Navbar from '@/components/landing/navbar';
+import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
 import { BlurFade } from '@/components/ui/blur-fade';
 
 export default function Home() {
@@ -14,6 +15,13 @@ export default function Home() {
          </BlurFade>
          <BlurFade delay={0.2} inView>
             <Hero />
+            <HeroVideoDialog
+               className="block"
+               animationStyle="from-center"
+               videoSrc="https://www.youtube.com/embed/EDoFA7l_a4o?si=EA9-zqboDcX5qMmf"
+               thumbnailSrc="/hero.png"
+               thumbnailAlt="Hero Video"
+            />
          </BlurFade>
          <BlurFade delay={0.4} inView>
             <MentalWellness />

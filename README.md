@@ -1,6 +1,32 @@
 # 🧘‍♀️ Nirvana – Your AI-Powered Mental Wellness Companion
 
-![Nirvana Banner](./assets/banner.png)
+<a name="readme-top"></a>
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <img src="./assets/logo.png" alt="Logo" width="90" height="90">
+
+  <h3 align="center">Nirvana AI</h3>
+
+  <p align="center">
+    Feel Better. Live Brighter. Start with Nirvana.
+    <br />
+    <a href=""><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/mdkaifansari04/nirvana-ai/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mdkaifansari04/nirvana-ai/issues">Request Feature</a>
+  </p>
+</div>
 
 > _"Nirvana isn't just an app — it's a space where your mind can breathe, heal, and grow."_
 

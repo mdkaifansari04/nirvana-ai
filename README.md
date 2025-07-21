@@ -2,17 +2,17 @@
 
 <a name="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Contributors](https://img.shields.io/github/contributors/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/network/members)
+[![Stargazers](https://img.shields.io/github/stars/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/stargazers)
+[![Issues](https://img.shields.io/github/issues/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/issues)
+[![MIT License](https://img.shields.io/github/license/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/blob/main/LICENSE)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-mdkaifansari04-blue?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/mdkaifansari04/)
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="./assets/logo.png" alt="Logo" width="90" height="90">
+  <img src=".github/assets/logo.png" alt="Logo" width="90" height="90">
 
   <h3 align="center">Nirvana AI</h3>
 
@@ -62,12 +62,10 @@ With mindful designs and illustrations, Nirvana helps you reconnect with yoursel
 
 ## 🌟 Visual Preview
 
-### 🖼️ 45+ Mindful Illustrations
-
 _Cute & fun style designed to feel emotionally safe and comforting._ 🤗
 
-![Illustration Sample](./assets/illustration1.png)  
-![Illustration Sample](./assets/illustration2.png)
+![Illustration Sample](.github/assets/banner-1.png)  
+![Illustration Sample](.github/assets/banner-2.png)
 
 ---
 
@@ -96,3 +94,4 @@ _Cute & fun style designed to feel emotionally safe and comforting._ 🤗
 ## 🚀 Let Nirvana Be Your Mental Anchor
 
 Whether it’s midnight anxiety or Monday blues, **Nirvana is here to hold space for your emotions** — every day, in your own way.
+

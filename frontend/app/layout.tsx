@@ -32,7 +32,7 @@ export default function RootLayout({
               <main>
                 {children}
                 <Toaster />
-                <Script defer data-domain="undefined" src="https://getanalyzr.vercel.app/tracking-script.js" />
+                <Script defer data-domain="nirvana-ai-sigma.vercel.app" src="https://getanalyzr.vercel.app/tracking-script.js" />
               </main>
             </ClerkTokenProvider>
           </ClientProvider>

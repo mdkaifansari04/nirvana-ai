@@ -7,7 +7,8 @@
 [![Stargazers](https://img.shields.io/github/stars/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/stargazers)
 [![Issues](https://img.shields.io/github/issues/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/issues)
 [![MIT License](https://img.shields.io/github/license/mdkaifansari04/nirvana-ai?style=for-the-badge)](https://github.com/mdkaifansari04/nirvana-ai/blob/main/LICENSE)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-mdkaifansari04-blue?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/mdkaifansari04/)
+[![X](https://img.shields.io/badge/X-@mdkaifansari04-000000?logo=x&style=for-the-badge)](https://x.com/mdkaifansari04)
+
 
 <!-- PROJECT LOGO -->
 <br />

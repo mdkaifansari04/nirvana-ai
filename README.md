@@ -65,9 +65,12 @@ With mindful designs and illustrations, Nirvana helps you reconnect with yoursel
 
 _Cute & fun style designed to feel emotionally safe and comforting._ 🤗
 
-![Illustration Sample](.github/assets/banner-1.png)  
-![Illustration Sample](.github/assets/banner-2.png)
+<div align="center">
 
+  <img src=".github/assets/banner-2.svg">
+  <img src=".github/assets/banner-3.svg">
+  
+</div>
 ---
 
 ### 📱 App Screens

@@ -73,14 +73,6 @@ _Cute & fun style designed to feel emotionally safe and comforting._ 🤗
 </div>
 ---
 
-### 📱 App Screens
-
-![Screen 1](./assets/screen1.png)  
-![Screen 2](./assets/screen2.png)  
-![Screen 3](./assets/screen3.png)
-
----
-
 ## 🎬 Product Video (Coming Soon)
 
 > _Want a walkthrough?_ A short product demo video will be added here soon.

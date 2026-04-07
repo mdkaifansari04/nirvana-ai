@@ -70,7 +70,7 @@ export const generateWellnessCard = async (userId: string) => {
         { role: "system", content: systemPrompt },
         {
           role: "user",
-          content: reports.map((report) => report).join("\n"),
+          content: reports.map((report: unknown) => report).join("\n"),
         },
       ],
       model: OBJECT_GENERATION_MODEL,

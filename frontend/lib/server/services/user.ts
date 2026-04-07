@@ -14,7 +14,7 @@ export const createUser = async (payload: Partial<UserDocument>) => {
       data: user,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Failed to create user");
+    return rethrowOrWrap(error, "Failed to create user");
   }
 };
 
@@ -29,7 +29,7 @@ export const getAllUsers = async () => {
       data: users,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Failed to fetch users");
+    return rethrowOrWrap(error, "Failed to fetch users");
   }
 };
 
@@ -48,7 +48,7 @@ export const getUserByClerkId = async (clerkId: string) => {
       data: user,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Failed to fetch user");
+    return rethrowOrWrap(error, "Failed to fetch user");
   }
 };
 
@@ -73,7 +73,7 @@ export const updateUser = async (
       data: user,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Failed to update user");
+    return rethrowOrWrap(error, "Failed to update user");
   }
 };
 
@@ -91,6 +91,6 @@ export const deleteUser = async (clerkId: string) => {
       message: "User deleted successfully",
     };
   } catch (error) {
-    rethrowOrWrap(error, "Failed to delete user");
+    return rethrowOrWrap(error, "Failed to delete user");
   }
 };

@@ -14,7 +14,7 @@ export const createChatbot = async (payload: Partial<ChatbotDocument>) => {
       data: chatbot,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -29,7 +29,7 @@ export const getAllChatbots = async () => {
       data: chatbots,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -48,7 +48,7 @@ export const getChatbotById = async (id: string) => {
       data: chatbot,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -72,7 +72,7 @@ export const updateChatbot = async (
       data: chatbot,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -91,7 +91,7 @@ export const deleteChatbot = async (id: string) => {
       data: chatbot,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -112,7 +112,7 @@ const createMany = async (chatbots: unknown[]) => {
       data: createdChatbots,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -135,6 +135,6 @@ export const uploadManyChatbot = async (chatbots: unknown[]) => {
       data: createdChatbots,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };

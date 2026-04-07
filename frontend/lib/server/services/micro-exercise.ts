@@ -54,7 +54,7 @@ export const generateMicroExercise = async ({
 
     return { data: exerciseContent };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to generate micro exercise : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to generate micro exercise : ${String(error)}`);
   }
 };
 
@@ -86,7 +86,7 @@ export const getFeedbackForEachStep = async (userContext: string) => {
 
     return { data: feedback };
   } catch (error) {
-    rethrowOrWrap(
+    return rethrowOrWrap(
       error,
       `Failed to get feedback for each step : ${String(error)}`
     );
@@ -158,7 +158,7 @@ export const saveMicroExerciseWithReport = async (
 
     return { data: microExercise };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to save micro exercise : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to save micro exercise : ${String(error)}`);
   }
 };
 
@@ -172,7 +172,7 @@ export const getUserMicroExercises = async (userId: string) => {
 
     return { data: microExercises };
   } catch (error) {
-    rethrowOrWrap(
+    return rethrowOrWrap(
       error,
       `Failed to get user micro exercises : ${String(error)}`
     );
@@ -197,7 +197,7 @@ export const getMicroExerciseById = async (
 
     return { data: microExercise };
   } catch (error) {
-    rethrowOrWrap(
+    return rethrowOrWrap(
       error,
       `Failed to get micro exercise by id : ${String(error)}`
     );
@@ -222,7 +222,7 @@ export const deleteMicroExercise = async (
 
     return { message: "Micro exercise deleted" };
   } catch (error) {
-    rethrowOrWrap(
+    return rethrowOrWrap(
       error,
       `Failed to delete micro exercise : ${String(error)}`
     );
@@ -247,6 +247,6 @@ export const getReportById = async (userId: string, reportId: string) => {
       data: report,
     };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to get report by id : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to get report by id : ${String(error)}`);
   }
 };

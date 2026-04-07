@@ -86,7 +86,7 @@ export const chatWithChatbot = async ({
       },
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -111,6 +111,6 @@ export const getChatsByChatbotId = async (
       data: chats,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };

@@ -25,6 +25,6 @@ export const transcribeAudioFile = async (filePath: string) => {
       data: transcription.text,
     };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to transcribe audio : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to transcribe audio : ${String(error)}`);
   }
 };

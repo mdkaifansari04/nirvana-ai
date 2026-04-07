@@ -29,7 +29,7 @@ export const createWellnessCard = async (
 
     return { data: wellnessCard };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to create wellness card : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to create wellness card : ${String(error)}`);
   }
 };
 
@@ -40,7 +40,7 @@ export const getWellnessCards = async (userId: string) => {
     const wellnessCards = await WellnessCard.find({ userClerkId: userId });
     return { data: wellnessCards };
   } catch (error) {
-    rethrowOrWrap(error, "Failed to get wellness cards");
+    return rethrowOrWrap(error, "Failed to get wellness cards");
   }
 };
 
@@ -51,7 +51,7 @@ export const deleteWellnessCard = async (id: string) => {
     await WellnessCard.findByIdAndDelete(id);
     return { data: "Wellness card deleted" };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to delete wellness card : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to delete wellness card : ${String(error)}`);
   }
 };
 
@@ -85,6 +85,6 @@ export const generateWellnessCard = async (userId: string) => {
 
     return { data: parsedResponse.wellnessCard };
   } catch (error) {
-    rethrowOrWrap(error, `Failed to generate wellness card : ${String(error)}`);
+    return rethrowOrWrap(error, `Failed to generate wellness card : ${String(error)}`);
   }
 };

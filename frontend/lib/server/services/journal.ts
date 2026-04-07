@@ -31,7 +31,7 @@ export const addJournal = async (
       data: journalEntry,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -50,7 +50,7 @@ export const getUserJournals = async (userId: string) => {
       data: journals,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -72,7 +72,7 @@ export const getJournalById = async (userId: string, journalId: string) => {
       data: journal,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -96,7 +96,7 @@ export const deleteJournalEntry = async (
       message: "Journal deleted",
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };
 
@@ -122,6 +122,6 @@ export const updateJournal = async (
       data: journal,
     };
   } catch (error) {
-    rethrowOrWrap(error, "Internal server error");
+    return rethrowOrWrap(error, "Internal server error");
   }
 };

@@ -1,6 +1,11 @@
 import { describe, expect, test } from 'bun:test';
 
-import { buildApiPath, buildAuthorizationHeader, createApiClient } from '../client';
+import {
+   buildApiPath,
+   buildAuthorizationHeader,
+   createApiClient,
+   getAuthorizationFallbackHeaders,
+} from '../client';
 
 describe('data access client', () => {
    test('buildApiPath always prefixes /api/v1', () => {
@@ -17,6 +22,22 @@ describe('data access client', () => {
    test('buildAuthorizationHeader returns empty object when token is missing', () => {
       expect(buildAuthorizationHeader(null)).toEqual({});
       expect(buildAuthorizationHeader(undefined)).toEqual({});
+   });
+
+   test('buildAuthorizationHeader ignores null-like token strings', () => {
+      expect(buildAuthorizationHeader('null')).toEqual({});
+      expect(buildAuthorizationHeader('undefined')).toEqual({});
+      expect(buildAuthorizationHeader('   ')).toEqual({});
+   });
+
+   test('getAuthorizationFallbackHeaders ignores bearer token for internal /api/v1 routes', () => {
+      expect(getAuthorizationFallbackHeaders('/api/v1/journals', 'token_123')).toEqual({});
+   });
+
+   test('getAuthorizationFallbackHeaders can still provide bearer token for non-internal routes', () => {
+      expect(getAuthorizationFallbackHeaders('/external-api/journals', 'token_123')).toEqual({
+         Authorization: 'Bearer token_123',
+      });
    });
 
    test('createApiClient uses same-origin /api/v1 base with credentials', () => {

@@ -14,6 +14,11 @@ export const ClerkTokenProvider = ({ children, templateName }: ClerkTokenProvide
 
    useEffect(() => {
       const fetchToken = async () => {
+         if (!isSignedIn) {
+            accessTokenStorage.delete();
+            return;
+         }
+
          if (window.Clerk?.session) {
             try {
                const fetchedToken = await window.Clerk.session.getToken({ template: templateName });

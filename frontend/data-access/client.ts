@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { accessTokenStorage } from '@/utils/token-storage';
+import { accessTokenStorage, normalizeTokenValue } from '@/utils/token-storage';
 import tokenInterceptors from './token-interceptor';
 
 export const API_V1_PREFIX = '/api/v1';
@@ -18,17 +18,26 @@ export const buildApiPath = (path: string): string => {
 };
 
 export const buildAuthorizationHeader = (token: string | null | undefined): Record<string, string> => {
-   if (!token) {
+   const normalizedToken = normalizeTokenValue(token);
+   if (!normalizedToken) {
       return {};
    }
 
    return {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${normalizedToken}`,
    };
 };
 
-export const getAuthorizationFallbackHeaders = (): Record<string, string> => {
-   return buildAuthorizationHeader(accessTokenStorage.get());
+const isInternalApiPath = (requestPath: string): boolean => {
+   return requestPath.startsWith(API_V1_PREFIX);
+};
+
+export const getAuthorizationFallbackHeaders = (requestPath: string, tokenOverride?: string | null): Record<string, string> => {
+   if (isInternalApiPath(requestPath)) {
+      return {};
+   }
+
+   return buildAuthorizationHeader(tokenOverride ?? accessTokenStorage.get());
 };
 
 export const createApiClient = (resourcePath: string) => {

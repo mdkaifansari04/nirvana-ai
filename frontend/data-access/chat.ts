@@ -9,12 +9,14 @@ export const getChatsByChatbotId = async (chatbotId: string | null) => {
 };
 
 export const chatWithChatbot = async (body: { prompt: string; chatbotId: string }) => {
-   const response = await fetch(buildApiPath(`/chat/${body.chatbotId}`), {
+   const requestPath = buildApiPath(`/chat/${body.chatbotId}`);
+
+   const response = await fetch(requestPath, {
       method: 'POST',
       credentials: 'include',
       headers: {
          'Content-Type': 'application/json',
-         ...getAuthorizationFallbackHeaders(),
+         ...getAuthorizationFallbackHeaders(requestPath),
       },
       body: JSON.stringify({
          prompt: body.prompt,

@@ -1,8 +1,15 @@
-import { accessTokenStorage } from '@/utils/token-storage';
+import { accessTokenStorage, normalizeTokenValue } from '@/utils/token-storage';
 import type { InternalAxiosRequestConfig } from 'axios';
 
+const INTERNAL_API_PREFIX = '/api/v1';
+
 function tokenInterceptors(config: InternalAxiosRequestConfig) {
-   const token = accessTokenStorage.get();
+   const requestBaseUrl = config.baseURL ?? '';
+   if (requestBaseUrl.startsWith(INTERNAL_API_PREFIX)) {
+      return config;
+   }
+
+   const token = normalizeTokenValue(accessTokenStorage.get());
    if (!config || !token) {
       return config;
    }

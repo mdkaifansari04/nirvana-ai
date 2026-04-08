@@ -13,6 +13,10 @@ const urbanist = Urbanist({
   weight: ["400", "500", "600"],
 });
 
+const clerkPublishableKey =
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ??
+  process.env.CLERK_PUBLISHABLE_KEY;
+
 export const metadata: Metadata = {
   title: APP_NAME,
   description: APP_DESCRIPTION,
@@ -26,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${urbanist.className} scroll-smooth antialiased bg-[#F7F4F2]`}>
-        <ClerkProvider>
+        <ClerkProvider publishableKey={clerkPublishableKey}>
           <ClientProvider>
             <ClerkTokenProvider templateName={CLERK_TEMPLATE_NAME}>
               <main>

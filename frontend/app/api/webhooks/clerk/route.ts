@@ -1,12 +1,10 @@
 'use server';
 
+import { ApiError, services, toErrorPayload } from '@/lib/server';
 import { type WebhookEvent, clerkClient } from '@clerk/nextjs/server';
-import axios from 'axios';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
-
-const userApi = axios.create({ baseURL: process.env.NEXT_PUBLIC_HOST_URL });
 
 export async function POST(req: Request) {
    const SIGNING_SECRET = process.env.SIGNING_SECRET;
@@ -57,30 +55,41 @@ export async function POST(req: Request) {
    const eventType = evt.type;
 
    if (eventType === 'user.created') {
-      const { first_name, last_name, email_addresses, id } = evt.data;
+      try {
+         const { first_name, last_name, email_addresses, id } = evt.data;
+         const primaryEmail = email_addresses[0]?.email_address;
 
-      const { data } = await userApi.post('/users', {
-         clerkId: id,
-         email: email_addresses[0].email_address,
-         name: `${first_name} ${last_name}`,
-      });
+         if (!primaryEmail) {
+            throw new ApiError('Primary email is required', 400);
+         }
 
-      console.log('user', data);
+         const payload = {
+            clerkId: id,
+            email: primaryEmail,
+            name: `${first_name ?? ''} ${last_name ?? ''}`.trim(),
+         } as Parameters<typeof services.userService.createUser>[0];
 
-      if (data?.user) {
-         const client = await clerkClient();
-         client.users.updateUserMetadata(id, {
-            publicMetadata: {
-               userId: data.user?._id,
-               onBoarded: false,
-            },
+         const result = await services.userService.createUser(payload);
+         const user = result.data;
+
+         if (user?._id) {
+            const client = await clerkClient();
+            await client.users.updateUserMetadata(id, {
+               publicMetadata: {
+                  userId: user._id.toString(),
+                  onBoarded: false,
+               },
+            });
+         }
+
+         return NextResponse.json({
+            message: 'User created successfully',
+            user,
          });
+      } catch (error) {
+         const payload = toErrorPayload(error);
+         return NextResponse.json(payload.body, { status: payload.status });
       }
-
-      return NextResponse.json({
-         message: 'User created successfully',
-         user: data.user,
-      });
    }
 
    console.log(`Received webhook with ID ${id} and event type of ${eventType}`);

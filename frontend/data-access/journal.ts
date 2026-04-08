@@ -1,9 +1,7 @@
-import axios from 'axios';
+import { createApiClient } from './client';
 import type { Journal, Response } from './response';
-import tokenInterceptors from './token-interceptor';
 
-const journalApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/journals` });
-journalApi.interceptors.request.use(tokenInterceptors);
+const journalApi = createApiClient('/journals');
 
 export const createJournal = async (body: { title: string; content: string }) => {
    const { data } = await journalApi.post<Response<Journal>>('/', body);

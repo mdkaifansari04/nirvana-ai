@@ -3,7 +3,11 @@ import type { InternalAxiosRequestConfig } from 'axios';
 
 function tokenInterceptors(config: InternalAxiosRequestConfig) {
    const token = accessTokenStorage.get();
-   if (config && token) {
+   if (!config || !token) {
+      return config;
+   }
+
+   if (!config.headers.Authorization) {
       config.headers.Authorization = `Bearer ${token}`;
    }
 

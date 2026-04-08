@@ -1,22 +1,20 @@
-import axios from 'axios';
+import { buildApiPath, createApiClient, getAuthorizationFallbackHeaders } from './client';
 import type { Chat, Response } from './response';
-import tokenInterceptors from './token-interceptor';
-import { accessTokenStorage } from '@/utils/token-storage';
 
-const chatApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/chat` });
-chatApi.interceptors.request.use(tokenInterceptors);
+const chatApi = createApiClient('/chat');
 
 export const getChatsByChatbotId = async (chatbotId: string | null) => {
-   const { data } = await chatApi.get<Response<Chat>>(`/${chatbotId}`, { withCredentials: true });
+   const { data } = await chatApi.get<Response<Chat>>(`/${chatbotId}`);
    return data.data;
 };
 
 export const chatWithChatbot = async (body: { prompt: string; chatbotId: string }) => {
-   const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/chat/${body.chatbotId}`, {
+   const response = await fetch(buildApiPath(`/chat/${body.chatbotId}`), {
       method: 'POST',
+      credentials: 'include',
       headers: {
          'Content-Type': 'application/json',
-         'Authorization': `Bearer ${accessTokenStorage.get()}`
+         ...getAuthorizationFallbackHeaders(),
       },
       body: JSON.stringify({
          prompt: body.prompt,

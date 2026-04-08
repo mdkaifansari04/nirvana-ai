@@ -1,11 +1,9 @@
-import axios from 'axios';
+import { createApiClient } from './client';
 import type { Chatbot, Response } from './response';
-import tokenInterceptors from './token-interceptor';
 
-const chatbotApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/chatbots` });
-chatbotApi.interceptors.request.use(tokenInterceptors);
+const chatbotApi = createApiClient('/chatbots');
 
 export const getChatbots = async () => {
-   const { data } = await chatbotApi.get<Response<Chatbot[]>>('/', { withCredentials: true });
+   const { data } = await chatbotApi.get<Response<Chatbot[]>>('/');
    return data.data;
 };

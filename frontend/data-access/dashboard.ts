@@ -1,18 +1,13 @@
-import axios from 'axios';
+import { createApiClient } from './client';
 import type { Chat, Journal, MicroExercise, Response } from './response';
-import tokenInterceptors from './token-interceptor';
 
-const journalApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/journals` });
-journalApi.interceptors.request.use(tokenInterceptors);
+const journalApi = createApiClient('/journals');
 
-const microExerciseApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/micro-exercises` });
-microExerciseApi.interceptors.request.use(tokenInterceptors);
+const microExerciseApi = createApiClient('/micro-exercises');
 
-const chatApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/chat` });
-chatApi.interceptors.request.use(tokenInterceptors);
+const chatApi = createApiClient('/chat');
 
-const chatbotApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/chatbots` });
-chatbotApi.interceptors.request.use(tokenInterceptors);
+const chatbotApi = createApiClient('/chatbots');
 
 export const getDashboardData = async () => {
    try {

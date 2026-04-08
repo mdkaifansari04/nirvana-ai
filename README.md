@@ -91,3 +91,35 @@ _Cute & fun style designed to feel emotionally safe and comforting._ 🤗
 
 Whether it’s midnight anxiety or Monday blues, **Nirvana is here to hold space for your emotions** — every day, in your own way.
 
+---
+
+## 🛠️ Developer Notes
+
+### Current API Architecture
+
+- Frontend + API run in `frontend` (Next.js app router).
+- All app API calls are same-origin and routed via `/api/v1/*`.
+- Mongoose access and service logic live in `frontend/lib/server/*`.
+- `backend/` is still kept in the repo as a reference snapshot until archival sign-off.
+
+### Local Setup
+
+1. Install deps:
+   - `cd frontend && bun install`
+2. Add envs in `frontend/.env` (copy from `frontend/.env.example`):
+   - `MONGO_URL`
+   - `GROQ_API_KEY`
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` (or `CLERK_PUBLISHABLE_KEY`)
+   - `CLERK_SECRET_KEY`
+   - `SIGNING_SECRET` (for Clerk webhooks)
+3. Start:
+   - `bun run dev`
+
+### Verification Commands
+
+- Unit checks:
+  - `bun test data-access/__tests__/client.test.ts lib/server/__tests__/foundation.test.ts`
+- Full production build:
+  - `bun run build:next`
+- Optional parity smoke (old backend vs new Next routes):
+  - `OLD_API_BASE=http://localhost:5000 NEW_API_BASE=http://localhost:3000 bun run scripts/api-parity-smoke.ts`

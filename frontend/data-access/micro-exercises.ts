@@ -1,9 +1,7 @@
-import axios from 'axios';
+import { createApiClient } from './client';
 import type { Feedback, GeneratedExercisesQuestion, MicroExercise, MicroExerciseReport, Response } from './response';
-import tokenInterceptors from './token-interceptor';
 
-const microExerciseApi = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_HOST_URL}/micro-exercises` });
-microExerciseApi.interceptors.request.use(tokenInterceptors);
+const microExerciseApi = createApiClient('/micro-exercises');
 
 export const getMicroServices = async () => {
    const { data } = await microExerciseApi.get<Response<MicroExercise[]>>('/');

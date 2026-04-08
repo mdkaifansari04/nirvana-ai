@@ -1,12 +1,9 @@
-import axios from 'axios';
+import { createApiClient } from './client';
+import type { Response, WellnessCard } from './response';
 
-import { Response, WellnessCard } from './response';
-
-const wellnessApi = axios.create({
-   baseURL: process.env.NEXT_PUBLIC_HOST_URL,
-});
+const wellnessApi = createApiClient('/wellness-cards');
 
 export const getWellnessCard = async () => {
-   const { data } = await wellnessApi.post<Response<WellnessCard[]>>('/wellness-cards/generate');
+   const { data } = await wellnessApi.post<Response<WellnessCard[]>>('/generate');
    return data.data;
 };

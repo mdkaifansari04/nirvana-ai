@@ -122,8 +122,8 @@ export default function Journal() {
                         <div className="flex items-start gap-2">
                            <Wand2 className="w-4 h-4 text-purple-500 mt-1" />
                            <div>
-                              <h3 className="font-medium text-sm">Auto-Save Feature</h3>
-                              <p className="text-sm text-muted-foreground">Your journal entries auto-save every few seconds, but you can manually save using the Save button.</p>
+                              <h3 className="font-medium text-sm">Manual Save Reminder</h3>
+                              <p className="text-sm text-muted-foreground">Your journal entry is saved only when you click the Save Entry button.</p>
                            </div>
                         </div>
                      </div>

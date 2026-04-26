@@ -56,7 +56,7 @@ export default function JournalPage() {
       <div className="container py-6 px-4 2xl:mx-auto">
          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-6">
             <h1 className="text-2xl font-bold">Journal Analytics</h1>
-            <Link href="/dashboard/exercise/new" className="w-full sm:w-auto">
+            <Link href="/dashboard/journal/create" className="w-full sm:w-auto">
                <Button className="w-full sm:w-auto">
                   <FilePlus className="w-4 h-4" />
                   Create New Entry

@@ -140,7 +140,7 @@ export default function EditJournal({ params }: { params: Promise<{ id: string }
                         <div className="flex items-start gap-2">
                            <Wand2 className="w-4 h-4 text-purple-500 mt-1" />
                            <div>
-                              <h3 className="font-medium text-sm">Auto-Save Feature</h3>
+                              <h3 className="font-medium text-sm">Manual Save Reminder</h3>
                               <p className="text-sm text-muted-foreground">Your changes are not automatically saved. Remember to click the Save Changes button when you're done.</p>
                            </div>
                         </div>

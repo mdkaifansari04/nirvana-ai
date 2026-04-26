@@ -7,6 +7,7 @@ import { PROJECT_PPT_SLIDES, type ProjectPptSlide, type SlideStatus } from '@/li
 import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Grid2x2, Keyboard, Printer } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -15,6 +16,12 @@ const SWIPE_THRESHOLD = 60;
 const statusBadgeStyles: Record<SlideStatus, string> = {
    implemented: 'bg-emerald-100 text-emerald-800 border-emerald-200',
    planned: 'bg-amber-100 text-amber-800 border-amber-200',
+};
+
+const graphicToneStyles: Record<'calm' | 'focus' | 'growth', string> = {
+   calm: 'border-sky-200 bg-sky-50/80',
+   focus: 'border-amber-200 bg-amber-50/80',
+   growth: 'border-emerald-200 bg-emerald-50/80',
 };
 
 const slideVariants = {
@@ -39,6 +46,10 @@ function SlidePanel({
    slide: ProjectPptSlide;
    pageLabel: string;
 }) {
+   const hasGraphic = Boolean(slide.graphic);
+   const imageFitClass = slide.graphic?.imageSrc.endsWith('.svg') ? 'object-contain p-6' : 'object-cover';
+   const graphicToneClass = slide.graphic?.tone ? graphicToneStyles[slide.graphic.tone] : graphicToneStyles.calm;
+
    return (
       <Card className="project-slide border border-border/60 shadow-md bg-card">
          <CardHeader className="space-y-4">
@@ -64,46 +75,77 @@ function SlidePanel({
             ) : null}
          </CardHeader>
 
-         <CardContent className="space-y-5">
-            {slide.sections?.map((section) => (
-               <section
-                  key={`${slide.id}-${section.title}`}
-                  className={cn(
-                     'rounded-xl border p-4',
-                     section.tone === 'problem' && 'border-rose-200 bg-rose-50/80',
-                     section.tone === 'solution' && 'border-emerald-200 bg-emerald-50/80',
-                     (!section.tone || section.tone === 'default') && 'border-border bg-muted/20'
-                  )}
-               >
-                  <h3 className="font-semibold text-foreground">{section.title}</h3>
-                  <ul className="mt-3 space-y-2">
-                     {section.points.map((point) => (
-                        <li key={`${section.title}-${point}`} className="flex items-start gap-2 text-sm leading-relaxed text-foreground/90">
-                           <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                           <span>{point}</span>
-                        </li>
-                     ))}
-                  </ul>
-               </section>
-            ))}
-
-            {slide.cards?.length ? (
-               <div className="grid gap-4 sm:grid-cols-2">
-                  {slide.cards.map((card) => (
-                     <div key={`${slide.id}-${card.title}`} className="rounded-xl border border-border/70 bg-background p-4">
-                        <div className="mb-2 flex items-center justify-between gap-3">
-                           <h3 className="font-semibold text-sm sm:text-base">{card.title}</h3>
-                           <Badge variant="outline" className={statusBadgeStyles[card.status]}>
-                              {card.status === 'implemented' ? 'Implemented' : 'Planned'}
-                           </Badge>
-                        </div>
-                        <p className="text-sm leading-relaxed text-muted-foreground">{card.description}</p>
-                     </div>
+         <CardContent>
+            <div className={cn('space-y-5', hasGraphic && 'lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:gap-5 lg:space-y-0')}>
+               <div className="space-y-5">
+                  {slide.sections?.map((section) => (
+                     <section
+                        key={`${slide.id}-${section.title}`}
+                        className={cn(
+                           'rounded-xl border p-4',
+                           section.tone === 'problem' && 'border-rose-200 bg-rose-50/80',
+                           section.tone === 'solution' && 'border-emerald-200 bg-emerald-50/80',
+                           (!section.tone || section.tone === 'default') && 'border-border bg-muted/20'
+                        )}
+                     >
+                        <h3 className="font-semibold text-foreground">{section.title}</h3>
+                        <ul className="mt-3 space-y-2">
+                           {section.points.map((point) => (
+                              <li key={`${section.title}-${point}`} className="flex items-start gap-2 text-sm leading-relaxed text-foreground/90">
+                                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                                 <span>{point}</span>
+                              </li>
+                           ))}
+                        </ul>
+                     </section>
                   ))}
-               </div>
-            ) : null}
 
-            {slide.footer ? <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-relaxed text-foreground/90">{slide.footer}</div> : null}
+                  {slide.cards?.length ? (
+                     <div className="grid gap-4 sm:grid-cols-2">
+                        {slide.cards.map((card) => (
+                           <div key={`${slide.id}-${card.title}`} className="rounded-xl border border-border/70 bg-background p-4">
+                              <div className="mb-2 flex items-center justify-between gap-3">
+                                 <h3 className="font-semibold text-sm sm:text-base">{card.title}</h3>
+                                 <Badge variant="outline" className={statusBadgeStyles[card.status]}>
+                                    {card.status === 'implemented' ? 'Implemented' : 'Planned'}
+                                 </Badge>
+                              </div>
+                              <p className="text-sm leading-relaxed text-muted-foreground">{card.description}</p>
+                           </div>
+                        ))}
+                     </div>
+                  ) : null}
+
+                  {slide.footer ? <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-relaxed text-foreground/90">{slide.footer}</div> : null}
+               </div>
+
+               {slide.graphic ? (
+                  <aside className={cn('overflow-hidden rounded-2xl border shadow-sm', graphicToneClass)}>
+                     <div className="relative h-52 sm:h-64">
+                        <Image src={slide.graphic.imageSrc} alt={slide.graphic.imageAlt} fill className={cn('z-10', imageFitClass)} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                     </div>
+                     <div className="space-y-3 p-4">
+                        {slide.graphic.eyebrow ? (
+                           <Badge variant="outline" className="bg-white/70 border-white/80">
+                              {slide.graphic.eyebrow}
+                           </Badge>
+                        ) : null}
+                        <h3 className="text-base font-semibold">{slide.graphic.title}</h3>
+                        <p className="text-sm leading-relaxed text-foreground/85">{slide.graphic.description}</p>
+                        {slide.graphic.badges?.length ? (
+                           <div className="flex flex-wrap gap-2">
+                              {slide.graphic.badges.map((badge) => (
+                                 <Badge key={`${slide.id}-${badge}`} variant="secondary" className="bg-white/70">
+                                    {badge}
+                                 </Badge>
+                              ))}
+                           </div>
+                        ) : null}
+                     </div>
+                  </aside>
+               ) : null}
+            </div>
          </CardContent>
       </Card>
    );

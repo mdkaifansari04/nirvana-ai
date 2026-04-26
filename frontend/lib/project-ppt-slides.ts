@@ -17,6 +17,16 @@ export interface ProjectSlideCard {
    status: SlideStatus;
 }
 
+export interface ProjectSlideGraphic {
+   imageSrc: string;
+   imageAlt: string;
+   eyebrow?: string;
+   title: string;
+   description: string;
+   badges?: string[];
+   tone?: 'calm' | 'focus' | 'growth';
+}
+
 export interface ProjectPptSlide {
    id: number;
    kicker: string;
@@ -25,6 +35,7 @@ export interface ProjectPptSlide {
    tags?: ProjectSlideTag[];
    sections?: ProjectSlideSection[];
    cards?: ProjectSlideCard[];
+   graphic?: ProjectSlideGraphic;
    footer?: string;
 }
 
@@ -48,6 +59,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             points: ['Students handling academic pressure, stress, overthinking, self-doubt, and emotional burnout.'],
          },
       ],
+      graphic: {
+         imageSrc: '/hero.png',
+         imageAlt: 'Nirvana AI product hero preview',
+         eyebrow: 'Project Identity',
+         title: 'Emotion-First Wellness Platform',
+         description: 'A single connected space for conversation, reflection, insights, and daily self-care.',
+         badges: ['Humanized AI', 'Calm UX', 'Student Focus'],
+         tone: 'calm',
+      },
       footer: 'Nirvana AI does not replace therapy. It provides support between therapy sessions or when therapy is not immediately accessible.',
    },
    {
@@ -75,6 +95,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             ],
          },
       ],
+      graphic: {
+         imageSrc: '/assets/group.svg',
+         imageAlt: 'Abstract emotional support illustration',
+         eyebrow: 'Problem Context',
+         title: 'Why Existing Solutions Fall Short',
+         description: 'Most tools capture metrics but fail to hold emotional context and continuity.',
+         badges: ['Access Gap', 'Stigma', 'Generic Advice'],
+         tone: 'focus',
+      },
    },
    {
       id: 3,
@@ -103,6 +132,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             status: 'implemented',
          },
       ],
+      graphic: {
+         imageSrc: '/features-icons/emotional-support.svg',
+         imageAlt: 'Emotional support feature icon',
+         eyebrow: 'Core System',
+         title: 'Adaptive Guidance Engine',
+         description: 'Chat, exercises, reports, and journals work together as one reflective system.',
+         badges: ['Context Aware', 'CBT Inspired', 'Actionable'],
+         tone: 'growth',
+      },
    },
    {
       id: 4,
@@ -136,6 +174,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             status: 'planned',
          },
       ],
+      graphic: {
+         imageSrc: '/assets/group-1.svg',
+         imageAlt: 'Self-care illustration from app assets',
+         eyebrow: 'Self-Care Lab',
+         title: 'Interactive Wellness Tools',
+         description: 'Micro-interactions, audio experiences, and uplifting flows increase daily engagement.',
+         badges: ['Music', 'Breathing', 'Wellness Cards'],
+         tone: 'calm',
+      },
    },
    {
       id: 5,
@@ -174,6 +221,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             points: ['The API was migrated to same-origin Next.js route handlers with shared validation and Mongoose service layers.'],
          },
       ],
+      graphic: {
+         imageSrc: '/assets/frame.svg',
+         imageAlt: 'Abstract frame illustration for challenge-solving narrative',
+         eyebrow: 'Engineering Story',
+         title: 'From Fragmented Flow to Unified System',
+         description: 'Personalization logic, guided sequencing, and API migration improved consistency and trust.',
+         badges: ['Prompt Context', 'Flow Design', 'API Parity'],
+         tone: 'focus',
+      },
    },
    {
       id: 6,
@@ -204,6 +260,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             points: ['Instead of only mood logging, Nirvana adapts questions, produces report-grade insights, and keeps users engaged with interaction-rich self-care tools.'],
          },
       ],
+      graphic: {
+         imageSrc: '/features-icons/personalized-insights.svg',
+         imageAlt: 'Personalized insights feature icon',
+         eyebrow: 'Intelligence Layer',
+         title: 'AI as Reflection Partner',
+         description: 'Inputs from mood and history produce tailored prompts, feedback, and meaningful insights.',
+         badges: ['Prompt Engineering', 'Reports', 'Trend Awareness'],
+         tone: 'growth',
+      },
    },
    {
       id: 7,
@@ -233,6 +298,15 @@ export const PROJECT_PPT_SLIDES: ProjectPptSlide[] = [
             points: ['Onboarding → Chatbot topic selection → Micro-exercise → AI report view → Dashboard analytics → Self-Care Lab tools.'],
          },
       ],
+      graphic: {
+         imageSrc: '/assets/group-3.svg',
+         imageAlt: 'Future-focused wellness illustration',
+         eyebrow: 'Vision',
+         title: 'Accessible Support at Scale',
+         description: 'Nirvana AI aims to keep people supported daily, privately, and consistently.',
+         badges: ['24/7 Support', 'Future Personalization', 'Safe Space'],
+         tone: 'calm',
+      },
       footer: 'Final Thought: Nirvana AI is designed so people do not feel alone between therapy sessions, or when therapy is not immediately available.',
    },
 ];

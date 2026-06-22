@@ -1,10 +1,11 @@
 import * as Chat from '@/data-access/chat';
 import * as Journal from '@/data-access/journal';
 import * as MicroExercise from '@/data-access/micro-exercises';
+import type { Journal as JournalEntry } from '@/data-access/response';
 import * as User from '@/data-access/user';
 import * as WellnessCard from '@/data-access/wellness-card';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useChat() {
    return useMutation({
@@ -14,16 +15,28 @@ export function useChat() {
 }
 
 export const useCreateJournal = () => {
+   const queryClient = useQueryClient();
+
    return useMutation({
       mutationKey: ['createJournal'],
       mutationFn: Journal.createJournal,
+      onSuccess: (createdJournal) => {
+         queryClient.setQueryData<JournalEntry[]>(['getJournal'], (currentJournals = []) => [...currentJournals, createdJournal]);
+         queryClient.setQueryData(['getJournalById', createdJournal._id], createdJournal);
+      },
    });
 };
 
 export const useUpdateJournal = () => {
+   const queryClient = useQueryClient();
+
    return useMutation({
       mutationKey: ['updateJournal'],
       mutationFn: Journal.updateJournal,
+      onSuccess: (updatedJournal, variables) => {
+         queryClient.setQueryData(['getJournalById', variables.id], updatedJournal);
+         queryClient.setQueryData<JournalEntry[]>(['getJournal'], (currentJournals = []) => currentJournals.map((journal) => (journal._id === variables.id ? updatedJournal : journal)));
+      },
    });
 };
 
